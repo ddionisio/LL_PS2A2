@@ -131,6 +131,12 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         }
     }
 
+    public void ApplyLevelIndex(int ind) {
+        isGameStarted = true;
+        curLevelIndex = ind;
+        LoLManager.instance.ApplyProgress(ind);
+    }
+
     protected override void OnInstanceInit() {
         //compute max progress
         if(LoLManager.isInstantiated) {

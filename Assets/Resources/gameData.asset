@@ -19,8 +19,8 @@ MonoBehaviour:
     path: Assets/Scenes/end.unity
   levels:
   - introScene:
-      name: act1_intro
-      path: Assets/Scenes/act1_intro.unity
+      name: act_intro
+      path: Assets/Scenes/act_intro.unity
     levelScene:
-      name: 
-      path: 
+      name: act_1_1
+      path: Assets/Scenes/act_1_1.unity
