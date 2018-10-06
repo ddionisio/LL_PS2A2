@@ -42,35 +42,52 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: fc78ab0cc91b0a94b9e964c95e6a923b, type: 3}
     - {fileID: 102900000, guid: 6fa00dba0ac7ed64e8e9f5020f34e429, type: 3}
+    - {fileID: 102900000, guid: d128da31df31d144ba6e3fe9d87fbedf, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: f4683e31b11d8c249ac19e37611319cd, type: 3}
   - {fileID: 21300002, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: fde78cf21a65a2248a76a1c56c4b2bdf, type: 3}
+  - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
+  - {fileID: 21300000, guid: 2d2d723522fdad642b69de406fb7e21b, type: 3}
+  - {fileID: 21300000, guid: 7428624581668694ca5e5ec7e287bb0d, type: 3}
   - {fileID: 21300000, guid: 833257f6cb1a9d241b3fc454fef9d45a, type: 3}
+  - {fileID: 21300000, guid: 5427e4f7e1cb9704892fb4854f1cf6a9, type: 3}
+  - {fileID: 21300000, guid: 98dcbc88df1944742b74d24843f65c75, type: 3}
   - {fileID: 21300006, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300000, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300008, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300002, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300004, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
+  - {fileID: 21300000, guid: bb8a087995e8ab149b0f5c36c07f3d96, type: 3}
   - {fileID: 21300000, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
   - {fileID: 21300002, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
   - {fileID: 21300000, guid: 7168da6aea1c4154bbc52d54856e6639, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
+  - {fileID: 21300000, guid: 31c7ecce7a756db48a64dec20453a6f2, type: 3}
   m_PackedSpriteNamesToIndex:
+  - downArrow
   - shadeWhite_bottomLeft
   - shadeWhite
   - portraitRobot
+  - baseGradient
+  - square
+  - wrongX
   - circle16x16
+  - dot
+  - correctCheck
   - blank4x4_bottomLeft
   - blank4x4_bottom
   - blank4x4_border
   - blank4x4
   - blank4x4_topLeft
+  - optionButton
   - shade
   - shade_bottom
   - gradient8x8
   - edge_shade
+  - stop
   m_Tag: main
   m_IsVariant: 0

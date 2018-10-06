@@ -13,6 +13,9 @@ TagManager:
   - UI
   - 
   - 
+  - Solid
+  - SolidJoint
+  - SolidTrigger
   - 
   - 
   - 
@@ -33,11 +36,11 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Touch
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Interface
+    uniqueID: 258820627
     locked: 0
