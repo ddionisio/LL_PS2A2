@@ -12,17 +12,25 @@ public class ActInertiaController : GameModeController<ActInertiaController> {
 
     public GameObject interfaceRootGO;
 
+    public Rigidbody2DMoveController block1;
+
+    [Header("Signals")]
+    public SignalDragWidget signalUnitSpawnDragEnd;
+
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
 
-        if(headerRootGO) headerRootGO.SetActive(false);
-        if(interfaceRootGO) interfaceRootGO.SetActive(false);
+        headerRootGO.SetActive(false);
+
+        interfaceRootGO.SetActive(false);
+
+        block1.body.simulated = false;
     }
 
     protected override IEnumerator Start() {
         yield return base.Start();
 
-        if(headerRootGO) headerRootGO.SetActive(true);
+        headerRootGO.SetActive(true);
 
         yield return new WaitForSeconds(startDelay);
 
@@ -31,10 +39,20 @@ public class ActInertiaController : GameModeController<ActInertiaController> {
         while(introDialog.isPlaying)
             yield return null;
 
-        //show interaction
-        if(interfaceRootGO) interfaceRootGO.SetActive(true);
+        //get block 1 ready
+        block1.body.simulated = true;
 
-        //wait for contraption to get to the goal
+        //wait for block 1 to hit ground
+        while(!block1.isGrounded)
+            yield return null;
+
+        //show interaction
+        interfaceRootGO.SetActive(true);
+
+        //drag instruction
+
+        //wait for block1 to contact goal
+
 
         //animation
 

@@ -32,7 +32,7 @@ public class ModalDialogController : MonoBehaviour {
             mPlayRout = null;
         }
 
-        if(M8.UIModal.Manager.instance.ModalIsInStack(modal))
+        if(M8.UIModal.Manager.isInstantiated && M8.UIModal.Manager.instance.ModalIsInStack(modal))
             M8.UIModal.Manager.instance.ModalCloseUpTo(modal, true);
 
         mIsNext = false;
