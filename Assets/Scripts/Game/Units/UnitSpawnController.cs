@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitSpawnController : MonoBehaviour {
     [Header("Data")]
     public UnitEntity unit;
-    public bool releaseAfterDespawn;
+    public bool releaseAfterDespawn = true;
 
     [Header("States")]
     public M8.EntityState spawnState;

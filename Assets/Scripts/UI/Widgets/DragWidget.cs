@@ -29,11 +29,11 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public SignalDragWidget signalDragBegin;
     public SignalDragWidget signalDragEnd;
     
-    public bool isDragEnabled {
-        get { return mIsDragEnabled; }
+    public virtual bool active {
+        get { return mActive; }
         set {
-            if(mIsDragEnabled != value) {
-                mIsDragEnabled = value;
+            if(mActive != value) {
+                mActive = value;
                 ApplyCurDragEnabled();
             }
         }
@@ -41,7 +41,7 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public bool isDropValid {
         get {
-            switch(mCurSpace) {
+            switch(curSpace) {
                 case DragWidgetSpace.UI:
                     return cursorUI ? cursorUI.isDropValid : false;
                 case DragWidgetSpace.World:
@@ -52,11 +52,13 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
     }
 
-    private DragWidgetSpace mCurSpace;
-    private bool mIsDragging;
-    private bool mIsDragEnabled;
+    public DragWidgetSpace curSpace { get; private set; }
 
-    public void Init() {
+    public bool isDragging { get; private set; }
+
+    private bool mActive;
+
+    public virtual void Init() {
         if(icon) {
             icon.sprite = iconSpriteUI;
 
@@ -65,72 +67,108 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
     }
 
-    void OnEnable() {
-        mIsDragEnabled = defaultDragEnabled;
+    protected virtual void DragEnd() {
+
+    }
+
+    protected virtual void OnEnable() {
+        mActive = defaultDragEnabled;
         ApplyCurDragEnabled();
 
         if(initOnEnable)
             Init();
     }
 
-    void OnDisable() {
+    protected virtual void OnDisable() {
         StopDrag();
     }
 
+    protected virtual void Awake() {
+        ResetState();
+    }
+
+    protected void ApplyCurDragEnabled() {
+        if(active) {
+            if(disableColorGroup) disableColorGroup.Revert();
+        }
+        else {
+            StopDrag();
+
+            if(disableColorGroup) disableColorGroup.ApplyColor(disableColor);
+        }
+    }
+
+    protected void StopDrag() {
+        if(isDragging) {
+            curSpace = DragWidgetSpace.None;
+
+            if(signalDragEnd)
+                signalDragEnd.Invoke(new DragWidgetSignalInfo() { dragWidget = this, dragWidgetSpace = curSpace, pointerData = null });
+
+            ResetState();
+        }
+    }
+
+    protected void ResetState() {
+        if(cursorUI) cursorUI.gameObject.SetActive(false);
+        if(cursorWorld) cursorWorld.gameObject.SetActive(false);
+
+        curSpace = DragWidgetSpace.None;
+        isDragging = false;
+    }
+        
     void OnApplicationFocus(bool isFocus) {
         if(!isFocus) {
             StopDrag();
         }
     }
-
-    void Awake() {
-        ResetState();
-    }
-
+        
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {
-        if(!mIsDragEnabled)
+        if(!active)
             return;
 
-        mIsDragging = true;
+        isDragging = true;
 
         //setup cursors
         SetupCursorUI();
         SetupCursorWorld();
 
         //apply space
-        mCurSpace = DragWidgetSpace.None;
+        curSpace = DragWidgetSpace.None;
         UpdateState(eventData);
 
         if(signalDragBegin)
-            signalDragBegin.Invoke(new DragWidgetSignalInfo() { dragWidget = this, dragWidgetSpace = mCurSpace, pointerData = eventData });
+            signalDragBegin.Invoke(new DragWidgetSignalInfo() { dragWidget = this, dragWidgetSpace = curSpace, pointerData = eventData });
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData) {
-        if(!mIsDragging)
+        if(!isDragging)
             return;
 
         UpdateState(eventData);
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData) {
-        if(!mIsDragging)
+        if(!isDragging)
             return;
 
         UpdateState(eventData);
 
+        DragEnd();
+
         if(signalDragEnd)
-            signalDragEnd.Invoke(new DragWidgetSignalInfo() { dragWidget = this, dragWidgetSpace = mCurSpace, pointerData = eventData });
+            signalDragEnd.Invoke(new DragWidgetSignalInfo() { dragWidget = this, dragWidgetSpace = curSpace, pointerData = eventData });
 
         ResetState();
     }
-
+        
     private void UpdateState(PointerEventData eventData) {
         var uiAreaLocalPos = uiArea.InverseTransformPoint(eventData.position);
 
         var space = uiArea.rect.Contains(uiAreaLocalPos) ? DragWidgetSpace.UI : DragWidgetSpace.World;
 
-        if(mCurSpace != space) {
-            mCurSpace = space;
+        if(curSpace != space) {
+            curSpace = space;
             ApplyCurSpace();
         }
 
@@ -146,23 +184,12 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
 
     private void ApplyCurSpace() {
-        if(cursorUI) cursorUI.gameObject.SetActive(mCurSpace == DragWidgetSpace.UI);
-        if(cursorWorld) cursorWorld.gameObject.SetActive(mCurSpace == DragWidgetSpace.World);
+        if(cursorUI) cursorUI.gameObject.SetActive(curSpace == DragWidgetSpace.UI);
+        if(cursorWorld) cursorWorld.gameObject.SetActive(curSpace == DragWidgetSpace.World);
     }
-
-    private void ApplyCurDragEnabled() {
-        if(mIsDragEnabled) {
-            if(disableColorGroup) disableColorGroup.Revert();
-        }
-        else {
-            StopDrag();
-
-            if(disableColorGroup) disableColorGroup.ApplyColor(disableColor);            
-        }   
-    }
-
+        
     private void ApplyPosition(PointerEventData eventData) {
-        switch(mCurSpace) {
+        switch(curSpace) {
             case DragWidgetSpace.UI:
                 if(cursorUI) cursorUI.UpdateState(eventData);
                 break;
@@ -171,24 +198,5 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 if(cursorWorld) cursorWorld.UpdateState(eventData);
                 break;
         }
-    }
-        
-    private void StopDrag() {
-        if(mIsDragging) {
-            mCurSpace = DragWidgetSpace.None;
-
-            if(signalDragEnd)
-                signalDragEnd.Invoke(new DragWidgetSignalInfo() { dragWidget = this, dragWidgetSpace = mCurSpace, pointerData = null });
-
-            ResetState();
-        }
-    }
-
-    private void ResetState() {
-        if(cursorUI) cursorUI.gameObject.SetActive(false);
-        if(cursorWorld) cursorWorld.gameObject.SetActive(false);
-
-        mCurSpace = DragWidgetSpace.None;
-        mIsDragging = false;
     }
 }

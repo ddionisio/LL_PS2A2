@@ -169,6 +169,8 @@ public class Rigidbody2DMoveController : MonoBehaviour {
     }
 
     public virtual void ResetCollision() {
+        if(mColls == null) return; //not initialized yet
+
         mCollFlags = CollisionFlags.None;
         mCollLayerMask = 0;
         mIsSlopSlide = false;

@@ -47,7 +47,7 @@ public class UnitSimpleMoveController : MonoBehaviour {
     }
 
     void OnEntityStateChanged(M8.EntityBase ent) {
-        if(unit.prevState == moveState) {
+        if(unit.state == moveState) {
             unit.physicsEnabled = true;
         }
     }
