@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Goal
+  - InteractiveObject
   layers:
   - Default
   - TransparentFX
@@ -39,11 +40,23 @@ TagManager:
   - 
   - Touch
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1076670171
+    locked: 0
   - name: InterfaceBack
     uniqueID: 727776479
     locked: 0
+  - name: Back
+    uniqueID: 4193890541
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 3323812651
+    locked: 0
+  - name: FX
+    uniqueID: 3350417055
     locked: 0
   - name: Interface
     uniqueID: 258820627

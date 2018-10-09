@@ -24,3 +24,9 @@ MonoBehaviour:
     levelScene:
       name: act_1_1
       path: Assets/Scenes/act_1_1.unity
+  - introScene:
+      name: 
+      path: 
+    levelScene:
+      name: act_1_2
+      path: Assets/Scenes/act_1_2.unity

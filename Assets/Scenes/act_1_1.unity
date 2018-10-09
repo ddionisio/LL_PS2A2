@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: {fileID: 0}
-  signalModeChanged: {fileID: 0}
+  signalModeChanged: {fileID: 11400000, guid: 4f9dce914f15a6c4b8c0af0d08028ac5, type: 2}
   headerRootGO: {fileID: 375035192}
   startDelay: 1
   introDialog: {fileID: 1335952329}

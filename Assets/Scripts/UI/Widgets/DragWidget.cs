@@ -23,7 +23,7 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     [Header("Drag Cursors")]
     public DragCursorWidget cursorUI;
-    public DragCursor cursorWorld;
+    public DragCursorWorld cursorWorld;
 
     [Header("Signals")]
     public SignalDragWidget signalDragBegin;

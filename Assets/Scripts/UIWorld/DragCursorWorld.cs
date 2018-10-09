@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public interface IDragCursorWorldDropValid {
+    bool Check(PointerEventData eventData);
+}
+
 /// <summary>
 /// Used by DragWidget to visualize its position in the world
 /// </summary>
-public class DragCursor : MonoBehaviour {
+public class DragCursorWorld : MonoBehaviour {
     [Header("Display")]
     public SpriteRenderer iconSpriteRender;
 
@@ -21,10 +25,21 @@ public class DragCursor : MonoBehaviour {
     public Vector2 worldPoint { get; protected set; }
 
     private bool mIsDropValid = false;
+    private List<IDragCursorWorldDropValid> mDropValidChecks = new List<IDragCursorWorldDropValid>();
+
+    public void RegisterDropValidCheck(IDragCursorWorldDropValid dropValid) {
+        if(!mDropValidChecks.Contains(dropValid))
+            mDropValidChecks.Add(dropValid);
+    }
+
+    public void UnregisterDropValidCheck(IDragCursorWorldDropValid dropValid) {
+        mDropValidChecks.Remove(dropValid);
+    }
 
     public void ApplyIcon(Sprite sprite) {
-        if(iconSpriteRender)
+        if(iconSpriteRender) {
             iconSpriteRender.sprite = sprite;
+        }
     }
 
     public void UpdateState(PointerEventData eventData) {
@@ -60,7 +75,14 @@ public class DragCursor : MonoBehaviour {
             if(!eventData.pointerCurrentRaycast.isValid)
                 return false;
 
-            return (dropFilterLayerMask & (1 << eventData.pointerCurrentRaycast.gameObject.layer)) != 0;
+            if((dropFilterLayerMask & (1 << eventData.pointerCurrentRaycast.gameObject.layer)) == 0)
+                return false;
+        }
+
+        //other checks
+        for(int i = 0; i < mDropValidChecks.Count; i++) {
+            if(!mDropValidChecks[i].Check(eventData))
+                return false;
         }
 
         return true;
