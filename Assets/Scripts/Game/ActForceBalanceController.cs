@@ -10,15 +10,19 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
 
     [Header("Sequence")]
     public GameObject header;
+    public GameObject question;
 
     [Header("Signal")]
+    public SignalFloat signalNumberProceed;
     public M8.Signal signalProceed;
 
     private DragRigidbody2D[] mDragBodies;
 
     private bool mIsProceedWait;
+    private float mProceedNumber;
 
     protected override void OnInstanceDeinit() {
+        signalNumberProceed.callback -= OnSignalNumberProceed;
         signalProceed.callback -= OnSignalProceed;
 
         base.OnInstanceDeinit();
@@ -26,6 +30,9 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
+
+        header.SetActive(false);
+        question.SetActive(false);
 
         //setup interactives
         var interactGOs = GameObject.FindGameObjectsWithTag(interactTag);
@@ -45,6 +52,7 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
         dragCursor.gameObject.SetActive(false);
         //
 
+        signalNumberProceed.callback += OnSignalNumberProceed;
         signalProceed.callback += OnSignalProceed;
     }
 
@@ -60,6 +68,9 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
 
         //drag instruction
 
+        //show question
+        question.SetActive(true);
+
         //wait for button proceed
         mIsProceedWait = true;
         while(mIsProceedWait)
@@ -68,6 +79,7 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
         SetInteractiveEnabled(false);
 
         //check answer
+        Debug.Log("Answer: " + mProceedNumber);
 
         //show result
 
@@ -77,6 +89,11 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
             yield return null;
 
         GameData.instance.Progress();
+    }
+
+    void OnSignalNumberProceed(float val) {
+        mProceedNumber = val;
+        mIsProceedWait = false;
     }
 
     void OnSignalProceed() {
