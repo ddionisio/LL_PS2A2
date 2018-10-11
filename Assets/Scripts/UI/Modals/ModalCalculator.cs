@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class ModalCalculator : M8.UIModal.Controller, M8.UIModal.Interface.IPush {
     public const string parmInitValue = "val";
+    public const string parmMaxDigit = "d";
 
     public enum InputType {
         Invalid,
@@ -45,7 +46,8 @@ public class ModalCalculator : M8.UIModal.Controller, M8.UIModal.Interface.IPush
     }
 
     [Header("Data")]
-    public int maxDigit = 16;
+    [SerializeField]
+    int _defaultMaxDigits = 16;
         
     [Header("Display")]
     public Text inputLabel;
@@ -56,6 +58,7 @@ public class ModalCalculator : M8.UIModal.Controller, M8.UIModal.Interface.IPush
 
     private double mCurValue;
     private bool mCurValueIsSpecial; //when we click on constants such as PI
+    private int mMaxDigits;
 
     private StringBuilder mCurInput = new StringBuilder();
     private List<InputData> mInputs = new List<InputData>();
@@ -100,7 +103,7 @@ public class ModalCalculator : M8.UIModal.Controller, M8.UIModal.Interface.IPush
             if(CurrentInputGetPeriodIndex() != -1)
                 count--;
 
-            if(count >= maxDigit)
+            if(count >= mMaxDigits)
                 return;
         }
 
@@ -213,6 +216,14 @@ public class ModalCalculator : M8.UIModal.Controller, M8.UIModal.Interface.IPush
                 else
                     val = 0;
             }
+
+            if(parms.ContainsKey(parmMaxDigit)) {
+                mMaxDigits = parms.GetValue<int>(parmMaxDigit);
+                if(mMaxDigits <= 0)
+                    mMaxDigits = _defaultMaxDigits;
+            }
+            else
+                mMaxDigits = _defaultMaxDigits;
         }
 
         SetCurrentValue(val);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActForceBalanceController : GameModeController<ActForceBalanceController> {
+public class ActController_1_2 : GameModeController<ActController_1_2> {
     [Header("Data")]
     [M8.TagSelector]
     public string interactTag;

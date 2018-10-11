@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActInertiaController : GameModeController<ActInertiaController> {
+public class ActController_1_1 : GameModeController<ActController_1_1> {
     [Header("Sequence")]
     public GameObject headerRootGO;
 

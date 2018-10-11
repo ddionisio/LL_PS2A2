@@ -2336,48 +2336,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 172158e8227a0cd44a0ca56022ae32e6, type: 2}
   m_IsPrefabAsset: 0
---- !u!1001 &978689727
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4784892974813396, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: aeb1f4c7e1e8ca148a6b077d7812fbb0, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &980588498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,7 +2677,7 @@ GameObject:
   - component: {fileID: 1074725611}
   - component: {fileID: 1074725610}
   m_Layer: 0
-  m_Name: actForceBalanceController
+  m_Name: actController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
