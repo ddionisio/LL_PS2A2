@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActForceBalanceController : GameModeController<ActForceBalanceController> {
     [Header("Data")]
@@ -8,9 +9,17 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
     public string interactTag;
     public DragCursorWorld dragCursor;
 
+    //TODO: figure out randomization of left side object
+    public Rigidbody2D itemBody;
+
+    [Header("Display")]
+    public Text resultAnswerLabel;
+    public Text resultInputLabel;
+
     [Header("Sequence")]
     public GameObject header;
     public GameObject question;
+    public GameObject result;
 
     [Header("Signal")]
     public SignalFloat signalNumberProceed;
@@ -20,7 +29,8 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
 
     private bool mIsProceedWait;
     private float mProceedNumber;
-
+    private float mAnswerNumber;
+    
     protected override void OnInstanceDeinit() {
         signalNumberProceed.callback -= OnSignalNumberProceed;
         signalProceed.callback -= OnSignalProceed;
@@ -33,6 +43,7 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
 
         header.SetActive(false);
         question.SetActive(false);
+        result.SetActive(false);
 
         //setup interactives
         var interactGOs = GameObject.FindGameObjectsWithTag(interactTag);
@@ -52,6 +63,16 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
         dragCursor.gameObject.SetActive(false);
         //
 
+        //setup left side weight
+        //determine what item to show, what the weight is
+        
+        //apply answer
+        mAnswerNumber = itemBody.mass;
+        resultAnswerLabel.text = mAnswerNumber.ToString();
+
+        itemBody.gameObject.SetActive(false);
+        //
+
         signalNumberProceed.callback += OnSignalNumberProceed;
         signalProceed.callback += OnSignalProceed;
     }
@@ -61,7 +82,8 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
 
         //intro
 
-        //setup left side weight
+        //show left side weight
+        itemBody.gameObject.SetActive(true);
 
         //enable play
         SetInteractiveEnabled(true);
@@ -78,10 +100,13 @@ public class ActForceBalanceController : GameModeController<ActForceBalanceContr
 
         SetInteractiveEnabled(false);
 
-        //check answer
-        Debug.Log("Answer: " + mProceedNumber);
+        //apply input
+        resultInputLabel.text = mProceedNumber.ToString();
 
         //show result
+        result.SetActive(true);
+
+        //other stuff
 
         //wait for button proceed
         mIsProceedWait = true;
