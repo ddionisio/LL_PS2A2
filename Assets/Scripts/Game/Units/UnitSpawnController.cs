@@ -7,12 +7,15 @@ public class UnitSpawnController : MonoBehaviour {
     public UnitEntity unit;
     public bool releaseAfterDespawn = true;
 
-    [Header("States")]
+    [Header("Spawn Info")]
     public M8.EntityState spawnState;
     public M8.EntityState spawnAfterState; //state after spawn finished
 
+    [Header("Despawn Info")]
     public M8.EntityState despawnState;
     public M8.EntityState despawnAfterState; //state after despawn finish, if releaseAfterDespawn is false
+    public float despawnStartDelay; //delay before animating
+    public bool despawnDisablePhysics = true;
 
     [Header("Animation")]
     public M8.Animator.Animate animator;
@@ -44,7 +47,9 @@ public class UnitSpawnController : MonoBehaviour {
             mRout = StartCoroutine(DoSpawn());
         }
         else if(unit.state == despawnState) {
-            unit.physicsEnabled = false;
+            if(despawnDisablePhysics)
+                unit.physicsEnabled = false;
+
             mRout = StartCoroutine(DoDespawn());
         }
     }
@@ -68,6 +73,9 @@ public class UnitSpawnController : MonoBehaviour {
     }
 
     IEnumerator DoDespawn() {
+        if(despawnStartDelay > 0f)
+            yield return new WaitForSeconds(despawnStartDelay);
+
         if(animator && !string.IsNullOrEmpty(takeDespawn)) {
             animator.Play(takeDespawn);
             while(animator.isPlaying)

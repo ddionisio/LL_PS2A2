@@ -58,8 +58,19 @@ public class UnitEntity : M8.EntityBase {
         //start ai, player control, etc
 
         if(parms != null) {
-            if(parms.ContainsKey(parmPosition))
-                position = parms.GetValue<Vector2>(parmPosition);
+            if(parms.ContainsKey(parmPosition)) {
+                Vector2 pt;
+
+                object ptObj = parms.GetValue<object>(parmPosition);
+                if(ptObj is Vector2)
+                    pt = (Vector2)ptObj;
+                else if(ptObj is Vector3)
+                    pt = (Vector3)ptObj;
+                else
+                    pt = position;
+
+                position = pt;
+            }
 
             if(parms.ContainsKey(parmNormal))
                 transform.up = parms.GetValue<Vector2>(parmNormal);
@@ -114,8 +125,10 @@ public class UnitEntity : M8.EntityBase {
 
             if(coll) coll.enabled = false;
 
-            bodyMoveCtrl.ResetCollision();
-            bodyMoveCtrl.RevertSpeedCap();
+            if(bodyMoveCtrl) {
+                bodyMoveCtrl.ResetCollision();
+                bodyMoveCtrl.RevertSpeedCap();
+            }
         }
     }
 }

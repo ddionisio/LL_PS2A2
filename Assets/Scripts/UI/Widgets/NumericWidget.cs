@@ -10,6 +10,10 @@ public class NumericWidget : MonoBehaviour {
     [Header("Data")]
     public string modal;
     public float initialValue;
+    public bool isValueCapped;
+    public float minValue;
+    public float maxValue;
+    public Transform inputAnchor;
     
     [Header("Display")]
     public Text numericLabel;
@@ -24,6 +28,7 @@ public class NumericWidget : MonoBehaviour {
 
     public void OpenNumericModal() {
         mModalParms[ModalCalculator.parmInitValue] = mCurVal;
+        mModalParms[ModalSetPosition.parmScreenPoint] = (Vector2)inputAnchor.position;
 
         M8.UIModal.Manager.instance.ModalOpen(modal, mModalParms);
     }
@@ -47,7 +52,11 @@ public class NumericWidget : MonoBehaviour {
     }
 
     void OnSignalNumericProcess(float val) {
-        mCurVal = val;
+        if(isValueCapped)
+            mCurVal = Mathf.Clamp(val, minValue, maxValue);
+        else
+            mCurVal = val;
+
         UpdateDisplay();
     }
 
