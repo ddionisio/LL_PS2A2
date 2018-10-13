@@ -13,7 +13,7 @@ public class EntitySpawnToStateDelay : MonoBehaviour, M8.IPoolSpawn {
     }
 
     void M8.IPoolSpawn.OnSpawned(M8.GenericParams parms) {
-
+        StartCoroutine(DoToState());
     }
 
     IEnumerator DoToState() {

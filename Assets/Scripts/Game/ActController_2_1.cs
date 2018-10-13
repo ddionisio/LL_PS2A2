@@ -13,6 +13,12 @@ public class ActController_2_1 : GameModeController<ActController_2_1> {
 
     public GameObject nextInterfaceGO;
 
+    [Header("Target")]
+    public M8.SignalEntity targetSignalStateChanged;
+    public M8.EntityState targetEndState;
+    public int targetHitQuota = 3;
+    public GameObject targetHitActiveGO; //when target has been hit
+
     [Header("Signals")]
     public SignalFloat signalLaunch;
     public M8.Signal signalNext;
@@ -20,11 +26,15 @@ public class ActController_2_1 : GameModeController<ActController_2_1> {
     private Vector2 mDir = new Vector2(1f, 0f);
     private bool mIsForceProceedWait;
     private bool mIsProceedWait;
+    private int mLaunchCount;
+    private bool mIsTargetHit;
+    private int mScore;
 
     protected override void OnInstanceDeinit() {
         //
         signalLaunch.callback -= OnSignalLaunch;
         signalNext.callback -= OnSignalNext;
+        targetSignalStateChanged.callback -= OnTargetStateChanged;
 
         base.OnInstanceDeinit();
     }
@@ -35,11 +45,14 @@ public class ActController_2_1 : GameModeController<ActController_2_1> {
         cannonInterfaceGO.SetActive(false);
         nextInterfaceGO.SetActive(false);
 
+        targetHitActiveGO.SetActive(false);
+
         SetInteractiveEnable(false);
 
         //
         signalLaunch.callback += OnSignalLaunch;
         signalNext.callback += OnSignalNext;
+        targetSignalStateChanged.callback += OnTargetStateChanged;
     }
 
     protected override IEnumerator Start() {
@@ -64,6 +77,10 @@ public class ActController_2_1 : GameModeController<ActController_2_1> {
         //enable force input
         cannonForceInputUI.interactable = true;
 
+        //start checking for target
+        mLaunchCount = 0;
+        mIsTargetHit = false;
+
         //enable next
         nextInterfaceGO.SetActive(true);
 
@@ -79,12 +96,29 @@ public class ActController_2_1 : GameModeController<ActController_2_1> {
     void OnSignalLaunch(float force) {
         mIsForceProceedWait = false;
 
+        mLaunchCount++;
+
         //spawn
         projSpawner.Spawn(mDir, force);
     }
 
     void OnSignalNext() {
         mIsProceedWait = false;
+    }
+
+    void OnTargetStateChanged(M8.EntityBase ent) {
+        if(ent.state == targetEndState) {
+            if(mIsTargetHit)
+                return;
+
+            mIsTargetHit = true;
+
+            //apply score
+            mScore = GameData.instance.ComputeHitScore(targetHitQuota, mLaunchCount);
+            LoLManager.instance.curScore += mScore;
+
+            targetHitActiveGO.SetActive(true);
+        }
     }
 
     private void SetInteractiveEnable(bool interact) {

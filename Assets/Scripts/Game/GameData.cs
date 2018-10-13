@@ -20,9 +20,17 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     [Header("Levels")]
     public LevelData[] levels;
 
+    [Header("Scoring")]
+    public int hitScore = 500;
+
     public bool isGameStarted { get; private set; } //true: we got through start normally, false: debug
     public int curLevelIndex { get; private set; }
     public LevelData curLevelData { get { return levels[curLevelIndex]; } }
+
+    public int ComputeHitScore(int hitQuota, int numHit) {
+        float scale = ((float)hitQuota) / numHit;
+        return Mathf.RoundToInt(scale * hitScore);
+    }
 
     /// <summary>
     /// Called in start scene

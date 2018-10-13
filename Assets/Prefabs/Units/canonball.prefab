@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114121943272802634}
   - component: {fileID: 50480122143660580}
   - component: {fileID: 58419544740289906}
+  - component: {fileID: 114422366759949890}
   m_Layer: 0
   m_Name: canonball
   m_TagString: Projectile
@@ -147,6 +148,20 @@ MonoBehaviour:
   activator: {fileID: 0}
   stateOnSpawn: {fileID: 11400000, guid: 9fedc66efd6243044be48c843b112cb9, type: 2}
 --- !u!114 &114385420153345078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1464025629619752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0f6c9938c0af047aa8869332742864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 114358313179415404}
+  state: {fileID: 11400000, guid: 334e9e67f1cac5e45841ef59fe9e58a7, type: 2}
+  delay: 8
+--- !u!114 &114422366759949890
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

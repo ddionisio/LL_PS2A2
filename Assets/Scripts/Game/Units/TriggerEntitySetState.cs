@@ -8,7 +8,7 @@ public class TriggerEntitySetState : MonoBehaviour {
     public M8.EntityState state;
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(!string.IsNullOrEmpty(tagFilter) && collision.CompareTag(tagFilter))
+        if(!string.IsNullOrEmpty(tagFilter) && !collision.CompareTag(tagFilter))
             return;
 
         var ent = collision.GetComponent<M8.EntityBase>();
