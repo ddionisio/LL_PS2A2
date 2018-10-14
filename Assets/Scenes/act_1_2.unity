@@ -2769,8 +2769,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modal: calculator
   initialValue: 0
+  isValueCapped: 0
+  minValue: 0
+  maxValue: 0
+  inputAnchor: {fileID: 0}
   numericLabel: {fileID: 209870446}
-  numericFormat: G16
+  slider: {fileID: 0}
+  numericFormat: '{0}'
   signalNumericProcess: {fileID: 11400000, guid: 1e0312c6a0f8b6e4e917215c700462e4,
     type: 2}
   signalNumericNext: {fileID: 11400000, guid: 485257dccc73dc94399c219de3b90031, type: 2}

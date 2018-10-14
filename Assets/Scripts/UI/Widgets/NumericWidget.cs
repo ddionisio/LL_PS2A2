@@ -17,7 +17,8 @@ public class NumericWidget : MonoBehaviour {
     
     [Header("Display")]
     public Text numericLabel;
-    public string numericFormat = "G16";
+    public Slider slider; //if available, supply this with initialValue, minValue, maxValue
+    public string numericFormat = "{0:G16}";
 
     [Header("Signals")]
     public SignalFloat signalNumericProcess; //listen to grab number
@@ -26,13 +27,26 @@ public class NumericWidget : MonoBehaviour {
     private float mCurVal;
     private M8.GenericParams mModalParms = new M8.GenericParams();
 
+    public void SetValue(float val) {
+        if(isValueCapped)
+            mCurVal = Mathf.Clamp(val, minValue, maxValue);
+        else
+            mCurVal = val;
+
+        UpdateDisplay();
+    }
+
     public void OpenNumericModal() {
         mModalParms[ModalCalculator.parmInitValue] = mCurVal;
-        mModalParms[ModalSetPosition.parmScreenPoint] = (Vector2)inputAnchor.position;
+
+        if(inputAnchor)
+            mModalParms[ModalSetPosition.parmScreenPoint] = (Vector2)inputAnchor.position;
+        else
+            mModalParms.Remove(ModalSetPosition.parmScreenPoint);
 
         M8.UIModal.Manager.instance.ModalOpen(modal, mModalParms);
     }
-
+        
     public void Next() {
         if(signalNumericNext)
             signalNumericNext.Invoke(mCurVal);
@@ -45,22 +59,40 @@ public class NumericWidget : MonoBehaviour {
 
     void OnEnable() {
         mCurVal = initialValue;
+
+        if(slider) {
+            if(isValueCapped) {
+                slider.minValue = minValue;
+                slider.maxValue = maxValue;
+            }
+
+            slider.value = mCurVal;
+        }
+
         UpdateDisplay();
 
         if(signalNumericProcess)
             signalNumericProcess.callback += OnSignalNumericProcess;
     }
 
-    void OnSignalNumericProcess(float val) {
-        if(isValueCapped)
-            mCurVal = Mathf.Clamp(val, minValue, maxValue);
-        else
-            mCurVal = val;
-
-        UpdateDisplay();
+    void OnDestroy() {
+        if(slider)
+            slider.onValueChanged.RemoveListener(SetValue);
     }
 
+    void Awake() {
+        if(slider)
+            slider.onValueChanged.AddListener(SetValue);
+    }
+
+    void OnSignalNumericProcess(float v) {
+        if(slider)
+            slider.value = v;
+        else
+            SetValue(v);
+    }
+    
     private void UpdateDisplay() {
-        if(numericLabel) numericLabel.text = mCurVal.ToString(numericFormat);
+        if(numericLabel) numericLabel.text = string.Format(numericFormat,  mCurVal);
     }
 }

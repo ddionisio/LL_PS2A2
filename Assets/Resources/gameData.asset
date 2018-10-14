@@ -36,3 +36,10 @@ MonoBehaviour:
     levelScene:
       name: act_2_1
       path: Assets/Scenes/act_2_1.unity
+  - introScene:
+      name: 
+      path: 
+    levelScene:
+      name: act_2_2
+      path: Assets/Scenes/act_2_2.unity
+  hitScore: 500

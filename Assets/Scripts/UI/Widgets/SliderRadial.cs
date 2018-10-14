@@ -1,0 +1,163 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+    public enum Dir {
+        Left,
+        Right,
+        Up,
+        Down
+    }
+
+    [Header("Config")]
+    public Dir dir;
+    public float startAngle = 0f;
+    public float endAngle = 360f;
+    public float radius = 1f;    
+    public bool isScreenSpace;
+
+    [Header("Display")]
+    public Transform handle;
+
+    [Header("Value")]
+    public float minValue = 0f;
+    public float maxValue = 100f;
+    public bool isValueRounded;
+    [SerializeField]
+    float _value = 0f;
+    [SerializeField]
+    Slider.SliderEvent _onValueChanged;
+    
+    public float value {
+        get { return _value; }
+        set {
+            var v = isValueRounded ? Mathf.Round(value) : value;
+            if(_value != v) {
+                _value = v;
+                UpdateCurDirFromValue();
+                UpdateHandle();
+            }
+        }
+    }
+
+    public float valueScalar {
+        get {
+            var delta = Mathf.Abs(maxValue - minValue);
+            return delta > 0f ? value / delta : 0f;
+        }
+
+        set {
+            var delta = Mathf.Abs(maxValue - minValue);
+            if(delta > 0f) {
+                this.value = Mathf.Lerp(minValue, maxValue, Mathf.Clamp01(value));
+            }
+        }
+    }
+
+    public Slider.SliderEvent onValueChanged { get { return _onValueChanged; } }
+
+    private Vector2 mStartDir;
+    private Vector2 mEndDir;
+    private Vector2 mCurDir;
+
+    void Awake() {
+        SetupDirs();
+        UpdateCurDirFromValue();
+        UpdateHandle();
+    }
+        
+    void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {
+
+    }
+
+    void IDragHandler.OnDrag(PointerEventData eventData) {
+
+    }
+
+    void IEndDragHandler.OnEndDrag(PointerEventData eventData) {
+
+    }
+
+    private Vector2 GetInitDir() {
+        switch(dir) {
+            case Dir.Left:
+                return Vector2.left;
+            case Dir.Right:
+                return Vector2.right;
+            case Dir.Down:
+                return Vector2.down;
+            default:
+                return Vector2.up;
+        }
+    }
+        
+    private void SetupDirs() {
+        Vector2 d = GetInitDir();
+
+        mStartDir = M8.MathUtil.RotateAngle(d, startAngle);
+        mEndDir = M8.MathUtil.RotateAngle(d, endAngle);
+    }
+
+    private void UpdateCurDirAndValueFromPosition(Vector2 pos) {
+        var delta = pos - (Vector2)transform.position;
+        var norm = delta.normalized;
+
+        var startAngleAbs = AngleAbs(startAngle);
+        var endAngleAbs = AngleAbs(endAngle);
+
+        var initDir = GetInitDir();
+
+        var curAngle = Vector2.SignedAngle(initDir, norm);
+        curAngle = AngleAbs(curAngle);
+
+        //clamp
+        if(startAngleAbs < endAngleAbs)
+            curAngle = Mathf.Clamp(curAngle, startAngleAbs, endAngleAbs);
+        else
+            curAngle = Mathf.Clamp(curAngle, endAngleAbs, startAngleAbs);
+
+        //set value via scalar
+        float deltaAngle = Mathf.Abs(endAngleAbs - startAngleAbs);
+        if(deltaAngle > 0f)
+            valueScalar = curAngle / deltaAngle;
+    }
+
+    private float AngleAbs(float a) {
+        float _a = a % 360f;
+        if(_a < 0f)
+            _a = 360f - _a;
+        return _a;
+    }
+
+    private void UpdateCurDirFromValue() {
+        mCurDir = Vector2.Lerp(mStartDir, mEndDir, valueScalar);
+        mCurDir.Normalize();
+    }
+
+    private void UpdateHandle() {
+        if(handle) {
+            var pos = transform.TransformPoint(mCurDir * radius);
+            handle.position = pos;
+        }
+    }
+
+    void OnDrawGizmos() {
+        if(radius > 0f) {
+            SetupDirs();
+            UpdateCurDirFromValue();
+            UpdateHandle();
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, radius);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.TransformPoint(mStartDir * radius));
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.TransformPoint(mEndDir * radius));
+        }
+    }
+}
