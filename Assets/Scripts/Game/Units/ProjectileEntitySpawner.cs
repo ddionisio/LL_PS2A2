@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileEntitySpawner : MonoBehaviour {
+    [Header("Data")]
+    public float angleDefault; //start from right
+    public bool angleClockwise;
+
+    public float forceDefault;
+
     [Header("Entity Data")]
     public GameObject template;
     public string poolGroup;
@@ -14,17 +20,41 @@ public class ProjectileEntitySpawner : MonoBehaviour {
 
     private M8.PoolController mPool;
 
-    public M8.EntityBase Spawn(Vector2 dir, float force) {
-        M8.EntityBase ret = null;
+    private Vector2 mDir;
+    private bool mIsDirSet;
+
+    private float mForce;
+    private bool mIsForceSet;
+        
+    public void SetForce(float force) {
+        mForce = force;
+
+        mIsForceSet = true;
+    }
+
+    public void SetDirAngle(float angle) {
+        var dir = Vector2.right;
+
+        if(angleClockwise)
+            mDir = M8.MathUtil.RotateAngle(dir, angle);
+        else
+            mDir = M8.MathUtil.RotateAngle(dir, -angle);
+
+        mIsDirSet = true;
+    }
+
+    public void Spawn() {
+        if(!mIsForceSet)
+            SetForce(forceDefault);
+        if(!mIsDirSet)
+            SetDirAngle(angleDefault);
 
         var parms = new M8.GenericParams();
         parms[UnitEntity.parmPosition] = spawnPoint.position;
-        parms[UnitStateForceApply.parmDir] = dir;
-        parms[UnitStateForceApply.parmForce] = force;
+        parms[UnitStateForceApply.parmDir] = mDir;
+        parms[UnitStateForceApply.parmForce] = mForce;
 
-        ret = mPool.Spawn<M8.EntityBase>(template.name, "", null, parms);
-
-        return ret;
+        mPool.Spawn<M8.EntityBase>(template.name, "", null, parms);
     }
 
     void Awake() {

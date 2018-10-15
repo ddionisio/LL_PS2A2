@@ -63,6 +63,16 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private Vector2 mEndDir;
     private Vector2 mCurDir;
 
+    private bool mIsDragging;
+
+    void OnApplicationFocus(bool focus) {
+        if(!focus) {
+            if(mIsDragging) {
+                mIsDragging = false;
+            }
+        }
+    }
+
     void Awake() {
         SetupDirs();
         UpdateCurDirFromValue();
@@ -70,15 +80,25 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     }
         
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {
-
+        mIsDragging = true;
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData) {
+        if(!mIsDragging)
+            return;
 
+        Vector2 pos = GetWorldPos(eventData);
+        UpdateCurDirAndValueFromPosition(pos);
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData) {
+        if(!mIsDragging)
+            return;
 
+        mIsDragging = false;
+
+        Vector2 pos = GetWorldPos(eventData);
+        UpdateCurDirAndValueFromPosition(pos);
     }
 
     private Vector2 GetInitDir() {
@@ -101,6 +121,19 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         mEndDir = M8.MathUtil.RotateAngle(d, endAngle);
     }
 
+    private Vector2 GetWorldPos(PointerEventData eventData) {
+        Vector2 pos;
+        if(isScreenSpace)
+            pos = eventData.position;
+        else {
+            //TODO: use main camera for now
+            var cam = Camera.main;
+            pos = cam.ScreenToWorldPoint(eventData.position);
+        }
+
+        return pos;
+    }
+
     private void UpdateCurDirAndValueFromPosition(Vector2 pos) {
         var delta = pos - (Vector2)transform.position;
         var norm = delta.normalized;
@@ -110,19 +143,20 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
         var initDir = GetInitDir();
 
-        var curAngle = Vector2.SignedAngle(initDir, norm);
+        var curAngle = Vector2.SignedAngle(norm, initDir);
         curAngle = AngleAbs(curAngle);
-
-        //clamp
-        if(startAngleAbs < endAngleAbs)
-            curAngle = Mathf.Clamp(curAngle, startAngleAbs, endAngleAbs);
-        else
-            curAngle = Mathf.Clamp(curAngle, endAngleAbs, startAngleAbs);
-
+                
         //set value via scalar
         float deltaAngle = Mathf.Abs(endAngleAbs - startAngleAbs);
-        if(deltaAngle > 0f)
-            valueScalar = curAngle / deltaAngle;
+        if(deltaAngle > 0f) {
+            float scalar;
+            if(startAngleAbs < endAngleAbs)
+                scalar = (curAngle - startAngleAbs) / deltaAngle;
+            else
+                scalar = (curAngle - endAngleAbs) / deltaAngle;
+
+            valueScalar = scalar;
+        }   
     }
 
     private float AngleAbs(float a) {
