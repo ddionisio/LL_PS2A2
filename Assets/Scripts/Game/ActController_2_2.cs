@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActController_2_1 : ActCannonController {
+public class ActController_2_2 : ActCannonController {
     [Header("Sequence")]
     public GameObject header;
 
     protected override void OnInstanceDeinit() {
         //
-        
+
         base.OnInstanceDeinit();
     }
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
-                
-        //
         
+        //
+
     }
 
     protected override IEnumerator Start() {
@@ -29,7 +29,7 @@ public class ActController_2_1 : ActCannonController {
 
         //some other stuff?
 
-        //enable cannon launch
+        //enable cannon launch        
         cannonLaunch.interactable = true;
 
         //wait for launch
@@ -40,9 +40,10 @@ public class ActController_2_1 : ActCannonController {
 
         //explanations and such
 
-        //enable force input
+        //enable force/angle input
+        angleSlider.interactable = true;
         forceSlider.interactable = true;
-                        
+
         //wait for proceed
         mIsNextWait = true;
         while(mIsNextWait)

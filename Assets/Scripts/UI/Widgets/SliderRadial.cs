@@ -21,6 +21,9 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     [Header("Display")]
     public Transform handle;
+    public M8.SpriteColorGroup spriteColorGroup; //for displays in world
+    public M8.UI.Graphics.ColorGroup uiColorGroup; //for displays in UI
+    public Color disableColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
     [Header("Value")]
     public float minValue = 0f;
@@ -34,25 +37,34 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public float value {
         get { return _value; }
         set {
-            var v = isValueRounded ? Mathf.Round(value) : value;
+            var v = Mathf.Clamp(isValueRounded ? Mathf.Round(value) : value, minValue, maxValue);
             if(_value != v) {
                 _value = v;
                 UpdateCurDirFromValue();
                 UpdateHandle();
+
+                _onValueChanged.Invoke(_value);
             }
         }
     }
 
     public float valueScalar {
         get {
-            var delta = Mathf.Abs(maxValue - minValue);
-            return delta > 0f ? value / delta : 0f;
+            var delta = maxValue - minValue;
+            return delta > 0f ? Mathf.Clamp01((value - minValue) / delta) : 0f;
         }
 
         set {
-            var delta = Mathf.Abs(maxValue - minValue);
-            if(delta > 0f) {
-                this.value = Mathf.Lerp(minValue, maxValue, Mathf.Clamp01(value));
+            this.value = Mathf.Lerp(minValue, maxValue, Mathf.Clamp01(value));
+        }
+    }
+
+    public bool interactable {
+        get { return mInteractable; }
+        set {
+            if(mInteractable != value) {
+                mInteractable = value;
+                ApplyInteractable();
             }
         }
     }
@@ -63,6 +75,7 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private Vector2 mEndDir;
     private Vector2 mCurDir;
 
+    private bool mInteractable = true;
     private bool mIsDragging;
 
     void OnApplicationFocus(bool focus) {
@@ -175,6 +188,17 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         if(handle) {
             var pos = transform.TransformPoint(mCurDir * radius);
             handle.position = pos;
+        }
+    }
+
+    private void ApplyInteractable() {
+        if(mInteractable) {
+            if(spriteColorGroup) spriteColorGroup.Revert();
+            if(uiColorGroup) uiColorGroup.Revert();
+        }
+        else {
+            if(spriteColorGroup) spriteColorGroup.ApplyColor(disableColor);
+            if(uiColorGroup) uiColorGroup.ApplyColor(disableColor);
         }
     }
 

@@ -1631,8 +1631,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bound:
-    m_Center: {x: 5.0170155, y: -0.40621185, z: 0}
-    m_Extent: {x: 14.189205, y: 0.22466755, z: 0}
+    m_Center: {x: 4.0565248, y: -0.40621185, z: 0}
+    m_Extent: {x: 15.149696, y: 0.22466755, z: 0}
   color: {r: 0.91372555, g: 0.33333334, b: 0.34117648, a: 0.32156864}
   solid: 1
   useCollider: 1
@@ -1648,7 +1648,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 5.0170155, y: -0.40621185}
+  m_Offset: {x: 4.0565248, y: -0.40621185}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1659,7 +1659,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 28.37841, y: 0.4493351}
+  m_Size: {x: 30.299393, y: 0.4493351}
   m_EdgeRadius: 0
 --- !u!114 &695838362
 MonoBehaviour:
@@ -4114,15 +4114,15 @@ MonoBehaviour:
   angleStart: 0
   angleMin: 15
   angleMax: 80
+  cannonInterfaceGO: {fileID: 1262556984}
+  cannonLaunch: {fileID: 82522574}
+  nextInterfaceGO: {fileID: 1105152143}
   cannonballCount: 10
   targetTag: Target
   targetStateDespawn: {fileID: 11400000, guid: 334e9e67f1cac5e45841ef59fe9e58a7, type: 2}
   signalLaunched: {fileID: 11400000, guid: 60288a39fe7539849ba03794121ae294, type: 2}
   signalNext: {fileID: 11400000, guid: db4b0ab37b39e4542a1b6f752cfcfb79, type: 2}
-  cannonInterfaceGO: {fileID: 1262556984}
-  cannonForceInputUI: {fileID: 200489471}
-  cannonLaunchUI: {fileID: 82522574}
-  nextInterfaceGO: {fileID: 1105152143}
+  header: {fileID: 0}
 --- !u!4 &1074725611
 Transform:
   m_ObjectHideFlags: 0

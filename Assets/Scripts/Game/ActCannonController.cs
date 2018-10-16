@@ -16,6 +16,11 @@ public class ActCannonController : GameModeController<ActCannonController> {
     public float angleMin = 15f;
     public float angleMax = 80f;
 
+    [Header("General Interface")]
+    public GameObject cannonInterfaceGO;
+    public Selectable cannonLaunch;
+    public GameObject nextInterfaceGO;    
+
     [Header("Data")]
     public int cannonballCount = 10;
 
@@ -76,6 +81,12 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
         signalLaunched.callback += OnSignalLaunched;
         signalNext.callback += OnSignalNext;
+
+        //start with interfaces hidden and disabled
+        cannonInterfaceGO.SetActive(false);
+        nextInterfaceGO.SetActive(false);
+
+        SetInteractiveEnable(false);
     }
 
     protected override void OnInstanceDeinit() {
@@ -118,6 +129,12 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     protected virtual void OnSignalNext() {
         mIsNextWait = false;
+    }
+
+    protected void SetInteractiveEnable(bool interact) {
+        if(forceSlider) forceSlider.interactable = interact;
+        if(angleSlider) angleSlider.interactable = interact;
+        if(cannonLaunch) cannonLaunch.interactable = interact;
     }
 
     void OnTargetChangeState(M8.EntityBase ent) {
