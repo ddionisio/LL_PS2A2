@@ -58,6 +58,9 @@ public class ActCannonController : GameModeController<ActCannonController> {
         if(angleSlider) {
             angleSlider.minValue = angleMin;
             angleSlider.maxValue = angleMax;
+            angleSlider.startAngle = -angleMin;
+            angleSlider.endAngle = -angleMax;
+            angleSlider.value = angleStart;
         }
 
         var targetGOs = GameObject.FindGameObjectsWithTag(targetTag);
