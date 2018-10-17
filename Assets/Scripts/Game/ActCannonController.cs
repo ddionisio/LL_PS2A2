@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActCannonController : GameModeController<ActCannonController> {
+    [Header("Display")]
+    public PhysicsTrajectoryDisplayControl trajectoryDisplayControl;
+
     [Header("Force")]
     public Slider forceSlider;
     public float forceStart = 16f;

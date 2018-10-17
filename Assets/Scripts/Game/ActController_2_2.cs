@@ -29,6 +29,8 @@ public class ActController_2_2 : ActCannonController {
 
         //some other stuff?
 
+        trajectoryDisplayControl.show = true;
+
         //enable cannon launch        
         cannonLaunch.interactable = true;
 

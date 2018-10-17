@@ -20,6 +20,10 @@ public class ExplodeOnContact : MonoBehaviour {
     private const int collCapacity = 8;
     private Collider2D[] mColls = new Collider2D[collCapacity];
 
+    protected virtual void OnExplode(Rigidbody2D body) {
+
+    }
+
     private void OnCollisionEnter2D(Collision2D collision) {
         if(!string.IsNullOrEmpty(tagFilter) && !collision.collider.CompareTag(tagFilter))
             return;
@@ -36,6 +40,8 @@ public class ExplodeOnContact : MonoBehaviour {
             var body = coll.GetComponent<Rigidbody2D>();
             if(!body)
                 continue;
+
+            OnExplode(body);
 
             if(explodeUpwardsModifier != 0f)
                 body.AddExplosionForce(explodeForce, pos, explodeRadius, explodeUpwardsModifier, explodeApplyWearOff, explodeForceMode);

@@ -21,6 +21,11 @@ public class EntitySpawnerWidget : DragWidget {
     private M8.PoolController mPool;
     private M8.CacheList<M8.EntityBase> mActiveUnits;
 
+    public void SetEntityCount(int count) {
+        entityCount = count;
+        UpdateState();
+    }
+
     public override void Init() {
         base.Init();
 
