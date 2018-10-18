@@ -14,9 +14,12 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     DragCursorWorld _dragCursor;
     [SerializeField]
     bool _dragEnabled = true;
+    public bool dragLockX; //lock X to body's x position
+    public bool dragLockY; //lock Y to body's y position
 
     public Sprite dragSpriteIcon;    
     public GameObject dragActiveGO; //activated during drag
+    public GameObject dragInactiveGO; //deactivate during drag
     public Transform dragDisplayRoot; //this is the one that gets moved as drag happens
 
     public bool isDragEnabled {
@@ -28,6 +31,22 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
         }
     }
+
+    public Vector2 position {
+        get {
+            return body && body.simulated ? body.position : (Vector2)transform.position;
+        }
+
+        set {
+            if(body && body.simulated)
+                body.position = value;
+            else
+                transform.position = value;
+        }
+    }
+
+    public event System.Action dragBeginCallback;
+    public event System.Action dragEndCallback;
 
     private bool mIsDragging;
 
@@ -75,6 +94,8 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if(!_dragCursor)
             return;
 
+        UpdatePointerEventData(eventData);
+
         SetDragging(true);
 
         _dragCursor.UpdateState(eventData);
@@ -84,12 +105,16 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if(!mIsDragging)
             return;
 
+        UpdatePointerEventData(eventData);
+
         _dragCursor.UpdateState(eventData);
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData) {
         if(!mIsDragging)
             return;
+
+        UpdatePointerEventData(eventData);
 
         _dragCursor.UpdateState(eventData);
 
@@ -129,10 +154,38 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         return false;
     }
 
+    private void UpdatePointerEventData(PointerEventData eventData) {
+        if(dragLockX || dragLockY) {
+            //modify position to stay on body's x or y
+            //TODO: for now use main camera
+            var cam = Camera.main;
+            var screenPos = cam.WorldToScreenPoint(position);
+
+            var pointerPos = eventData.position;
+
+            if(dragLockX)
+                pointerPos.x = screenPos.x;
+            if(dragLockY)
+                pointerPos.y = screenPos.y;
+
+            eventData.position = pointerPos;
+        }
+    }
+
     private void SetDragging(bool dragging) {
         if(mIsDragging != dragging) {
             mIsDragging = dragging;
+
             ApplyDragState();
+
+            if(mIsDragging) {
+                if(dragBeginCallback != null)
+                    dragBeginCallback();
+            }
+            else {
+                if(dragEndCallback != null)
+                    dragEndCallback();
+            }
         }
     }
 
@@ -150,6 +203,7 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
 
             if(dragActiveGO) dragActiveGO.SetActive(true);
+            if(dragInactiveGO) dragInactiveGO.SetActive(false);
             if(dragDisplayRoot) dragDisplayRoot.gameObject.SetActive(true);
         }
         else {
@@ -159,6 +213,7 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
 
             if(dragActiveGO) dragActiveGO.SetActive(false);
+            if(dragInactiveGO) dragInactiveGO.SetActive(true);
             if(dragDisplayRoot) dragDisplayRoot.gameObject.SetActive(false);
         }
     }

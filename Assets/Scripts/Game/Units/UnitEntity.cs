@@ -50,6 +50,8 @@ public class UnitEntity : M8.EntityBase {
         StopCurrentRoutine();
 
         physicsEnabled = false;
+
+        transform.rotation = Quaternion.identity;        
     }
 
     protected override void OnSpawned(M8.GenericParams parms) {

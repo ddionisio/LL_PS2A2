@@ -92,6 +92,7 @@ public class UnitStateForceApply : MonoBehaviour, M8.IPoolSpawn {
     void OnEntityStateChanged(M8.EntityBase ent) {
         if(unit.state == state) {
             unit.physicsEnabled = true;
+            unit.body.bodyType = RigidbodyType2D.Dynamic;
             Play();
         }
     }

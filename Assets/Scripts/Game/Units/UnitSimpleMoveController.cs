@@ -49,6 +49,7 @@ public class UnitSimpleMoveController : MonoBehaviour {
     void OnEntityStateChanged(M8.EntityBase ent) {
         if(unit.state == moveState) {
             unit.physicsEnabled = true;
+            unit.body.bodyType = RigidbodyType2D.Dynamic;
         }
     }
 }
