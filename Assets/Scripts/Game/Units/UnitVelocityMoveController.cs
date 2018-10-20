@@ -87,6 +87,8 @@ public class UnitVelocityMoveController : MonoBehaviour, M8.IPoolSpawn {
         }
 
         if(unit.state == state) {
+            unit.physicsEnabled = true;
+
             mCurVelocity = mDir * mInitSpeed;
 
             if(applyRigidbodyMode) {

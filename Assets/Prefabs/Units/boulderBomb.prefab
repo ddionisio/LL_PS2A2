@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagFilter: 
-  explodeRadius: 1.5
+  explodeRadius: 1.4
   explodeTagFilter: Target
   explodeLayerMask:
     serializedVersion: 2

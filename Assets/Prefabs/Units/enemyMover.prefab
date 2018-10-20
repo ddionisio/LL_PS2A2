@@ -38,6 +38,8 @@ GameObject:
   - component: {fileID: 114238807644106558}
   - component: {fileID: 114669483198255472}
   - component: {fileID: 114772501085711702}
+  - component: {fileID: 114173215351887666}
+  - component: {fileID: 114153555743775768}
   - component: {fileID: 50918112524555960}
   - component: {fileID: 61696142931921624}
   m_Layer: 8
@@ -67,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1637373070979690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -5, z: 0}
+  m_LocalPosition: {x: 7, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4142421991691326}
@@ -119,6 +121,54 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114153555743775768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637373070979690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b10c0a489ca71242ae6c8f833105d25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 114238807644106558}
+  stateFrom: {fileID: 11400000, guid: 3f4e36ab2d3c53e4bb9063afdf57df8e, type: 2}
+  stateTo: {fileID: 11400000, guid: 334e9e67f1cac5e45841ef59fe9e58a7, type: 2}
+  animator: {fileID: 0}
+  take: 
+  waitForAnimationEnd: 0
+  waitDelay: 1.5
+--- !u!114 &114173215351887666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637373070979690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39c9fde6a82bbd489003e4f6a70eed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signal: {fileID: 11400000, guid: f5db828f4a23e1644868b2ff543c6613, type: 2}
+  _activeOnly: 1
+  onSignal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114238807644106558}
+        m_MethodName: SetState
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: b56fdf212b9c45249b00af40a43183b3,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: M8.EntityState, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114238807644106558
 MonoBehaviour:
   m_ObjectHideFlags: 1

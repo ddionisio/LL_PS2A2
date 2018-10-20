@@ -21,7 +21,8 @@ public class DragCursorWorldGround : DragCursorWorld {
     protected override void Awake() {
         base.Awake();
 
-        mIconOfsDefault = iconSpriteRender.transform.localPosition;
+        if(iconSpriteRender)
+            mIconOfsDefault = iconSpriteRender.transform.localPosition;
 
         mGroundToPointerUnitHeightRatio = groundToPointerSprite.sprite.pixelsPerUnit / groundToPointerSprite.sprite.rect.height;
     }
@@ -59,12 +60,14 @@ public class DragCursorWorldGround : DragCursorWorld {
             groundPos = worldPoint;
 
         //determine icon position (if above ground, set relative to ground; pointer otherwise)
-        var iconTrans = iconSpriteRender.transform;
+        if(iconSpriteRender) {
+            var iconTrans = iconSpriteRender.transform;
 
-        if(groundPos.y >= worldPoint.y)
-            iconTrans.position = groundPos + mIconOfsDefault;
-        else
-            iconTrans.localPosition = mIconOfsDefault;
+            if(groundPos.y >= worldPoint.y)
+                iconTrans.position = groundPos + mIconOfsDefault;
+            else
+                iconTrans.localPosition = mIconOfsDefault;
+        }
 
         //set ground pointer display
         groundTargetSprite.transform.position = groundPos;
