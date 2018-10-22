@@ -13,6 +13,8 @@ public interface IDragCursorWorldDropValid {
 public class DragCursorWorld : MonoBehaviour {
     [Header("Display")]
     public SpriteRenderer iconSpriteRender;
+    public M8.SpriteColorGroup iconSpriteColorGroup;
+    public Color iconSpriteColorInvalid = Color.red;
 
     [Header("Drop")]
     public GameObject dropValidGO; //can drop
@@ -88,8 +90,15 @@ public class DragCursorWorld : MonoBehaviour {
         return true;
     }
 
-    private void ApplyDropValid() {
+    protected virtual void ApplyDropValid() {
         if(dropValidGO) dropValidGO.SetActive(mIsDropValid);
         if(dropInvalidGO) dropInvalidGO.SetActive(!mIsDropValid);
+
+        if(iconSpriteColorGroup) {
+            if(mIsDropValid)
+                iconSpriteColorGroup.Revert();
+            else
+                iconSpriteColorGroup.ApplyColor(iconSpriteColorInvalid);
+        }
     }
 }
