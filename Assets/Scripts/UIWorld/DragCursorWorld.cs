@@ -26,6 +26,9 @@ public class DragCursorWorld : MonoBehaviour {
 
     public Vector2 worldPoint { get; protected set; }
 
+    public virtual Vector2 spawnPoint { get { return worldPoint; } }
+    public virtual Vector2 spawnUp { get { return Vector2.up; } }
+
     private bool mIsDropValid = false;
     private List<IDragCursorWorldDropValid> mDropValidChecks = new List<IDragCursorWorldDropValid>();
 

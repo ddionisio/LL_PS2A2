@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EntitySpawnerWidget : DragWidget {
+    public const string parmDragWorld = "entSpawnerDragWorld";
+
     [Header("Display")]
     public Text countLabel;
 
@@ -21,6 +23,8 @@ public class EntitySpawnerWidget : DragWidget {
     private M8.PoolController mPool;
     private M8.CacheList<M8.EntityBase> mActiveUnits;
 
+    private M8.GenericParams mParms = new M8.GenericParams();
+
     public void SetEntityCount(int count) {
         entityCount = count;
         UpdateState();
@@ -29,19 +33,20 @@ public class EntitySpawnerWidget : DragWidget {
     public override void Init() {
         base.Init();
 
+        mParms[parmDragWorld] = cursorWorld;
+
         UpdateState();
     }
 
     protected override void DragEnd() {
         if(isDropValid) {
             if(curSpace == DragWidgetSpace.World) {
-                Vector2 spawnPoint = cursorWorld.worldPoint;
-
-                var spawn = mPool.Spawn<M8.EntityBase>(entityTemplate.name, "", null, null);
+                var spawn = mPool.Spawn<M8.EntityBase>(entityTemplate.name, "", null, mParms);
 
                 spawn.releaseCallback += OnEntityRelease;
-                spawn.transform.position = spawnPoint;
-                
+                spawn.transform.position = cursorWorld.spawnPoint;
+                spawn.transform.up = cursorWorld.spawnUp;
+
                 mActiveUnits.Add(spawn);
 
                 UpdateState();

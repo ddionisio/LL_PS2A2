@@ -11,6 +11,7 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
     public float checkRadius;
     public LayerMask checkLayerMask;
     public Vector2 checkBoxSize;
+    public LayerMask checkBoxOverlapLayerMask;
     public float checkSurfaceOfs = 0.01f;
 
     [Header("Display")]
@@ -19,6 +20,9 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
 
     public Vector2 surfacePoint { get; private set; }
     public Vector2 surfaceNormal { get; private set; }
+
+    public override Vector2 spawnPoint { get { return surfacePoint; } }
+    public override Vector2 spawnUp { get { return surfaceNormal; } }
 
     private const int surfaceOverlapCapacity = 8;
     private RaycastHit2D[] mSurfaceOverlaps = new RaycastHit2D[surfaceOverlapCapacity];
@@ -58,17 +62,31 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
         for(int i = 0; i < mSurfaceOverlapCount; i++) {
             var hit = mSurfaceOverlaps[i];
 
-            var checkPt = hit.point + hit.normal * surfaceOfs;
+            //grab point on surface
+            var dCast = hit.point - worldPoint;
+            var dCastDist = dCast.magnitude;
+            if(dCastDist <= 0f)
+                continue;
 
+            var dCastDir = dCast / dCastDist;
+
+            var dCastHit = Physics2D.Raycast(worldPoint, dCastDir, dCastDist, checkLayerMask);
+            //
+
+            surfacePoint = dCastHit.point;
+            surfaceNormal = hit.normal;
+
+            var checkPt = dCastHit.point + hit.normal * surfaceOfs;
+                        
             var angle = Vector2.SignedAngle(Vector2.up, hit.normal);
 
-            var overlapColl = Physics2D.OverlapBox(checkPt, checkBoxSize, angle, checkLayerMask);
+            var overlapColl = Physics2D.OverlapBox(checkPt, checkBoxSize, angle, checkBoxOverlapLayerMask);
             if(!overlapColl) {
-                mIsBoxValid = true;
-                surfacePoint = hit.point;
-                surfaceNormal = hit.normal;
+                mIsBoxValid = true;                
                 break;
             }
+            //else
+                //Debug.Log("Overlap: " + overlapColl.name);
         }
 
         //update icon/ghost position/orientation
