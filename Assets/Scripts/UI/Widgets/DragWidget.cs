@@ -180,7 +180,10 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
 
     private void SetupCursorWorld() {
-        if(cursorWorld) cursorWorld.ApplyIcon(iconSpriteWorld);
+        if(cursorWorld) {
+            cursorWorld.ApplyIcon(iconSpriteWorld);
+            cursorWorld.deleteEnabled = false;
+        }
     }
 
     private void ApplyCurSpace() {

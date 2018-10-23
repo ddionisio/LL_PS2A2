@@ -12,6 +12,7 @@ public interface IDragCursorWorldDropValid {
 /// </summary>
 public class DragCursorWorld : MonoBehaviour {
     [Header("Display")]
+    public GameObject rootGO;
     public SpriteRenderer iconSpriteRender;
     public M8.SpriteColorGroup iconSpriteColorGroup;
     public Color iconSpriteColorInvalid = Color.red;
@@ -22,6 +23,12 @@ public class DragCursorWorld : MonoBehaviour {
     public LayerMask dropFilterLayerMask;
     public bool dropFilterEnabled; //if true, check drop filter layer mask from eventData for validity
 
+    [Header("Delete")]
+    [SerializeField]
+    bool _deleteEnabled;
+    public Transform deleteScreenUICursor; //
+    public RectTransform deleteScreenArea;
+
     public bool isDropValid { get { return mIsDropValid; } }
 
     public Vector2 worldPoint { get; protected set; }
@@ -29,9 +36,21 @@ public class DragCursorWorld : MonoBehaviour {
     public virtual Vector2 spawnPoint { get { return worldPoint; } }
     public virtual Vector2 spawnUp { get { return Vector2.up; } }
 
+    public bool deleteEnabled {
+        get { return _deleteEnabled; }
+        set {
+            if(_deleteEnabled != value) {
+                _deleteEnabled = value;
+                ApplyIsDelete();
+            }
+        }
+    }
+
+    public bool isDelete { get; private set; }
+
     private bool mIsDropValid = false;
     private List<IDragCursorWorldDropValid> mDropValidChecks = new List<IDragCursorWorldDropValid>();
-
+        
     public void RegisterDropValidCheck(IDragCursorWorldDropValid dropValid) {
         if(!mDropValidChecks.Contains(dropValid))
             mDropValidChecks.Add(dropValid);
@@ -51,16 +70,23 @@ public class DragCursorWorld : MonoBehaviour {
         if(eventData != null)
             UpdatePosition(eventData);
 
-        bool _isDropValid = IsDropValid(eventData);
+        UpdateDelete(eventData);
+
+        bool _isDropValid = !isDelete && IsDropValid(eventData);
         if(mIsDropValid != _isDropValid) {
             mIsDropValid = _isDropValid;
             ApplyDropValid();
         }
     }
 
+    protected virtual void OnDisable() {
+        isDelete = false;
+        ApplyIsDelete();
+    }
+
     protected virtual void Awake() {
-        mIsDropValid = false;
         ApplyDropValid();
+        ApplyIsDelete();
     }
 
     protected virtual void UpdatePosition(PointerEventData eventData) {
@@ -103,5 +129,29 @@ public class DragCursorWorld : MonoBehaviour {
             else
                 iconSpriteColorGroup.ApplyColor(iconSpriteColorInvalid);
         }
+    }
+        
+    private void UpdateDelete(PointerEventData eventData) {
+        bool _delete = false;
+
+        if(deleteEnabled && eventData != null) {
+            var uiAreaLocalPos = deleteScreenArea.InverseTransformPoint(eventData.position);
+
+            _delete = deleteScreenArea.rect.Contains(uiAreaLocalPos);
+        }
+
+        if(isDelete != _delete) {
+            isDelete = _delete;
+
+            ApplyIsDelete();
+        }
+
+        if(isDelete)
+            deleteScreenUICursor.position = eventData.position;
+    }
+
+    private void ApplyIsDelete() {
+        if(rootGO) rootGO.SetActive(!isDelete);
+        if(deleteScreenUICursor) deleteScreenUICursor.gameObject.SetActive(isDelete);
     }
 }

@@ -33,13 +33,15 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
         }
     }
 
+    public DragCursorWorldSurfaceSnap dragWorldSurfaceSnap { get; private set; }
+
+    public bool isDelete { get; private set; }
+
     public event System.Action dragBeginCallback;
     public event System.Action dragEndCallback;
 
     private bool mIsDragging;
-    
-    private DragCursorWorldSurfaceSnap mDragWorldSurfaceSnap;
-
+        
     void OnApplicationFocus(bool focus) {
         if(!focus)
             SetDragging(false);
@@ -60,53 +62,45 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
         //grab drag cursor
         if(parms != null) {
             var dragCursorObj = parms.GetValue<object>(EntitySpawnerWidget.parmDragWorld);
-            mDragWorldSurfaceSnap = dragCursorObj as DragCursorWorldSurfaceSnap;
+            dragWorldSurfaceSnap = dragCursorObj as DragCursorWorldSurfaceSnap;
         }
     }
 
     void M8.IPoolDespawn.OnDespawned() {
         SetDragging(false);
 
-        if(mDragWorldSurfaceSnap) {
-            mDragWorldSurfaceSnap = null;
+        if(dragWorldSurfaceSnap) {
+            dragWorldSurfaceSnap = null;
         }
     }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {
-        UpdatePointerEventData(eventData);
-
         SetDragging(true);
 
-        mDragWorldSurfaceSnap.UpdateState(eventData);
+        dragWorldSurfaceSnap.UpdateState(eventData);
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData) {
         if(!mIsDragging)
             return;
 
-        UpdatePointerEventData(eventData);
-
-        mDragWorldSurfaceSnap.UpdateState(eventData);
+        dragWorldSurfaceSnap.UpdateState(eventData);
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData) {
         if(!mIsDragging)
             return;
 
-        UpdatePointerEventData(eventData);
+        dragWorldSurfaceSnap.UpdateState(eventData);
 
-        mDragWorldSurfaceSnap.UpdateState(eventData);
-
-        if(mDragWorldSurfaceSnap.isDropValid) {
-            transform.position = mDragWorldSurfaceSnap.surfacePoint;
-            transform.up = mDragWorldSurfaceSnap.surfaceNormal;
+        if(dragWorldSurfaceSnap.isDropValid) {
+            transform.position = dragWorldSurfaceSnap.surfacePoint;
+            transform.up = dragWorldSurfaceSnap.surfaceNormal;
         }
 
-        SetDragging(false);
-    }
+        isDelete = dragWorldSurfaceSnap.isDelete;
 
-    private void UpdatePointerEventData(PointerEventData eventData) {
-        
+        SetDragging(false);
     }
 
     private void SetDragging(bool dragging) {
@@ -132,22 +126,23 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
 
     private void ApplyDragState() {
         if(mIsDragging) {
-            if(mDragWorldSurfaceSnap) {
-                mDragWorldSurfaceSnap.gameObject.SetActive(true);
-                mDragWorldSurfaceSnap.ApplyIcon(dragSpriteIcon);
+            if(dragWorldSurfaceSnap) {
+                dragWorldSurfaceSnap.gameObject.SetActive(true);
+                dragWorldSurfaceSnap.ApplyIcon(dragSpriteIcon);
+                dragWorldSurfaceSnap.deleteEnabled = true;
             }
 
             if(dragActiveGO) dragActiveGO.SetActive(true);
             if(dragInactiveGO) dragInactiveGO.SetActive(false);
         }
         else {
-            if(mDragWorldSurfaceSnap) {
-                mDragWorldSurfaceSnap.gameObject.SetActive(false);
+            if(dragWorldSurfaceSnap) {
+                dragWorldSurfaceSnap.gameObject.SetActive(false);
             }
 
             if(dragActiveGO) dragActiveGO.SetActive(false);
             if(dragInactiveGO) dragInactiveGO.SetActive(true);
-        }
+        }   
     }
 
     void OnDrawGizmos() {

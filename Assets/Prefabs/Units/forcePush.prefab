@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4281673466966006}
   - component: {fileID: 114306485364383380}
   - component: {fileID: 114983025373068118}
+  - component: {fileID: 114905457710665712}
   - component: {fileID: 61376574924454494}
   m_Layer: 31
   m_Name: forcePush
@@ -165,6 +166,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateOnStart: 0
   activator: {fileID: 0}
+--- !u!114 &114905457710665712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1942612567370954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d790a8257e77a4f92a8ad3446e6823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 114306485364383380}
+  drag: {fileID: 114983025373068118}
 --- !u!114 &114983025373068118
 MonoBehaviour:
   m_ObjectHideFlags: 1
