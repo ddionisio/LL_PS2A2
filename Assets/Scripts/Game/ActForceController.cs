@@ -8,7 +8,8 @@ using UnityEngine;
 public class ActForceController : GameModeController<ActForceController> {
     [Header("Game")]
     public GameObject forceGroupGO;
-    public GameObject playButtonGO;
-    public GameObject restartButtonGO;
-    public GameObject progressGO;
+    public GameObject playGroupGO;
+
+    [Header("Signal")]
+    public M8.Signal signalGoal;
 }

@@ -62,8 +62,10 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         if(icon) {
             icon.sprite = iconSpriteUI;
 
-            if(iconApplyNativeSize)
-                icon.SetNativeSize();
+            if(iconApplyNativeSize) {
+                icon.rectTransform.sizeDelta = iconSpriteUI.rect.size;
+                //icon.SetNativeSize();
+            }
         }
     }
 

@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IBeginDragHandler, IDragHandler, IEndDragHandler {
+    [Header("Info")]
+    public UnitUIDisplayInfo displayInfo;
+
     [Header("Drag Info")]
 
     [SerializeField]
     bool _dragEnabled = true;
 
-    public Sprite dragSpriteIcon;
     public GameObject dragActiveGO; //activated during drag
     public GameObject dragInactiveGO; //deactivate during drag
 
@@ -128,7 +130,7 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
         if(mIsDragging) {
             if(dragWorldSurfaceSnap) {
                 dragWorldSurfaceSnap.gameObject.SetActive(true);
-                dragWorldSurfaceSnap.ApplyIcon(dragSpriteIcon);
+                dragWorldSurfaceSnap.ApplyIcon(displayInfo.uiWorldIcon);
                 dragWorldSurfaceSnap.deleteEnabled = true;
             }
 

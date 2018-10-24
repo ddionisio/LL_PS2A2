@@ -33,6 +33,15 @@ public class EntitySpawnerWidget : DragWidget {
     public override void Init() {
         base.Init();
 
+        if(!mPool) {
+            if(entityTemplate) {
+                mPool = M8.PoolController.CreatePool(entityPoolGroup);
+                mPool.AddType(entityTemplate, entityCount, entityCount);
+
+                mActiveUnits = new M8.CacheList<M8.EntityBase>(entityCount);
+            }
+        }
+
         mParms[parmDragWorld] = cursorWorld;
 
         UpdateState();
@@ -54,15 +63,6 @@ public class EntitySpawnerWidget : DragWidget {
         }
     }
 
-    protected override void Awake() {
-        base.Awake();
-
-        mPool = M8.PoolController.CreatePool(entityPoolGroup);
-        mPool.AddType(entityTemplate, entityCount, entityCount);
-
-        mActiveUnits = new M8.CacheList<M8.EntityBase>(entityCount);
-    }
-
     void OnEntityRelease(M8.EntityBase ent) {
         ent.releaseCallback -= OnEntityRelease;
 
@@ -72,6 +72,9 @@ public class EntitySpawnerWidget : DragWidget {
     }
 
     private void UpdateState() {
+        if(mActiveUnits == null)
+            return;
+
         int availableCount = entityCount - mActiveUnits.Count;
 
         if(countLabel) countLabel.text = availableCount.ToString();
