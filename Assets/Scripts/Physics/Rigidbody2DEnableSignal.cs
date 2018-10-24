@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Physics2DEnableSignal : MonoBehaviour {
+public class Rigidbody2DEnableSignal : MonoBehaviour {
     public Rigidbody2D body;
     public M8.Signal signalEnabled;
 

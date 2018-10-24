@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Physics2DResetSignal : MonoBehaviour {
+public class Rigidbody2DResetSignal : MonoBehaviour {
     public Rigidbody2D body;
     public M8.Signal signalReset;
 
