@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 114093186710176704}
   - component: {fileID: 114859491616010694}
   - component: {fileID: 114270655549417652}
+  - component: {fileID: 114928269623121162}
   m_Layer: 5
   m_Name: restartButton
   m_TagString: Untagged
@@ -106,6 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 224709684292445624}
   - component: {fileID: 114129053647495172}
+  - component: {fileID: 114048402829180524}
+  - component: {fileID: 114400852841095774}
   m_Layer: 5
   m_Name: forceElementsGroup
   m_TagString: Untagged
@@ -176,6 +179,7 @@ GameObject:
   - component: {fileID: 114350145532983260}
   - component: {fileID: 114599852690865130}
   - component: {fileID: 114383033220164278}
+  - component: {fileID: 114218455684764002}
   m_Layer: 5
   m_Name: playButton
   m_TagString: Untagged
@@ -258,6 +262,35 @@ MonoBehaviour:
   paddingRight: 0
   paddingTop: 0
   paddingBottom: 0
+--- !u!114 &114048402829180524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514044080086924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39c9fde6a82bbd489003e4f6a70eed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signal: {fileID: 11400000, guid: 377de1828a41cbe4b8c3140e7700863d, type: 2}
+  _activeOnly: 0
+  onSignal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1946597201962088}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114093186710176704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,39 +333,6 @@ MonoBehaviour:
       - m_Target: {fileID: 114859491616010694}
         m_MethodName: Invoke
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1186338148413642}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1941846033189738}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1946597201962088}
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -432,6 +432,35 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114218455684764002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941846033189738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39c9fde6a82bbd489003e4f6a70eed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signal: {fileID: 11400000, guid: 377de1828a41cbe4b8c3140e7700863d, type: 2}
+  _activeOnly: 0
+  onSignal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1941846033189738}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114270655549417652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -443,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39c9fde6a82bbd489003e4f6a70eed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signal: {fileID: 11400000, guid: 9ebb92fbb1172fd4996ce631d6ffcfd5, type: 2}
+  signal: {fileID: 11400000, guid: 377de1828a41cbe4b8c3140e7700863d, type: 2}
   _activeOnly: 0
   onSignal:
     m_PersistentCalls:
@@ -587,17 +616,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1946597201962088}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114383033220164278
@@ -626,6 +644,35 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114400852841095774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514044080086924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39c9fde6a82bbd489003e4f6a70eed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signal: {fileID: 11400000, guid: f5db828f4a23e1644868b2ff543c6613, type: 2}
+  _activeOnly: 0
+  onSignal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1946597201962088}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -751,6 +798,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   signal: {fileID: 11400000, guid: 377de1828a41cbe4b8c3140e7700863d, type: 2}
+--- !u!114 &114928269623121162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186338148413642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39c9fde6a82bbd489003e4f6a70eed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signal: {fileID: 11400000, guid: 9ebb92fbb1172fd4996ce631d6ffcfd5, type: 2}
+  _activeOnly: 0
+  onSignal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1186338148413642}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114934502790772194
 MonoBehaviour:
   m_ObjectHideFlags: 1

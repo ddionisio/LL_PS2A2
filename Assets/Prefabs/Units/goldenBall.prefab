@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114231041733905416}
   - component: {fileID: 114900430629456046}
   - component: {fileID: 114537499927038078}
+  - component: {fileID: 114539974836074822}
+  - component: {fileID: 114651225516573676}
   - component: {fileID: 50525265444612290}
   - component: {fileID: 58015773795173446}
   m_Layer: 8
@@ -54,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1147582685503428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: -4, z: 0}
+  m_LocalPosition: {x: -13, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4892969816569172}
@@ -138,8 +140,87 @@ MonoBehaviour:
   tagFilter: Goal
   moveDelay: 0.3
   moveEase: 3
-  animator: {fileID: 0}
+  animator: {fileID: 114651225516573676}
   takePlay: 
+--- !u!114 &114539974836074822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1147582685503428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa99f9e9eb0c16e44a17480838ca82ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 50525265444612290}
+  animator: {fileID: 114651225516573676}
+  takeReceive: 
+  takeNext: 
+  signalReceive: {fileID: 11400000, guid: df94e7f96f695a54084a264dc39acb3e, type: 2}
+  signalNext: {fileID: 11400000, guid: 377de1828a41cbe4b8c3140e7700863d, type: 2}
+--- !u!114 &114651225516573676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1147582685503428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189a50e0ddb1421498ef25dcd885c95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeData:
+  - name: Take1
+    frameRate: 24
+    endFramePadding: 0
+    numLoop: 1
+    loopMode: 0
+    loopBackToFrame: 0
+    trackCounter: 1
+    groupCounter: 0
+    rootGroup:
+      group_name: 
+      group_id: 0
+      elements: 
+      foldout: 1
+    groupValues: []
+  _defaultTakeName: 
+  _meta: {fileID: 0}
+  sequenceLoadAll: 1
+  sequenceKillWhenDone: 0
+  playOnEnable: 0
+  isGlobal: 0
+  onDisableAction: 1
+  updateType: 0
+  updateTimeIndependent: 0
+  serializeData:
+    _audioTracks: []
+    _audioKeys: []
+    _cameraSwitcherTracks: []
+    _cameraSwitcherKeys: []
+    _eventTracks: []
+    _eventKeys: []
+    _goSetActiveTracks: []
+    _goSetActiveKeys: []
+    _materialTracks: []
+    _materialKeys: []
+    _orientationTracks: []
+    _orientationKeys: []
+    _propertyTracks: []
+    _propertyKeys: []
+    _rotationEulerTracks: []
+    _rotationEulerKeys: []
+    _rotationTracks: []
+    _rotationKeys: []
+    _translationTracks: []
+    _translationKeys: []
+    _unityAnimationTracks: []
+    _unityAnimationKeys: []
+    _scaleTracks: []
+    _scaleKeys: []
+    _trackLookups: []
+    _takeTrackCounts: 00000000
 --- !u!114 &114900430629456046
 MonoBehaviour:
   m_ObjectHideFlags: 1
