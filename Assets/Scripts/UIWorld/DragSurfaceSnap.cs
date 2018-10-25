@@ -97,7 +97,8 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
 
         if(dragWorldSurfaceSnap.isDropValid) {
             transform.position = dragWorldSurfaceSnap.surfacePoint;
-            transform.up = dragWorldSurfaceSnap.surfaceNormal;
+            transform.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, dragWorldSurfaceSnap.surfaceNormal), Vector3.forward);
+            //transform.up = dragWorldSurfaceSnap.surfaceNormal;
         }
 
         isDelete = dragWorldSurfaceSnap.isDelete;

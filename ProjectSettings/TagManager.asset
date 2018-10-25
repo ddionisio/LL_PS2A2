@@ -8,6 +8,8 @@ TagManager:
   - InteractiveObject
   - Projectile
   - Target
+  - Hit
+  - Invalid
   layers:
   - Default
   - TransparentFX

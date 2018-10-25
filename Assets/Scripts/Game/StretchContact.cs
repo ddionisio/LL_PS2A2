@@ -49,6 +49,6 @@ public class StretchContact : MonoBehaviour {
 
         //apply position, assume pivot is center
         target.position = Vector2.Lerp(pt, dest, 0.5f);
-        target.up = dir;
+        target.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, dir), Vector3.forward);
     }
 }

@@ -13,6 +13,8 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
     public Vector2 checkBoxSize;
     public LayerMask checkBoxOverlapLayerMask;
     public float checkSurfaceOfs = 0.01f;
+    [M8.TagSelector]
+    public string[] checkTagInvalids; //which tags are invalid placements
 
     [Header("Display")]
     public Transform ghostRoot;
@@ -61,6 +63,19 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
 
         for(int i = 0; i < mSurfaceOverlapCount; i++) {
             var hit = mSurfaceOverlaps[i];
+
+            //check tag invalids
+            bool isInvalid = false;
+            for(int tagInd = 0; tagInd < checkTagInvalids.Length; tagInd++) {
+                var tag = checkTagInvalids[tagInd];
+                if(!string.IsNullOrEmpty(tag) && hit.collider.CompareTag(tag)) {
+                    isInvalid = true;
+                    break;
+                }
+            }
+
+            if(isInvalid)
+                continue;
 
             //grab point on surface
             var dCast = hit.point - worldPoint;

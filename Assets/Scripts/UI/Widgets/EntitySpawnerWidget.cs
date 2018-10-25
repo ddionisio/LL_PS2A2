@@ -54,7 +54,9 @@ public class EntitySpawnerWidget : DragWidget {
 
                 spawn.releaseCallback += OnEntityRelease;
                 spawn.transform.position = cursorWorld.spawnPoint;
-                spawn.transform.up = cursorWorld.spawnUp;
+                spawn.transform.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, cursorWorld.spawnUp), Vector3.forward);
+
+                //spawn.transform.up = cursorWorld.spawnUp;
 
                 mActiveUnits.Add(spawn);
 

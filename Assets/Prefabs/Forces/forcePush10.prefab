@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 114455579514069910}
   - component: {fileID: 61376574924454494}
   m_Layer: 31
-  m_Name: forcePush5
+  m_Name: forcePush10
   m_TagString: InteractiveObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa967eb584bd34547bbae9f82d220d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 5
+  force: 10
   tagFilter: Player
 --- !u!114 &114905457710665712
 MonoBehaviour:

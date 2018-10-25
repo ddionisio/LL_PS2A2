@@ -74,8 +74,10 @@ public class UnitEntity : M8.EntityBase {
                 position = pt;
             }
 
-            if(parms.ContainsKey(parmNormal))
-                transform.up = parms.GetValue<Vector2>(parmNormal);
+            if(parms.ContainsKey(parmNormal)) {
+                Vector2 norm = parms.GetValue<Vector2>(parmNormal);
+                transform.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, norm), Vector3.forward);
+            }
         }
 
         if(stateOnSpawn) state = stateOnSpawn;

@@ -252,6 +252,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2049
   checkSurfaceOfs: 0.05
+  checkTagInvalids:
+  - Hit
+  - Invalid
   ghostRoot: {fileID: 4411848363152096}
   ghostSpriteRenderer: {fileID: 212668558100274254}
 --- !u!114 &114755489577836702
