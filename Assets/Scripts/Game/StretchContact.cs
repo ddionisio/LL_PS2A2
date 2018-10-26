@@ -21,15 +21,35 @@ public class StretchContact : MonoBehaviour {
 
         target.gameObject.SetActive(true);
 
+        var tgtScale = target.localScale;
+
         var dir = (Vector2)transform.up;
         var pt = (Vector2)transform.position + dir * collisionStartOfs;
 
         Vector2 dest;
         float dist;
 
-        var hit = Physics2D.Raycast(pt, dir, collisionMaxDistance, collisionLayerMask);
+        //grab the longest of hit between sides
+        var extX = tgtScale.x * 0.5f;
+
+        var dirL = new Vector2(dir.y, -dir.x);
+        var dirR = new Vector2(-dir.y, dir.x);
+
+        var hitL = Physics2D.Raycast(pt + extX * dirL, dir, collisionMaxDistance, collisionLayerMask);
+        var hitR = Physics2D.Raycast(pt + extX * dirR, dir, collisionMaxDistance, collisionLayerMask);
+
+        RaycastHit2D hit;
+        if(hitL.collider && hitL.distance > hitR.distance) {
+            hit = hitL;
+        }
+        else {
+            hit = hitR;
+        }
+        //var hit = Physics2D.Raycast(pt, dir, collisionMaxDistance, collisionLayerMask);
+
+
         if(hit.collider) {
-            dest = hit.point;
+            dest = pt + dir * hit.distance;
             dist = hit.distance;
         }
         else {
@@ -38,8 +58,6 @@ public class StretchContact : MonoBehaviour {
         }
 
         //set scale y to distance
-        var tgtScale = target.localScale;
-
         if(targetPixelHeight <= 0f || targetPixelPerUnit <= 0f)
             tgtScale.y = dist;
         else
@@ -48,7 +66,8 @@ public class StretchContact : MonoBehaviour {
         target.localScale = tgtScale;
 
         //apply position, assume pivot is center
-        target.position = Vector2.Lerp(pt, dest, 0.5f);
+        var toPt = Vector2.Lerp(pt, dest, 0.5f);
+        target.position = new Vector3(toPt.x, toPt.y, target.position.z);
         target.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, dir), Vector3.forward);
     }
 }
