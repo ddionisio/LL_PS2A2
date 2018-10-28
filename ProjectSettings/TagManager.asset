@@ -10,6 +10,7 @@ TagManager:
   - Target
   - Hit
   - Invalid
+  - DragGuide
   layers:
   - Default
   - TransparentFX
