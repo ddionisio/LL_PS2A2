@@ -46,9 +46,11 @@ SpriteAtlas:
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: ec1d7380b4a816543ae5c51d27cd53e8, type: 3}
   - {fileID: 21300000, guid: f4683e31b11d8c249ac19e37611319cd, type: 3}
   - {fileID: 21300002, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
   - {fileID: 21300000, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
+  - {fileID: 21300000, guid: 999f48e1159a7a148a01ab00360e44cc, type: 3}
   - {fileID: 21300002, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: fde78cf21a65a2248a76a1c56c4b2bdf, type: 3}
@@ -59,6 +61,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
   - {fileID: 21300002, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
   - {fileID: 21300000, guid: 5427e4f7e1cb9704892fb4854f1cf6a9, type: 3}
+  - {fileID: 21300000, guid: b5f1f248fc842084cb79fa132167e30b, type: 3}
   - {fileID: 21300000, guid: 98dcbc88df1944742b74d24843f65c75, type: 3}
   - {fileID: 21300006, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300000, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
@@ -66,15 +69,22 @@ SpriteAtlas:
   - {fileID: 21300002, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300004, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300000, guid: bb8a087995e8ab149b0f5c36c07f3d96, type: 3}
+  - {fileID: 21300000, guid: c8aff8b9b79a78745bcc2592e56ba612, type: 3}
   - {fileID: 21300000, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
   - {fileID: 21300002, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
+  - {fileID: 21300000, guid: 0dcbf83a91940364e9fed8b2e53fa6bb, type: 3}
   - {fileID: 21300000, guid: 7168da6aea1c4154bbc52d54856e6639, type: 3}
+  - {fileID: 21300000, guid: 57d2f97b3c7997547a755d7a0eb581e9, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
   - {fileID: 21300000, guid: 31c7ecce7a756db48a64dec20453a6f2, type: 3}
+  - {fileID: 21300000, guid: e2c431fedb5f61c4595be16efbd9f5cc, type: 3}
+  - {fileID: 21300000, guid: d100bf3fba8e48343b4f69fe5447d682, type: 3}
   m_PackedSpriteNamesToIndex:
+  - frameBottom
   - downArrow
   - tutorialArrow2_bottom
   - tutorialArrow2
+  - simplePanel
   - shadeWhite_bottomLeft
   - shadeWhite
   - portraitRobot
@@ -85,6 +95,7 @@ SpriteAtlas:
   - tutorialArrow2_invert
   - tutorialArrow2_invert_bottom
   - dot
+  - tutorialHandPointDown
   - correctCheck
   - blank4x4_bottomLeft
   - blank4x4_bottom
@@ -92,10 +103,15 @@ SpriteAtlas:
   - blank4x4
   - blank4x4_topLeft
   - optionButton
+  - frameTop
   - shade
   - shade_bottom
+  - separator
   - gradient8x8
+  - frame
   - edge_shade
   - stop
+  - button
+  - tutorialHandPoint
   m_Tag: main
   m_IsVariant: 0

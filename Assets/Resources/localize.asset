@@ -18,3 +18,7 @@ MonoBehaviour:
   languageExtraInfos:
   - key: welcome
     voiceDuration: 1.5
+  - key: confirmDesc
+    voiceDuration: 2
+  - key: confirmTitleRestart
+    voiceDuration: 1
