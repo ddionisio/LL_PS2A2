@@ -47,6 +47,7 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: ec1d7380b4a816543ae5c51d27cd53e8, type: 3}
+  - {fileID: 21300000, guid: f5e4e72120ff0af48bb1cecbea5cc258, type: 3}
   - {fileID: 21300000, guid: f4683e31b11d8c249ac19e37611319cd, type: 3}
   - {fileID: 21300002, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
   - {fileID: 21300000, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
@@ -55,8 +56,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: fde78cf21a65a2248a76a1c56c4b2bdf, type: 3}
   - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
+  - {fileID: 21300000, guid: 43e03625f5b720d478dc4722ccad034f, type: 3}
   - {fileID: 21300000, guid: 2d2d723522fdad642b69de406fb7e21b, type: 3}
   - {fileID: 21300000, guid: 7428624581668694ca5e5ec7e287bb0d, type: 3}
+  - {fileID: 21300000, guid: acc693e53995d994db00a2e827df4731, type: 3}
+  - {fileID: 21300000, guid: 6dbc24065d948454b8d3830139b6edb1, type: 3}
   - {fileID: 21300000, guid: 833257f6cb1a9d241b3fc454fef9d45a, type: 3}
   - {fileID: 21300000, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
   - {fileID: 21300002, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
@@ -75,12 +79,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0dcbf83a91940364e9fed8b2e53fa6bb, type: 3}
   - {fileID: 21300000, guid: 7168da6aea1c4154bbc52d54856e6639, type: 3}
   - {fileID: 21300000, guid: 57d2f97b3c7997547a755d7a0eb581e9, type: 3}
+  - {fileID: 21300000, guid: d8c01a8bb74f85f4195fa213e9932844, type: 3}
+  - {fileID: 21300000, guid: b757e5fc0eb3f2c4a8a76853e861080e, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
   - {fileID: 21300000, guid: 31c7ecce7a756db48a64dec20453a6f2, type: 3}
   - {fileID: 21300000, guid: e2c431fedb5f61c4595be16efbd9f5cc, type: 3}
   - {fileID: 21300000, guid: d100bf3fba8e48343b4f69fe5447d682, type: 3}
   m_PackedSpriteNamesToIndex:
   - frameBottom
+  - crateFrame
   - downArrow
   - tutorialArrow2_bottom
   - tutorialArrow2
@@ -89,8 +96,11 @@ SpriteAtlas:
   - shadeWhite
   - portraitRobot
   - baseGradient
+  - crateFill
   - square
   - wrongX
+  - frameTiny
+  - frame2
   - circle16x16
   - tutorialArrow2_invert
   - tutorialArrow2_invert_bottom
@@ -109,6 +119,8 @@ SpriteAtlas:
   - separator
   - gradient8x8
   - frame
+  - platePanel
+  - frame3
   - edge_shade
   - stop
   - button
