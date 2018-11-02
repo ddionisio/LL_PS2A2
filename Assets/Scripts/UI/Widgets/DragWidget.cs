@@ -165,9 +165,15 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
         
     private void UpdateState(PointerEventData eventData) {
-        var uiAreaLocalPos = uiArea.InverseTransformPoint(eventData.position);
+        DragWidgetSpace space;
 
-        var space = uiArea.rect.Contains(uiAreaLocalPos) ? DragWidgetSpace.UI : DragWidgetSpace.World;
+        if(uiArea) {
+            var uiAreaLocalPos = uiArea.InverseTransformPoint(eventData.position);
+
+            space = uiArea.rect.Contains(uiAreaLocalPos) ? DragWidgetSpace.UI : DragWidgetSpace.World;
+        }
+        else
+            space = DragWidgetSpace.World;
 
         if(curSpace != space) {
             curSpace = space;

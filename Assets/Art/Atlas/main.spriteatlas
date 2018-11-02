@@ -59,6 +59,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: e0b19ee2e34fae14fa6a6ef191a674e6, type: 3}
   - {fileID: 21300000, guid: fde78cf21a65a2248a76a1c56c4b2bdf, type: 3}
+  - {fileID: 21300000, guid: 48bb4343820a6cb48a9858df40ae71c0, type: 3}
   - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
   - {fileID: 21300000, guid: 43e03625f5b720d478dc4722ccad034f, type: 3}
   - {fileID: 21300000, guid: 2d2d723522fdad642b69de406fb7e21b, type: 3}
@@ -68,6 +69,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 833257f6cb1a9d241b3fc454fef9d45a, type: 3}
   - {fileID: 21300000, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
   - {fileID: 21300002, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
+  - {fileID: 21300000, guid: c0e2b1c7a40b880498981f555f0b3c4e, type: 3}
   - {fileID: 21300000, guid: 5427e4f7e1cb9704892fb4854f1cf6a9, type: 3}
   - {fileID: 21300000, guid: e7aaa91811c476a4c90a35498e2fbe33, type: 3}
   - {fileID: 21300000, guid: b5f1f248fc842084cb79fa132167e30b, type: 3}
@@ -78,6 +80,7 @@ SpriteAtlas:
   - {fileID: 21300008, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300002, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
   - {fileID: 21300004, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
+  - {fileID: 21300000, guid: 299e74495bdddae45bbb6cb564f9ff32, type: 3}
   - {fileID: 21300000, guid: bb8a087995e8ab149b0f5c36c07f3d96, type: 3}
   - {fileID: 21300000, guid: 4337d879bef542541814bb56f0348057, type: 3}
   - {fileID: 21300000, guid: c8aff8b9b79a78745bcc2592e56ba612, type: 3}
@@ -92,6 +95,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7242659cc528db5438228b4bdd0033ed, type: 3}
   - {fileID: 21300000, guid: 36ce24ec9ae04524289ce0e80bf270be, type: 3}
   - {fileID: 21300000, guid: b757e5fc0eb3f2c4a8a76853e861080e, type: 3}
+  - {fileID: 21300000, guid: 602f28dd20f929548b2afcda5f937709, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
   - {fileID: 21300000, guid: de9d478e2bcf54a429b14def3d215ffe, type: 3}
   - {fileID: 21300000, guid: 31c7ecce7a756db48a64dec20453a6f2, type: 3}
@@ -111,6 +115,7 @@ SpriteAtlas:
   - shadeWhite
   - knight_carry2
   - portraitRobot
+  - princess_help2
   - baseGradient
   - crateFill
   - square
@@ -120,6 +125,7 @@ SpriteAtlas:
   - circle16x16
   - tutorialArrow2_invert
   - tutorialArrow2_invert_bottom
+  - princess_victory1
   - dot
   - knight_push2
   - tutorialHandPointDown
@@ -130,6 +136,7 @@ SpriteAtlas:
   - blank4x4_border
   - blank4x4
   - blank4x4_topLeft
+  - princess_victory2
   - optionButton
   - knight_move1
   - frameTop
@@ -144,6 +151,7 @@ SpriteAtlas:
   - knight_carry1
   - circleGlow
   - frame3
+  - princess_help1
   - edge_shade
   - knight_push3
   - stop

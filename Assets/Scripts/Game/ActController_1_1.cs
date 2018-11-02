@@ -15,10 +15,26 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public DragWidget unitSpawnerWidget;
 
     public Rigidbody2DMoveController block1;
+    public Transform block1StartPt;
     [M8.TagSelector]
     public string block1GoalTag;
 
     public Rigidbody2DMoveController block2;
+    public Transform block2StartPt;
+
+    public GameObject victoryGO;
+    public float victoryStartDelay = 0.5f;
+    public float victoryDelay; //delay to show victory modal
+
+    public string victoryModal = "victory_act_1_1";
+
+    [Header("Princess")]
+    public GameObject princessGO;
+    public M8.Animator.Animate princessAnim;
+    [M8.Animator.TakeSelector(animatorField = "princessAnim")]
+    public string princessTakeEnter;
+    [M8.Animator.TakeSelector(animatorField = "princessAnim")]
+    public string princessTakeHelp;
 
     [Header("Signals")]
     public M8.Signal signalUnitsClear;
@@ -29,6 +45,14 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         headerRootGO.SetActive(false);
 
         interfaceRootGO.SetActive(false);
+
+        princessGO.SetActive(false);
+
+        victoryGO.SetActive(false);
+
+        block1.transform.position = block1StartPt.position;
+
+        block2.transform.position = block2StartPt.position;
     }
 
     protected override IEnumerator Start() {        
@@ -42,10 +66,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         introDialog.Play();
         while(introDialog.isPlaying)
             yield return null;
-
-        //show interaction
-        interfaceRootGO.SetActive(true);
-
+                
         //get block 1 ready
         block1.body.simulated = true;
 
@@ -54,6 +75,14 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             yield return null;
 
         //fancy camera shake
+
+        //some more dialog
+
+        //princess
+        StartCoroutine(DoPrincessDistress());
+
+        //show interaction
+        interfaceRootGO.SetActive(true);
 
         //game ready
         unitSpawnerWidget.active = true;
@@ -94,6 +123,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         //fancy camera shake
 
+        //more dialog
+
         //game ready
         unitSpawnerWidget.active = true;
 
@@ -115,14 +146,29 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         unitSpawnerWidget.active = false;
 
-        //animation
-
         //clear out units
         signalUnitsClear.Invoke();
 
-        //more stuff
+        //victory
+        yield return new WaitForSeconds(victoryStartDelay);
+
+        victoryGO.SetActive(true);
+
+        yield return new WaitForSeconds(victoryDelay);
 
         //next level
-        GameData.instance.Progress();
+        //GameData.instance.Progress();
+        M8.UIModal.Manager.instance.ModalOpen(victoryModal);
+    }
+
+    IEnumerator DoPrincessDistress() {
+        princessGO.SetActive(true);
+
+        princessAnim.Play(princessTakeEnter);
+
+        while(princessAnim.isPlaying)
+            yield return null;
+
+        princessAnim.Play(princessTakeHelp);
     }
 }
