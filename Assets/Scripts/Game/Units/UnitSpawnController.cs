@@ -19,7 +19,9 @@ public class UnitSpawnController : MonoBehaviour {
 
     [Header("Animation")]
     public M8.Animator.Animate animator;
+    [M8.Animator.TakeSelector(animatorField = "animator")]
     public string takeSpawn;
+    [M8.Animator.TakeSelector(animatorField = "animator")]
     public string takeDespawn;
 
     private Coroutine mRout;
