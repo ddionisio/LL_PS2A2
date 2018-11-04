@@ -36,6 +36,9 @@ public class DragToGuideWidget : MonoBehaviour {
     private float mDragPosition;
     private bool mIsPaused;
 
+    /// <summary>
+    /// start and end in UI space
+    /// </summary>
     public void Show(bool pause, Vector2 start, Vector2 end) {
         SetPause(pause);
 

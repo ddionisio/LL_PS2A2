@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActController_1_1 : GameModeController<ActController_1_1> {
+    [Header("Widgets")]
+    [M8.TagSelector]
+    public string tagDragGuide;
+    public Transform dragGuideTo;
+
     [Header("Sequence")]
     public float startDelay = 1f;
 
     public AnimatorEnterExit titleAnim;
     public AnimatorEnterExit motionIllustrationAnim;
-    public ModalDialogController introDialog;
-    public float fallDialogStartDelay;
-    public ModalDialogController fallDialog;
+    public ModalDialogController introDialog;    
     public ModalDialogController landingDialog;
     public GameObject sumForceIllustrationGO;
     public ModalDialogController sumForceDialog;
@@ -24,6 +27,10 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public Transform block1StartPt;
     [M8.TagSelector]
     public string block1GoalTag;
+    public GameObject blockLabelHighlightGO;
+
+    public ModalDialogController inertiaDialog1;
+    public ModalDialogController inertiaDialog2;
 
     public Rigidbody2DMoveController block2;
     public Transform block2StartPt;
@@ -44,9 +51,22 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
     [Header("Signals")]
     public M8.Signal signalUnitsClear;
+    public SignalDragWidget signalUnitDragEnd;
+
+    private DragToGuideWidget mDragGuide;
+    private bool mIsDragGuideShown;
+
+    protected override void OnInstanceDeinit() {
+        signalUnitDragEnd.callback -= OnSignalUnitDragEnd;
+
+        base.OnInstanceDeinit();
+    }
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
+
+        var dragGuideGO = GameObject.FindGameObjectWithTag(tagDragGuide);
+        mDragGuide = dragGuideGO.GetComponent<DragToGuideWidget>();
 
         titleAnim.gameObject.SetActive(false);
         motionIllustrationAnim.gameObject.SetActive(false);
@@ -59,9 +79,13 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         victoryGO.SetActive(false);
 
+        blockLabelHighlightGO.SetActive(false);
+
         block1.transform.position = block1StartPt.position;
 
         block2.transform.position = block2StartPt.position;
+
+        signalUnitDragEnd.callback += OnSignalUnitDragEnd;
     }
 
     protected override IEnumerator Start() {        
@@ -87,12 +111,6 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         //get block 1 ready
         block1.body.simulated = true;
-
-        yield return new WaitForSeconds(fallDialogStartDelay);
-
-        fallDialog.Play();
-        while(fallDialog.isPlaying)
-            yield return null;
 
         //wait for block 1 to hit ground
         while(!block1.isGrounded)
@@ -126,8 +144,11 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         //game ready
         unitSpawnerWidget.active = true;
-        
+
         //drag instruction
+        yield return new WaitForSeconds(0.35f);
+        mDragGuide.Show(false, unitSpawnerWidget.icon.transform.position, dragGuideTo.position);
+        mIsDragGuideShown = true;
 
         //wait for block1 to contact goal
         bool isBlockFinish = false;
@@ -153,6 +174,20 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         signalUnitsClear.Invoke();
 
         //more dialog
+        yield return new WaitForSeconds(0.5f);
+                
+        inertiaDialog1.Play();
+        while(inertiaDialog1.isPlaying)
+            yield return null;
+
+        blockLabelHighlightGO.SetActive(true);
+
+        inertiaDialog2.Play();
+        while(inertiaDialog2.isPlaying)
+            yield return null;
+
+        blockLabelHighlightGO.SetActive(false);
+        //
 
         //block 2 ready
         block2.body.simulated = true;
@@ -162,8 +197,6 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             yield return null;
 
         //fancy camera shake
-
-        //more dialog
 
         //game ready
         unitSpawnerWidget.active = true;
@@ -211,5 +244,14 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             yield return null;
 
         princessAnim.Play(princessTakeHelp);
+    }
+
+    void OnSignalUnitDragEnd(DragWidgetSignalInfo inf) {
+        if(inf.dragWidget.isDropValid) {
+            if(mIsDragGuideShown) {
+                mDragGuide.Hide();
+                mIsDragGuideShown = false;
+            }
+        }
     }
 }
