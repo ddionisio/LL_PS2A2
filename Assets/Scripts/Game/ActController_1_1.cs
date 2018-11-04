@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ActController_1_1 : GameModeController<ActController_1_1> {
     [Header("Sequence")]
-    public GameObject headerRootGO;
-
     public float startDelay = 1f;
 
+    public AnimatorEnterExit titleAnim;
+    public AnimatorEnterExit motionIllustrationAnim;
     public ModalDialogController introDialog;
+    public float fallDialogStartDelay;
+    public ModalDialogController fallDialog;
+    public ModalDialogController landingDialog;
+    public GameObject sumForceIllustrationGO;
+    public ModalDialogController sumForceDialog;
+    public ModalDialogController beginGameDialog;
 
     public GameObject interfaceRootGO;
 
@@ -42,7 +48,10 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
 
-        headerRootGO.SetActive(false);
+        titleAnim.gameObject.SetActive(false);
+        motionIllustrationAnim.gameObject.SetActive(false);
+
+        sumForceIllustrationGO.SetActive(false);
 
         interfaceRootGO.SetActive(false);
 
@@ -58,17 +67,32 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     protected override IEnumerator Start() {        
         yield return base.Start();
 
-        headerRootGO.SetActive(true);
+        titleAnim.gameObject.SetActive(true);
+        yield return titleAnim.PlayEnterWait();
 
         yield return new WaitForSeconds(startDelay);
 
-        //describe inertia
+        motionIllustrationAnim.gameObject.SetActive(true);
+        yield return motionIllustrationAnim.PlayEnterWait();
+
         introDialog.Play();
         while(introDialog.isPlaying)
             yield return null;
-                
+
+        yield return titleAnim.PlayExitWait();
+        titleAnim.gameObject.SetActive(false);
+
+        yield return motionIllustrationAnim.PlayExitWait();
+        motionIllustrationAnim.gameObject.SetActive(false);
+
         //get block 1 ready
         block1.body.simulated = true;
+
+        yield return new WaitForSeconds(fallDialogStartDelay);
+
+        fallDialog.Play();
+        while(fallDialog.isPlaying)
+            yield return null;
 
         //wait for block 1 to hit ground
         while(!block1.isGrounded)
@@ -77,9 +101,25 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         //fancy camera shake
 
         //some more dialog
+        landingDialog.Play();
+        while(landingDialog.isPlaying)
+            yield return null;
+
+        sumForceIllustrationGO.SetActive(true);
+
+        sumForceDialog.Play();
+        while(sumForceDialog.isPlaying)
+            yield return null;
+
+        sumForceIllustrationGO.SetActive(false);
 
         //princess
         StartCoroutine(DoPrincessDistress());
+
+        //some more dialog
+        beginGameDialog.Play();
+        while(beginGameDialog.isPlaying)
+            yield return null;
 
         //show interaction
         interfaceRootGO.SetActive(true);
@@ -158,6 +198,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         //next level
         //GameData.instance.Progress();
+        M8.UIModal.Manager.instance.ModalCloseAll();
         M8.UIModal.Manager.instance.ModalOpen(victoryModal);
     }
 
