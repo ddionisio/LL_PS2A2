@@ -27,9 +27,11 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public Transform block1StartPt;
     [M8.TagSelector]
     public string block1GoalTag;
-    public GameObject blockLabelHighlightGO;
 
     public ModalDialogController inertiaDialog1;
+
+    public AnimatorEnterExit inertiaIllustrationAnim;
+
     public ModalDialogController inertiaDialog2;
 
     public Rigidbody2DMoveController block2;
@@ -70,6 +72,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         titleAnim.gameObject.SetActive(false);
         motionIllustrationAnim.gameObject.SetActive(false);
+        inertiaIllustrationAnim.gameObject.SetActive(false);
 
         sumForceIllustrationGO.SetActive(false);
 
@@ -78,9 +81,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         princessGO.SetActive(false);
 
         victoryGO.SetActive(false);
-
-        blockLabelHighlightGO.SetActive(false);
-
+        
         block1.transform.position = block1StartPt.position;
 
         block2.transform.position = block2StartPt.position;
@@ -180,13 +181,15 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         while(inertiaDialog1.isPlaying)
             yield return null;
 
-        blockLabelHighlightGO.SetActive(true);
+        inertiaIllustrationAnim.gameObject.SetActive(true);
+        yield return inertiaIllustrationAnim.PlayEnterWait();
 
         inertiaDialog2.Play();
         while(inertiaDialog2.isPlaying)
             yield return null;
-
-        blockLabelHighlightGO.SetActive(false);
+                
+        yield return inertiaIllustrationAnim.PlayExitWait();
+        inertiaIllustrationAnim.gameObject.SetActive(false);
         //
 
         //block 2 ready
