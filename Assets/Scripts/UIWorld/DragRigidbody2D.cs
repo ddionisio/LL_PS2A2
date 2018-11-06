@@ -17,8 +17,10 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public bool dragLockX; //lock X to body's x position
     public bool dragLockY; //lock Y to body's y position
 
-    public Sprite dragSpriteIcon;    
+    public Sprite dragSpriteIcon;
+    public M8.SpriteColorGroup dragColorGroup;
     public GameObject dragActiveGO; //activated during drag
+    public Color dragActiveColor = Color.white; //color to apply to dragColorGroup while dragging
     public GameObject dragInactiveGO; //deactivate during drag
     public Transform dragDisplayRoot; //this is the one that gets moved as drag happens
 
@@ -203,6 +205,7 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
 
             if(dragActiveGO) dragActiveGO.SetActive(true);
+            if(dragColorGroup) dragColorGroup.ApplyColor(dragActiveColor);
             if(dragInactiveGO) dragInactiveGO.SetActive(false);
             if(dragDisplayRoot) dragDisplayRoot.gameObject.SetActive(true);
         }
@@ -213,6 +216,7 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
 
             if(dragActiveGO) dragActiveGO.SetActive(false);
+            if(dragColorGroup) dragColorGroup.Revert();
             if(dragInactiveGO) dragInactiveGO.SetActive(true);
             if(dragDisplayRoot) dragDisplayRoot.gameObject.SetActive(false);
         }
