@@ -11,13 +11,16 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
 
     //TODO: figure out randomization of left side object
     public Rigidbody2D itemBody;
-
-    [Header("Display")]
-    public Text resultAnswerLabel;
-    public Text resultInputLabel;
-
+    public float[] itemBodyMasses;
+    public Transform itemStartPoint;
+    
     [Header("Sequence")]
-    public GameObject header;
+    public ModalDialogController introDialog;
+    public GameObject illustrateGO;
+    public ModalDialogController illustrateDialog;
+    public float treasureDialogStartDelay = 2f;
+    public ModalDialogController treasureDialog;
+    public string modalVictory;
 
     [Header("Signals")]
     public M8.Signal signalTreasureOpened;
@@ -34,8 +37,6 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
-
-        header.SetActive(false);
 
         //setup interactives
         var interactGOs = GameObject.FindGameObjectsWithTag(interactTag);
@@ -55,10 +56,12 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         dragCursor.gameObject.SetActive(false);
         //
 
-        //setup left side weight
-        //determine what item to show, what the weight is
-        
-        itemBody.gameObject.SetActive(false);
+        illustrateGO.gameObject.SetActive(false);
+
+        //setup item
+        itemBody.transform.position = itemStartPoint.position;
+        itemBody.mass = itemBodyMasses[Random.Range(0, itemBodyMasses.Length)];
+        itemBody.gameObject.SetActive(false);        
         //
 
         signalTreasureOpened.callback += OnSignalTreasureOpened;
@@ -69,9 +72,29 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         yield return base.Start();
 
         //intro
+        yield return new WaitForSeconds(0.5f);
+
+        introDialog.Play();
+        while(introDialog.isPlaying)
+            yield return null;
+
+        //illustrate
+        illustrateGO.SetActive(true);
+
+        illustrateDialog.Play();
+        while(illustrateDialog.isPlaying)
+            yield return null;
+
+        illustrateGO.SetActive(false);
 
         //show left side weight
         itemBody.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(treasureDialogStartDelay);
+
+        treasureDialog.Play();
+        while(treasureDialog.isPlaying)
+            yield return null;
 
         //enable play
         SetInteractiveEnabled(true);
@@ -94,6 +117,6 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     }
 
     void OnSignalShowNext() {
-        Debug.Log("NEXT");
+        M8.UIModal.Manager.instance.ModalOpen(modalVictory);
     }
 }

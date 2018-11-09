@@ -106,6 +106,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6402477a145a3a14b835811332b9fb40, type: 3}
   - {fileID: 21300000, guid: c1f5fc9afb034f74aac8e0be2bdbc03e, type: 3}
   - {fileID: 21300000, guid: abde09da76107124dabbf1496430d911, type: 3}
+  - {fileID: 21300000, guid: bddb662b911e1c243ae530e436e0fe1b, type: 3}
   - {fileID: 21300000, guid: 57d2f97b3c7997547a755d7a0eb581e9, type: 3}
   - {fileID: 21300000, guid: d50ec28b101991a4a91ae8a711ed5599, type: 3}
   - {fileID: 21300000, guid: d8c01a8bb74f85f4195fa213e9932844, type: 3}
@@ -183,6 +184,7 @@ SpriteAtlas:
   - knight_push1
   - nextArrow
   - puff08
+  - cycleArrow
   - frame
   - goblin_idle2
   - platePanel
