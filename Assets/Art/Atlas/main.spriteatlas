@@ -65,16 +65,20 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fde78cf21a65a2248a76a1c56c4b2bdf, type: 3}
   - {fileID: 21300000, guid: f09376230546e5e4ebe4f92e26b46133, type: 3}
   - {fileID: 21300000, guid: 48bb4343820a6cb48a9858df40ae71c0, type: 3}
+  - {fileID: 21300000, guid: 58723a436fc8850478dbca1deef763cd, type: 3}
   - {fileID: 21300000, guid: 5cb2d383447a0c2459c5d3dd3bd20e13, type: 3}
   - {fileID: 21300000, guid: 525ff3d3f42a6d941bddbafaba567ba2, type: 3}
+  - {fileID: 21300000, guid: f8d800f3a28f3bd409eeb5bf6f187952, type: 3}
   - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
   - {fileID: 21300000, guid: 5670e0b407e9a92439a04022c216ceb3, type: 3}
   - {fileID: 21300000, guid: d5c6c61503562a445975ca1cc41d39b1, type: 3}
   - {fileID: 21300000, guid: 43e03625f5b720d478dc4722ccad034f, type: 3}
   - {fileID: 21300000, guid: 2d2d723522fdad642b69de406fb7e21b, type: 3}
+  - {fileID: 21300000, guid: 0e07e0456ea94494fbeff1cb310382f4, type: 3}
   - {fileID: 21300000, guid: 7428624581668694ca5e5ec7e287bb0d, type: 3}
   - {fileID: 21300000, guid: acc693e53995d994db00a2e827df4731, type: 3}
   - {fileID: 21300000, guid: 6dbc24065d948454b8d3830139b6edb1, type: 3}
+  - {fileID: 21300000, guid: c003ca86d84f581448549280afdefe7c, type: 3}
   - {fileID: 21300000, guid: 833257f6cb1a9d241b3fc454fef9d45a, type: 3}
   - {fileID: 21300000, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
   - {fileID: 21300002, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
@@ -138,16 +142,20 @@ SpriteAtlas:
   - portraitRobot
   - block
   - princess_help2
+  - pointerPanelBase
   - cannonBallSmall
   - puff07
+  - gear
   - baseGradient
   - goblin_hop2
   - goblin_idle1
   - crateFill
   - square
+  - pointerPanelFrame
   - wrongX
   - frameTiny
   - frame2
+  - iconUnlock
   - circle16x16
   - tutorialArrow2_invert
   - tutorialArrow2_invert_bottom

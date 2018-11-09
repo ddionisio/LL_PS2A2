@@ -93,7 +93,7 @@ public class DragRigidbody2D : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
     
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {
-        if(!_dragCursor)
+        if(!_dragCursor || !isDragEnabled)
             return;
 
         UpdatePointerEventData(eventData);

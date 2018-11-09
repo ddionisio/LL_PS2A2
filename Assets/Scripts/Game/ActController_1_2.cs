@@ -18,22 +18,16 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
 
     [Header("Sequence")]
     public GameObject header;
-    public GameObject question;
-    public GameObject result;
 
-    [Header("Signal")]
-    public SignalFloat signalNumberProceed;
-    public M8.Signal signalProceed;
-
-    private DragRigidbody2D[] mDragBodies;
-
-    private bool mIsProceedWait;
-    private float mProceedNumber;
-    private float mAnswerNumber;
+    [Header("Signals")]
+    public M8.Signal signalTreasureOpened;
+    public M8.Signal signalShowNext;
     
+    private DragRigidbody2D[] mDragBodies;
+        
     protected override void OnInstanceDeinit() {
-        signalNumberProceed.callback -= OnSignalNumberProceed;
-        signalProceed.callback -= OnSignalProceed;
+        signalTreasureOpened.callback -= OnSignalTreasureOpened;
+        signalShowNext.callback -= OnSignalShowNext;
 
         base.OnInstanceDeinit();
     }
@@ -42,8 +36,6 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         base.OnInstanceInit();
 
         header.SetActive(false);
-        question.SetActive(false);
-        result.SetActive(false);
 
         //setup interactives
         var interactGOs = GameObject.FindGameObjectsWithTag(interactTag);
@@ -66,15 +58,11 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         //setup left side weight
         //determine what item to show, what the weight is
         
-        //apply answer
-        mAnswerNumber = itemBody.mass;
-        resultAnswerLabel.text = mAnswerNumber.ToString();
-
         itemBody.gameObject.SetActive(false);
         //
 
-        signalNumberProceed.callback += OnSignalNumberProceed;
-        signalProceed.callback += OnSignalProceed;
+        signalTreasureOpened.callback += OnSignalTreasureOpened;
+        signalShowNext.callback += OnSignalShowNext;
     }
 
     protected override IEnumerator Start() {
@@ -89,45 +77,23 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         SetInteractiveEnabled(true);
 
         //drag instruction
+        
+        //SetInteractiveEnabled(false);
 
-        //show question
-        question.SetActive(true);
-
-        //wait for button proceed
-        mIsProceedWait = true;
-        while(mIsProceedWait)
-            yield return null;
-
-        SetInteractiveEnabled(false);
-
-        //apply input
-        resultInputLabel.text = mProceedNumber.ToString();
-
-        //show result
-        result.SetActive(true);
-
-        //other stuff
-
-        //wait for button proceed
-        mIsProceedWait = true;
-        while(mIsProceedWait)
-            yield return null;
-
-        GameData.instance.Progress();
+        //GameData.instance.Progress();
     }
-
-    void OnSignalNumberProceed(float val) {
-        mProceedNumber = val;
-        mIsProceedWait = false;
-    }
-
-    void OnSignalProceed() {
-        mIsProceedWait = false;
-    }
-
+    
     private void SetInteractiveEnabled(bool aEnabled) {
         for(int i = 0; i < mDragBodies.Length; i++) {
             mDragBodies[i].isDragEnabled = aEnabled;
         }
+    }
+
+    void OnSignalTreasureOpened() {
+        SetInteractiveEnabled(false);
+    }
+
+    void OnSignalShowNext() {
+        Debug.Log("NEXT");
     }
 }
