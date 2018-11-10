@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActController_2_1 : ActCannonController {
-    [Header("Sequence")]
-    public GameObject header;
-
+    
     protected override void OnInstanceDeinit() {
         //
         
@@ -42,18 +40,9 @@ public class ActController_2_1 : ActCannonController {
 
         //enable force input
         forceSlider.interactable = true;
-                        
-        //wait for proceed
-        mIsNextWait = true;
-        while(mIsNextWait)
-            yield return null;
-
-        //progress
-        GameData.instance.Progress();
     }
 
     protected override void OnFinish() {
-        //enable next
-        nextInterfaceGO.SetActive(true);
+        //victory
     }
 }

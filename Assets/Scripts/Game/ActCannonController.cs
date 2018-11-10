@@ -22,7 +22,6 @@ public class ActCannonController : GameModeController<ActCannonController> {
     [Header("General Interface")]
     public GameObject cannonInterfaceGO;
     public Selectable cannonLaunch;
-    public GameObject nextInterfaceGO;    
 
     [Header("Data")]
     public int cannonballCount = 10;
@@ -34,7 +33,6 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     [Header("Signals")]
     public M8.Signal signalLaunched;
-    public M8.Signal signalNext;
 
     public int cannonballLaunced { get { return mCannonballLaunched; } }
 
@@ -43,7 +41,6 @@ public class ActCannonController : GameModeController<ActCannonController> {
     protected bool mIsCannonballFree = false; //set to true to not decrement cannonball count on launch
 
     protected bool mIsLaunchWait = false;
-    protected bool mIsNextWait = false;
 
     private int mCannonballLaunched = 0;
 
@@ -86,18 +83,15 @@ public class ActCannonController : GameModeController<ActCannonController> {
         }
 
         signalLaunched.callback += OnSignalLaunched;
-        signalNext.callback += OnSignalNext;
 
         //start with interfaces hidden and disabled
         cannonInterfaceGO.SetActive(false);
-        nextInterfaceGO.SetActive(false);
 
         SetInteractiveEnable(false);
     }
 
     protected override void OnInstanceDeinit() {
         signalLaunched.callback -= OnSignalLaunched;
-        signalNext.callback -= OnSignalNext;
 
         if(mActiveTargets != null) {
             for(int i = 0; i < mActiveTargets.Count; i++) {
@@ -131,10 +125,6 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
         if(cannonballLaunchedCallback != null)
             cannonballLaunchedCallback();
-    }
-
-    protected virtual void OnSignalNext() {
-        mIsNextWait = false;
     }
 
     protected void SetInteractiveEnable(bool interact) {

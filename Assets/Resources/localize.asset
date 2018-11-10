@@ -28,3 +28,5 @@ MonoBehaviour:
     voiceDuration: 3
   - key: newton_first_law_title
     voiceDuration: 2
+  - key: newton_first_law_inertia_2_victory
+    voiceDuration: 4

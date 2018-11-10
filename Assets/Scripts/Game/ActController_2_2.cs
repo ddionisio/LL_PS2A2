@@ -45,18 +45,9 @@ public class ActController_2_2 : ActCannonController {
         //enable force/angle input
         angleSlider.interactable = true;
         forceSlider.interactable = true;
-
-        //wait for proceed
-        mIsNextWait = true;
-        while(mIsNextWait)
-            yield return null;
-
-        //progress
-        GameData.instance.Progress();
+        
     }
 
     protected override void OnFinish() {
-        //enable next
-        nextInterfaceGO.SetActive(true);
     }
 }

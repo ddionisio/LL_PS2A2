@@ -34,6 +34,7 @@
     "forcePush": "Force Push",
     "forceZeroNetForce": "0 Net Force",
     "weight": "Weight",
+    "launch": "LAUNCH",
     "newton_first_law_dlg_1": "A net external force is the sum of all forces acting on the object. If the net external force is zero, then there is no acceleration.",
     "newton_first_law_dlg_1_2": "I will now drop a large object from the sky to demonstrate.",
     "newton_first_law_dlg_2": "There are two forces currently acting on this object: gravity and normal force.",
