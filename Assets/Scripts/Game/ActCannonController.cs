@@ -29,7 +29,10 @@ public class ActCannonController : GameModeController<ActCannonController> {
     [Header("Targets")]
     [M8.TagSelector]
     public string targetTag;
+    public M8.EntityState targetStateSpawn;
     public M8.EntityState targetStateDespawn;
+    public float targetDelayMin;
+    public float targetDelayMax;
 
     [Header("Signals")]
     public M8.Signal signalLaunched;
@@ -44,7 +47,11 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     private int mCannonballLaunched = 0;
 
-    private M8.CacheList<M8.EntityBase> mActiveTargets;
+    private M8.CacheList<UnitEntity> mActiveTargets;
+
+    public void ShowTargets() {
+        StartCoroutine(DoTargetsShow());
+    }
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
@@ -65,19 +72,21 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
         var targetGOs = GameObject.FindGameObjectsWithTag(targetTag);
 
-        var entList = new List<M8.EntityBase>();
+        var entList = new List<UnitEntity>();
         for(int i = 0; i < targetGOs.Length; i++) {
-            var ent = targetGOs[i].GetComponent<M8.EntityBase>();
+            var ent = targetGOs[i].GetComponent<UnitEntity>();
             if(ent)
                 entList.Add(ent);
         }
 
-        mActiveTargets = new M8.CacheList<M8.EntityBase>(entList.Count);
+        mActiveTargets = new M8.CacheList<UnitEntity>(entList.Count);
         for(int i = 0; i < entList.Count; i++) {
             var ent = entList[i];
 
             ent.setStateCallback += OnTargetChangeState;
             ent.releaseCallback += OnTargetReleased;
+
+            ent.gameObject.SetActive(false);
 
             mActiveTargets.Add(ent);
         }
@@ -136,7 +145,7 @@ public class ActCannonController : GameModeController<ActCannonController> {
     void OnTargetChangeState(M8.EntityBase ent) {
         //targetStateDespawn
         if(ent.state == targetStateDespawn) {
-            RemoveTarget(ent);
+            RemoveTarget((UnitEntity)ent);
             if(mActiveTargets.Count == 0)
                 OnFinish();
         }
@@ -144,15 +153,32 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     void OnTargetReleased(M8.EntityBase ent) {
         //fail safe if not despawned by released somehow
-        RemoveTarget(ent);
+        RemoveTarget((UnitEntity)ent);
         if(mActiveTargets.Count == 0)
             OnFinish();
     }
 
-    private void RemoveTarget(M8.EntityBase ent) {
+    private void RemoveTarget(UnitEntity ent) {
         if(mActiveTargets.Remove(ent)) {
             ent.setStateCallback -= OnTargetChangeState;
             ent.releaseCallback -= OnTargetReleased;
+        }
+    }
+
+    IEnumerator DoTargetsShow() {
+        for(int i = 0; i < mActiveTargets.Count; i++) {
+            var ent = mActiveTargets[i];
+            if(!ent.gameObject.activeSelf) {
+                ent.gameObject.SetActive(true);
+
+                ent.state = targetStateSpawn;
+
+                yield return new WaitForSeconds(Random.Range(targetDelayMin, targetDelayMax));
+            }
+        }
+
+        for(int i = 0; i < mActiveTargets.Count; i++) {
+            mActiveTargets[i].physicsEnabled = true;
         }
     }
 }

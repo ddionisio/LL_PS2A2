@@ -123,6 +123,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: de9d478e2bcf54a429b14def3d215ffe, type: 3}
   - {fileID: 21300000, guid: 31c7ecce7a756db48a64dec20453a6f2, type: 3}
   - {fileID: 21300000, guid: e2c431fedb5f61c4595be16efbd9f5cc, type: 3}
+  - {fileID: 21300000, guid: abf8370fc0335b040a60604a961bdda6, type: 3}
   - {fileID: 21300000, guid: d100bf3fba8e48343b4f69fe5447d682, type: 3}
   m_PackedSpriteNamesToIndex:
   - frameBottom
@@ -202,6 +203,7 @@ SpriteAtlas:
   - knight_push3
   - stop
   - button
+  - wheel
   - tutorialHandPoint
   m_Tag: main
   m_IsVariant: 0
