@@ -49,6 +49,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ec1d7380b4a816543ae5c51d27cd53e8, type: 3}
   - {fileID: 21300000, guid: e843d4c0768107b498fae5e95476f45c, type: 3}
   - {fileID: 21300000, guid: 6d4849d03b6a83240acbeef60ddd429a, type: 3}
+  - {fileID: 21300000, guid: 16ec1f012196d7d4b854c5bc30208390, type: 3}
   - {fileID: 21300000, guid: 7320901117f95df4ab2188484a336396, type: 3}
   - {fileID: 21300000, guid: 50e22321d94a8b444b87ec532b5ac9d4, type: 3}
   - {fileID: 21300000, guid: f5e4e72120ff0af48bb1cecbea5cc258, type: 3}
@@ -129,6 +130,7 @@ SpriteAtlas:
   - frameBottom
   - goblin_move1
   - goblin_hop1
+  - graphIcon
   - puff02
   - knight_move2
   - crateFrame

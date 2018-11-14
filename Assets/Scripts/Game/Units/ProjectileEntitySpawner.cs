@@ -17,9 +17,7 @@ public class ProjectileEntitySpawner : MonoBehaviour {
 
     [Header("Spawn Data")]
     public Transform spawnPoint;
-
-    public event System.Action<M8.EntityBase> spawnCallback;
-
+    
     private M8.PoolController mPool;
 
     private Vector2 mDir;
@@ -45,7 +43,7 @@ public class ProjectileEntitySpawner : MonoBehaviour {
         mIsDirSet = true;
     }
 
-    public void Spawn() {
+    public M8.EntityBase Spawn() {
         if(!mIsForceSet)
             SetForce(forceDefault);
         if(!mIsDirSet)
@@ -58,8 +56,7 @@ public class ProjectileEntitySpawner : MonoBehaviour {
 
         var ent = mPool.Spawn<M8.EntityBase>(template.name, "", null, parms);
 
-        if(spawnCallback != null)
-            spawnCallback(ent);
+        return ent;
     }
 
     void Awake() {

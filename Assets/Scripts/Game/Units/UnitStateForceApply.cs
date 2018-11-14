@@ -17,7 +17,8 @@ public class UnitStateForceApply : MonoBehaviour, M8.IPoolSpawn {
     public GameObject activeGO;
     public GameObject inactiveGO;
 
-    private bool mIsPlaying;
+    public bool isPlaying { get; private set; }
+
     private float mCurTime;
     private float mCurTimeInterval;
 
@@ -29,7 +30,7 @@ public class UnitStateForceApply : MonoBehaviour, M8.IPoolSpawn {
         if(startDelay > 0f)
             StartCoroutine(DoPlayDelay());
         else {
-            mIsPlaying = true;
+            isPlaying = true;
             ApplyPlayingState();
         }
     }
@@ -56,7 +57,7 @@ public class UnitStateForceApply : MonoBehaviour, M8.IPoolSpawn {
     }
 
     void FixedUpdate() {
-        if(mIsPlaying) {
+        if(isPlaying) {
             if(mCurTimeInterval < interval) {                
                 mCurTimeInterval += Time.fixedDeltaTime;
                 return;
@@ -99,17 +100,17 @@ public class UnitStateForceApply : MonoBehaviour, M8.IPoolSpawn {
     
     IEnumerator DoPlayDelay() {
         yield return new WaitForSeconds(startDelay);
-        mIsPlaying = true;
+        isPlaying = true;
         ApplyPlayingState();
     }
 
     private void ApplyPlayingState() {
-        if(activeGO) activeGO.SetActive(mIsPlaying);
-        if(inactiveGO) inactiveGO.SetActive(!mIsPlaying);
+        if(activeGO) activeGO.SetActive(isPlaying);
+        if(inactiveGO) inactiveGO.SetActive(!isPlaying);
     }
 
     private void ResetPlay() {
-        mIsPlaying = false;
+        isPlaying = false;
         mCurTime = 0f;
         mCurTimeInterval = 0f;
 

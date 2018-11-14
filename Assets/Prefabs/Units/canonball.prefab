@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 58419544740289906}
   - component: {fileID: 114422366759949890}
   - component: {fileID: 114274849813202046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: canonball
   m_TagString: Projectile
   m_Icon: {fileID: 0}

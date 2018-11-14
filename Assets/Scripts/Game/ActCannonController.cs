@@ -21,10 +21,12 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     [Header("General Interface")]
     public GameObject cannonInterfaceGO;
-    public Selectable cannonLaunch;
-
+    public Button cannonLaunch;
+    public Button graphButton;
+    
     [Header("Data")]
     public int cannonballCount = 10;
+    public ProjectileEntitySpawner cannonballSpawner;
 
     [Header("Targets")]
     [M8.TagSelector]
@@ -34,8 +36,13 @@ public class ActCannonController : GameModeController<ActCannonController> {
     public float targetDelayMin;
     public float targetDelayMax;
 
-    [Header("Signals")]
-    public M8.Signal signalLaunched;
+    [Header("Graph")]
+    public GameObject graphGO;
+    public GraphLineWidget graphPosition;
+    public GraphBarWidget graphVelocity;
+    public GraphBarWidget graphAccel;
+
+    public TracerRigidbody2D tracer;
 
     public int cannonballLaunced { get { return mCannonballLaunched; } }
 
@@ -60,6 +67,7 @@ public class ActCannonController : GameModeController<ActCannonController> {
             forceSlider.minValue = forceMin;
             forceSlider.maxValue = forceMax;
             forceSlider.value = forceStart;
+            forceSlider.onValueChanged.Invoke(forceStart);
         }
 
         if(angleSlider) {
@@ -68,6 +76,7 @@ public class ActCannonController : GameModeController<ActCannonController> {
             angleSlider.startAngle = -angleMin;
             angleSlider.endAngle = -angleMax;
             angleSlider.value = angleStart;
+            angleSlider.onValueChanged.Invoke(angleStart);
         }
 
         var targetGOs = GameObject.FindGameObjectsWithTag(targetTag);
@@ -91,7 +100,12 @@ public class ActCannonController : GameModeController<ActCannonController> {
             mActiveTargets.Add(ent);
         }
 
-        signalLaunched.callback += OnSignalLaunched;
+        cannonLaunch.onClick.AddListener(OnLaunched);
+
+        graphButton.onClick.AddListener(OnShowGraph);
+        graphButton.interactable = false;
+
+        graphGO.SetActive(false);
 
         //start with interfaces hidden and disabled
         cannonInterfaceGO.SetActive(false);
@@ -100,8 +114,6 @@ public class ActCannonController : GameModeController<ActCannonController> {
     }
 
     protected override void OnInstanceDeinit() {
-        signalLaunched.callback -= OnSignalLaunched;
-
         if(mActiveTargets != null) {
             for(int i = 0; i < mActiveTargets.Count; i++) {
                 if(mActiveTargets[i]) {
@@ -119,7 +131,9 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     }
 
-    protected virtual void OnSignalLaunched() {
+    protected virtual void OnLaunched() {
+        graphButton.interactable = false;
+
         mIsLaunchWait = false;
 
         if(!mIsCannonballFree) {
@@ -134,6 +148,19 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
         if(cannonballLaunchedCallback != null)
             cannonballLaunchedCallback();
+    }
+
+    protected virtual void OnShowGraph() {
+        graphGO.SetActive(true);
+    }
+
+    protected void GraphPopulate() {
+        //populate graphs
+        /*public GraphLineWidget graphPosition;
+    public GraphBarWidget graphVelocity;
+    public GraphBarWidget graphAccel;*/
+
+        graphButton.interactable = true;
     }
 
     protected void SetInteractiveEnable(bool interact) {
