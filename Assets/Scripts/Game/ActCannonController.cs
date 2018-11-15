@@ -38,9 +38,12 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     [Header("Graph")]
     public GameObject graphGO;
-    public GraphLineWidget graphPosition;
-    public GraphBarWidget graphVelocity;
-    public GraphBarWidget graphAccel;
+    public Slider graphTimeSlider;
+    public Text graphTimeMaxLabel;    
+    public float graphTimeStep = 0.1f;
+    public GraphLineWidget graphXPosition;
+    public GraphBarWidget graphXVelocity;
+    public GraphBarWidget graphXAccel;
 
     public TracerRigidbody2D tracer;
 
@@ -55,6 +58,9 @@ public class ActCannonController : GameModeController<ActCannonController> {
     private int mCannonballLaunched = 0;
 
     private M8.CacheList<UnitEntity> mActiveTargets;
+
+    private int mGraphCurStartIndex;
+    private int mGraphTimeCount;
 
     public void ShowTargets() {
         StartCoroutine(DoTargetsShow());
@@ -104,6 +110,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
         graphButton.onClick.AddListener(OnShowGraph);
         graphButton.interactable = false;
+
+        graphTimeSlider.onValueChanged.AddListener(OnGraphTimeSlider);
 
         graphGO.SetActive(false);
 
@@ -155,12 +163,96 @@ public class ActCannonController : GameModeController<ActCannonController> {
     }
 
     protected void GraphPopulate() {
+        if(tracer.points.Count == 0) {
+            graphButton.interactable = false;
+            return;
+        }
+
+        /*private int mGraphCurStartIndex;
+    private int mGraphTimeCount;*/
+
+        mGraphCurStartIndex = 0;
+
+        UpdateGraph();
+
+        //setup slider
+        int count = graphXPosition.barHorizontalCount;
+        float timeDuration = tracer.points.Count * graphTimeStep;
+
+        if(tracer.points.Count > count) {
+            graphTimeSlider.interactable = true;
+            graphTimeSlider.minValue = 0f;
+            graphTimeSlider.maxValue = tracer.points.Count - count;
+            graphTimeMaxLabel.text = (graphTimeSlider.maxValue * graphTimeStep).ToString("0.0");
+        }
+        else {
+            graphTimeSlider.interactable = false;
+            graphTimeMaxLabel.text = timeDuration.ToString("0.0");
+        }
+
+        graphTimeSlider.value = 0f;
+
+        graphButton.interactable = true;
+    }
+
+    private void UpdateGraph() {
+        if(tracer.points.Count == 0)
+            return;
+
+        int count = graphXPosition.barHorizontalCount;
+        float timeDuration = count * graphTimeStep;
+        float graphXStep = timeDuration / (count - 1);
+
+        float timeMin = mGraphCurStartIndex * graphTimeStep;
+        float timeMax = timeMin + timeDuration;
+
         //populate graphs
+        int pointCount = Mathf.Min(count, tracer.points.Count - mGraphCurStartIndex);
+
+        var startPt = tracer.points[0].position;
+
+        //get min/max
+        Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+        Vector2 max = new Vector2(float.MinValue, float.MinValue);
+
+        for(int i = 0; i < pointCount; i++) {
+            var pt = tracer.points[mGraphCurStartIndex + i];
+
+            var pos = pt.position - startPt;
+
+            if(pos.x < min.x)
+                min.x = pos.x;
+            if(pos.x > max.x)
+                max.x = pos.x;
+
+            if(pos.y < min.y)
+                min.y = pos.y;
+            if(pos.y > max.y)
+                max.y = pos.y;
+        }
+
+        //x graph
+        graphXPosition.Setup(timeMin, timeMax, min.x, max.x);
+
+        for(int i = 0; i < pointCount; i++) {
+            var pt = tracer.points[mGraphCurStartIndex + i];
+
+            var pos = pt.position - startPt;
+
+            graphXPosition.Plot(timeMin + graphXStep * i, pos.x);
+        }
+
         /*public GraphLineWidget graphPosition;
     public GraphBarWidget graphVelocity;
     public GraphBarWidget graphAccel;*/
+    }
 
-        graphButton.interactable = true;
+    void OnGraphTimeSlider(float val) {
+        int ind = Mathf.RoundToInt(val);
+        if(mGraphCurStartIndex != ind) {
+            mGraphCurStartIndex = ind;
+            UpdateGraph();
+        }
     }
 
     protected void SetInteractiveEnable(bool interact) {
