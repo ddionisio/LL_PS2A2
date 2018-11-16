@@ -86,8 +86,8 @@ public class ActController_2_1 : ActCannonController {
         while(!unitForceApply.unit.physicsEnabled)
             yield return null;
 
-        tracer.body = unitForceApply.unit.body;
-        tracer.Record();
+        graphControl.tracer.body = unitForceApply.unit.body;
+        graphControl.tracer.Record();
 
         //push
         knightAnimator.Play(knightTakePush);
@@ -132,7 +132,7 @@ public class ActController_2_1 : ActCannonController {
             yield return null;
 
         //wait for tracer to finish
-        while(tracer.isRecording)
+        while(graphControl.tracer.isRecording)
             yield return null;
 
         cannonLaunch.interactable = true;
