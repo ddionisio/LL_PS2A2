@@ -46,6 +46,7 @@ SpriteAtlas:
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 20b84e50a13858b4396b901cb2518757, type: 3}
   - {fileID: 21300000, guid: ec1d7380b4a816543ae5c51d27cd53e8, type: 3}
   - {fileID: 21300000, guid: e843d4c0768107b498fae5e95476f45c, type: 3}
   - {fileID: 21300000, guid: 6d4849d03b6a83240acbeef60ddd429a, type: 3}
@@ -127,6 +128,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: abf8370fc0335b040a60604a961bdda6, type: 3}
   - {fileID: 21300000, guid: d100bf3fba8e48343b4f69fe5447d682, type: 3}
   m_PackedSpriteNamesToIndex:
+  - roundRect
   - frameBottom
   - goblin_move1
   - goblin_hop1

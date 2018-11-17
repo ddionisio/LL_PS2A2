@@ -12,35 +12,55 @@ public class TracerGraphControl : MonoBehaviour {
     public float graphTimeStep = 0.1f;
 
     [Header("X-axis")]
+    public GameObject[] graphXGOs;
     public GraphLineWidget graphXPosition;
     public GraphLineWidget graphXVelocity;
     public GraphLineWidget graphXAccel;
 
     [Header("Y-axis")]
+    public GameObject[] graphYGOs;
     public GraphLineWidget graphYPosition;
     public GraphLineWidget graphYVelocity;
     public GraphLineWidget graphYAccel;
 
     private int mGraphCurStartIndex;
     private int mGraphTimeCount;
-
-    void Awake() {
-        graphGO.SetActive(false);
-
-        graphTimeSlider.onValueChanged.AddListener(OnGraphTimeSlider);
-    }
-
+            
     public void ShowGraph() {
         graphGO.SetActive(true);
+
+        //default to X-axis
+        ShowGraphX();
+    }
+
+    public void ShowGraphX() {
+        for(int i = 0; i < graphXGOs.Length; i++) {
+            if(graphXGOs[i])
+                graphXGOs[i].SetActive(true);
+        }
+
+        for(int i = 0; i < graphYGOs.Length; i++) {
+            if(graphYGOs[i])
+                graphYGOs[i].SetActive(false);
+        }
+    }
+
+    public void ShowGraphY() {
+        for(int i = 0; i < graphYGOs.Length; i++) {
+            if(graphYGOs[i])
+                graphYGOs[i].SetActive(true);
+        }
+
+        for(int i = 0; i < graphXGOs.Length; i++) {
+            if(graphXGOs[i])
+                graphXGOs[i].SetActive(false);
+        }
     }
 
     public void GraphPopulate() {
         if(tracer.points.Count == 0)
             return;
-
-        /*private int mGraphCurStartIndex;
-    private int mGraphTimeCount;*/
-
+        
         mGraphCurStartIndex = 0;
 
         UpdateGraph();
@@ -63,6 +83,12 @@ public class TracerGraphControl : MonoBehaviour {
         graphTimeSlider.value = 0f;
     }
 
+    void Awake() {
+        graphGO.SetActive(false);
+
+        graphTimeSlider.onValueChanged.AddListener(OnGraphTimeSlider);
+    }
+
     private void UpdateGraph() {
         if(tracer.points.Count == 0)
             return;
@@ -83,6 +109,7 @@ public class TracerGraphControl : MonoBehaviour {
         var minPos = tracer.minPosition - startPt;
         var maxPos = tracer.maxPosition - startPt;
 
+        //x-axis setup
         if(minPos.x != maxPos.x)
             graphXPosition.Setup(timeMin, timeMax, minPos.x, maxPos.x);
         else
@@ -98,6 +125,22 @@ public class TracerGraphControl : MonoBehaviour {
         else
             graphXAccel.Setup(timeMin, timeMax, tracer.minAccelApprox.x <= 0f ? tracer.minAccelApprox.x : 0f, tracer.maxAccelApprox.x + 1.0f);
 
+        //y-axis setup
+        if(minPos.y != maxPos.y)
+            graphYPosition.Setup(timeMin, timeMax, minPos.y, maxPos.y);
+        else
+            graphYPosition.Setup(timeMin, timeMax, minPos.y, minPos.y + 1.0f);
+
+        if(tracer.minVelocity.y != tracer.maxVelocity.y)
+            graphYVelocity.Setup(timeMin, timeMax, tracer.minVelocity.y <= 0f ? tracer.minVelocity.y : 0f, tracer.maxVelocity.y);
+        else
+            graphYVelocity.Setup(timeMin, timeMax, tracer.minVelocity.y <= 0f ? tracer.minVelocity.y : 0f, tracer.maxVelocity.y + 1.0f);
+
+        if(tracer.minAccelApprox.y != tracer.maxAccelApprox.y)
+            graphYAccel.Setup(timeMin, timeMax, tracer.minAccelApprox.y <= 0f ? tracer.minAccelApprox.y : 0f, tracer.maxAccelApprox.y);
+        else
+            graphYAccel.Setup(timeMin, timeMax, tracer.minAccelApprox.y <= 0f ? tracer.minAccelApprox.y : 0f, tracer.maxAccelApprox.y + 1.0f);
+
         for(int i = 0; i < pointCount; i++) {
             var pt = tracer.points[mGraphCurStartIndex + i];
 
@@ -110,11 +153,11 @@ public class TracerGraphControl : MonoBehaviour {
             graphXPosition.Plot(t, pos.x);
             graphXVelocity.Plot(t, vel.x);
             graphXAccel.Plot(t, accel.x);
-        }
 
-        /*public GraphLineWidget graphPosition;
-    public GraphBarWidget graphVelocity;
-    public GraphBarWidget graphAccel;*/
+            graphYPosition.Plot(t, pos.y);
+            graphYVelocity.Plot(t, vel.y);
+            graphYAccel.Plot(t, accel.y);
+        }
     }
 
     void OnGraphTimeSlider(float val) {

@@ -51,6 +51,11 @@ public class TracerRigidbody2D : MonoBehaviour {
     private M8.PoolController mPool;
 
     private Coroutine mRecordRout;
+
+    private ContactPoint2D[] mBodyContacts = new ContactPoint2D[16];
+    private int mBodyContactCount;
+
+    private bool mIsInit;
     
     public void Record() {
         Clear();
@@ -70,6 +75,8 @@ public class TracerRigidbody2D : MonoBehaviour {
     }
 
     public void Clear() {
+        Init();
+
         mPool.ReleaseAllByType(template.name);
         points.Clear();
     }
@@ -78,11 +85,15 @@ public class TracerRigidbody2D : MonoBehaviour {
         Stop();
     }
 
-    void Awake() {
-        mPool = M8.PoolController.CreatePool(poolGroup);
-        mPool.AddType(template, capacity, capacity);
+    private void Init() {
+        if(!mIsInit) {
+            mPool = M8.PoolController.CreatePool(poolGroup);
+            mPool.AddType(template, capacity, capacity);
 
-        points = new M8.CacheList<PointData>(capacity);
+            points = new M8.CacheList<PointData>(capacity);
+
+            mIsInit = true;
+        }
     }
 
     IEnumerator DoRecording() {
@@ -99,10 +110,17 @@ public class TracerRigidbody2D : MonoBehaviour {
                 vel = (pt - points[points.Count - 1].position) / timeInterval;
 
             Vector2 accel;
-            if(points.Count == 0)
-                accel = Vector2.zero;
+
+            //cheat
+            mBodyContactCount = mBody.GetContacts(mBodyContacts);
+            if(mBodyContactCount == 0)
+                accel = mBody.gravityScale * Physics2D.gravity;
             else {
-                accel = (vel - points[points.Count - 1].velocity) / timeInterval;
+                if(points.Count == 0)
+                    accel = Vector2.zero;
+                else {
+                    accel = (vel - points[points.Count - 1].velocity) / timeInterval;
+                }
             }
 
             mPool.Spawn(template.name, points.Count.ToString(), null, pt, null);
