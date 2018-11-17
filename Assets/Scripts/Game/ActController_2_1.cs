@@ -21,6 +21,12 @@ public class ActController_2_1 : ActCannonController {
     public float knightReturnDelay;
     public Transform knightReturnPoint;
 
+    [Header("Sequence")]
+    public AnimatorEnterExit seqTitle;
+    public ModalDialogController seqDlgIntro;
+    public AnimatorEnterExit seqIllustrateFormula;
+    public ModalDialogController seqDlgFormula;
+
     protected override void OnInstanceDeinit() {
         //
 
