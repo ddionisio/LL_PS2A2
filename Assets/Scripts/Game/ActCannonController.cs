@@ -66,6 +66,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
             forceSlider.maxValue = forceMax;
             forceSlider.value = forceStart;
             forceSlider.onValueChanged.Invoke(forceStart);
+
+            forceSlider.onValueChanged.AddListener(OnForceValueChanged);
         }
 
         if(angleSlider) {
@@ -150,7 +152,11 @@ public class ActCannonController : GameModeController<ActCannonController> {
         graphControl.ShowGraph();
     }
 
-    protected void GraphPopulate() {
+    protected virtual void OnForceValueChanged(float val) {
+
+    }
+
+    protected void GraphPopulate(bool enableGraphButton) {
         if(graphControl.tracer.points.Count == 0) {
             graphButton.interactable = false;
             return;
@@ -158,7 +164,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
         graphControl.GraphPopulate();
 
-        graphButton.interactable = true;
+        if(enableGraphButton)
+            graphButton.interactable = true;
     }
     
     protected void SetInteractiveEnable(bool interact) {

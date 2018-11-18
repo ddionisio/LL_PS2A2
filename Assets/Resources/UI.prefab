@@ -10782,7 +10782,7 @@ MonoBehaviour:
       endFrame: -1
     - version: 1
       interp: 1
-      frame: 10
+      frame: 20
       easeType: 1
       amplitude: 0
       period: 0
