@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1271210795242006}
+  m_IsPrefabAsset: 1
+--- !u!1 &1271210795242006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4006745056775316}
+  - component: {fileID: 114779980525622268}
+  - component: {fileID: 114561378075982282}
+  m_Layer: 0
+  m_Name: trajectoryDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4006745056775316
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271210795242006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114561378075982282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271210795242006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8ec5e3d2869624ca75dfca41d9a19e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  display: {fileID: 114779980525622268}
+  bodyTarget: {fileID: 50860598490437868, guid: c7fd7a9593d899047a07e0b659350758,
+    type: 2}
+  dir: {x: 1, y: 0}
+  isClockwise: 0
+  duration: 8
+  radiusPadding: 0.2
+--- !u!114 &114779980525622268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271210795242006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87197b1d7bca71e438c50667eb2b5d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  template: {fileID: 1967048643133868, guid: 22c701e1e72c0484d9942f5b95512c54, type: 2}
+  templateRoot: {fileID: 4006745056775316}
+  capacity: 80
+  timeInterval: 0.05
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  collisionEndOnContact: 1
+  collisionEndTagFilter: 

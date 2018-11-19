@@ -112,21 +112,20 @@ public class TracerRigidbody2D : MonoBehaviour {
 
             Vector2 accel;
 
+            if(points.Count == 0)
+                accel = Vector2.zero;
+            else {
+                accel = (vel - points[points.Count - 1].velocity) / timeInterval;
+            }
+
             //cheat
             mBodyContactCount = noContactUseGravityAccelInfo ? mBody.GetContacts(mBodyContacts) : 0;
             if(mBodyContactCount == 0)
-                accel = mBody.gravityScale * Physics2D.gravity;
-            else {
-                if(points.Count == 0)
-                    accel = Vector2.zero;
-                else {
-                    accel = (vel - points[points.Count - 1].velocity) / timeInterval;
-                }
-            }
+                accel.y = (mBody.gravityScale * Physics2D.gravity).y;
 
             mPool.Spawn(template.name, points.Count.ToString(), null, pt, null);
 
-            if(points.Count == 1) {
+            if(points.Count == 0) {
                 mMinPosition = mMaxPosition = pt;
                 mMinVelocity = mMaxVelocity = vel;
                 mMinAccelApprox = mMaxAccelApprox = accel;

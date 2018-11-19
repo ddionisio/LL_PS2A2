@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 50860598490437868}
   - component: {fileID: 58464762933202442}
   - component: {fileID: 114447471493308070}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: canonballLight
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -171,15 +171,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagFilter: 
-  explodeRadius: 3
+  explodeRadius: 2.5
   explodeTagFilter: Target
   explodeLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  explodeForce: 400
+  explodeForce: 300
   explodeForceMode: 0
-  explodeUpwardsModifier: 1
-  explodeApplyWearOff: 1
+  explodeUpwardsModifier: 1.5
+  explodeApplyWearOff: 0
 --- !u!114 &114799805988285136
 MonoBehaviour:
   m_ObjectHideFlags: 1

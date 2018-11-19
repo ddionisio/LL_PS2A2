@@ -29,7 +29,11 @@ public class ActController_2_2 : ActCannonController {
 
         //some other stuff?
 
-        trajectoryDisplayControl.show = true;
+        //show targets
+        ShowTargets();
+
+        if(trajectoryDisplayControl)
+            trajectoryDisplayControl.show = true;
 
         //enable cannon launch        
         cannonLaunch.interactable = true;
@@ -45,9 +49,34 @@ public class ActController_2_2 : ActCannonController {
         //enable force/angle input
         angleSlider.interactable = true;
         forceSlider.interactable = true;
+
         
     }
 
-    protected override void OnFinish() {
+    protected override void OnLaunched() {
+        base.OnLaunched();
+
+        cannonLaunch.interactable = false;
+
+        var ent = cannonballSpawner.Spawn();
+        StartCoroutine(DoLaunch(ent));
+    }
+
+    IEnumerator DoLaunch(M8.EntityBase cannonEnt) {
+        var unitForceApply = cannonEnt.GetComponent<UnitStateForceApply>();
+
+        while(!unitForceApply.unit.physicsEnabled)
+            yield return null;
+
+        graphControl.tracer.body = unitForceApply.unit.body;
+        graphControl.tracer.Record();
+
+        //wait for tracer to finish
+        while(graphControl.tracer.isRecording)
+            yield return null;
+
+        GraphPopulate(true);
+
+        cannonLaunch.interactable = true;
     }
 }
