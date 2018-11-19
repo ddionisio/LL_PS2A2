@@ -32,3 +32,5 @@ MonoBehaviour:
     voiceDuration: 4
   - key: newton_second_law_title
     voiceDuration: 2
+  - key: targetsEliminated
+    voiceDuration: 3

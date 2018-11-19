@@ -8,6 +8,9 @@ public class TracerGraphControl : MonoBehaviour {
 
     public GameObject graphGO;
     public Slider graphTimeSlider;
+    [M8.Localize]
+    public string graphTimeRangeTextRef;
+    public Text graphTimeRangeLabel;
     public Text graphTimeMaxLabel;
     public float graphTimeStep = 0.1f;
 
@@ -79,7 +82,7 @@ public class TracerGraphControl : MonoBehaviour {
             graphTimeSlider.interactable = false;
             graphTimeMaxLabel.text = timeDuration.ToString("0.0");
         }
-
+                
         graphTimeSlider.value = 0f;
     }
 
@@ -108,6 +111,8 @@ public class TracerGraphControl : MonoBehaviour {
         //graphs
         var minPos = tracer.minPosition - startPt;
         var maxPos = tracer.maxPosition - startPt;
+
+        graphTimeRangeLabel.text = string.Format(M8.Localize.Get(graphTimeRangeTextRef), timeMin, timeMax);
 
         //x-axis setup
         if(minPos.x != maxPos.x)

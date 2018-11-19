@@ -81,6 +81,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7428624581668694ca5e5ec7e287bb0d, type: 3}
   - {fileID: 21300000, guid: acc693e53995d994db00a2e827df4731, type: 3}
   - {fileID: 21300000, guid: 6dbc24065d948454b8d3830139b6edb1, type: 3}
+  - {fileID: 21300000, guid: d3b62b06b2244664a96c803eb6c98e90, type: 3}
   - {fileID: 21300000, guid: c003ca86d84f581448549280afdefe7c, type: 3}
   - {fileID: 21300000, guid: 833257f6cb1a9d241b3fc454fef9d45a, type: 3}
   - {fileID: 21300000, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
@@ -114,6 +115,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d50ec28b101991a4a91ae8a711ed5599, type: 3}
   - {fileID: 21300000, guid: d8c01a8bb74f85f4195fa213e9932844, type: 3}
   - {fileID: 21300000, guid: 2edb88abbbd8a5d42b0eb41b312e0b4d, type: 3}
+  - {fileID: 21300000, guid: cb85a22c00cef7e40ba7241caa45bd2f, type: 3}
   - {fileID: 21300000, guid: c400586c013b1b44ea33c677e8a9de0d, type: 3}
   - {fileID: 21300000, guid: 7242659cc528db5438228b4bdd0033ed, type: 3}
   - {fileID: 21300000, guid: 6b9a3bbc009f44e44b5328ea38c65b26, type: 3}
@@ -163,6 +165,7 @@ SpriteAtlas:
   - wrongX
   - frameTiny
   - frame2
+  - wheel3
   - iconUnlock
   - circle16x16
   - tutorialArrow2_invert
@@ -196,6 +199,7 @@ SpriteAtlas:
   - goblin_idle2
   - platePanel
   - knight_idle
+  - wheel2
   - puff03
   - knight_carry1
   - puff04

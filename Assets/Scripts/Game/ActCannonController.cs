@@ -39,6 +39,11 @@ public class ActCannonController : GameModeController<ActCannonController> {
     [Header("Graph")]
     public TracerGraphControl graphControl;
 
+    [Header("Next")]
+    public GameObject nextGO;
+    public M8.Signal nextSignal;
+    public string nextModal;
+
     public int cannonballLaunced { get { return mCannonballLaunched; } }
 
     public event System.Action cannonballLaunchedCallback;
@@ -50,6 +55,7 @@ public class ActCannonController : GameModeController<ActCannonController> {
     private int mCannonballLaunched = 0;
 
     private M8.CacheList<UnitEntity> mActiveTargets;
+    private int mTargetCount;
 
     private int mGraphCurStartIndex;
     private int mGraphTimeCount;
@@ -100,6 +106,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
             mActiveTargets.Add(ent);
         }
 
+        mTargetCount = mActiveTargets.Count;
+
         cannonLaunch.onClick.AddListener(OnLaunched);
 
         graphButton.onClick.AddListener(OnShowGraph);
@@ -109,9 +117,15 @@ public class ActCannonController : GameModeController<ActCannonController> {
         cannonInterfaceGO.SetActive(false);
 
         SetInteractiveEnable(false);
+
+        nextGO.SetActive(false);
+
+        nextSignal.callback += OnNext;
     }
 
     protected override void OnInstanceDeinit() {
+        nextSignal.callback -= OnNext;
+
         if(mActiveTargets != null) {
             for(int i = 0; i < mActiveTargets.Count; i++) {
                 if(mActiveTargets[i]) {
@@ -126,7 +140,17 @@ public class ActCannonController : GameModeController<ActCannonController> {
     }
 
     protected virtual void OnFinish() {
+        nextGO.SetActive(true);
+    }
 
+    protected virtual void OnNext() { //called when next is pressed (activated during OnFinish)
+        if(!string.IsNullOrEmpty(nextModal)) {
+            var modalParms = new M8.GenericParams();
+            modalParms[TargetCrossoutCounterWidget.parmTargetCount] = mTargetCount;
+            modalParms[TargetCrossoutCounterWidget.parmTargetCrossCount] = mTargetCount - mActiveTargets.Count;
+
+            M8.UIModal.Manager.instance.ModalOpen(nextModal, modalParms);
+        }
     }
 
     protected virtual void OnLaunched() {

@@ -13,6 +13,7 @@ public class TracerRigidbody2D : MonoBehaviour {
     public string poolGroup = "tracer";
     public int capacity = 100;
     public float timeInterval = 0.1f;
+    public bool noContactUseGravityAccelInfo = true;
 
     public Rigidbody2D body {
         get {
@@ -112,7 +113,7 @@ public class TracerRigidbody2D : MonoBehaviour {
             Vector2 accel;
 
             //cheat
-            mBodyContactCount = mBody.GetContacts(mBodyContacts);
+            mBodyContactCount = noContactUseGravityAccelInfo ? mBody.GetContacts(mBodyContacts) : 0;
             if(mBodyContactCount == 0)
                 accel = mBody.gravityScale * Physics2D.gravity;
             else {

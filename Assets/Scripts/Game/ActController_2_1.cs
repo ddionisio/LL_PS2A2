@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActController_2_1 : ActCannonController {
+    [System.Serializable]
+    public struct WheelInfo {
+        public float mass;
+        public Sprite sprite;
+    }
 
     [Header("Cannon Control")]
     public M8.Animator.Animate cannonAnimator;
@@ -12,14 +17,18 @@ public class ActController_2_1 : ActCannonController {
         
     public Transform knightRoot;
     public SpriteRenderer knightSpriteRender;
-    public GameObject knightWheelGO;    
+    public SpriteRenderer knightWheelSpriteRender;
+    public Text knightWheelMassText;
     public M8.Animator.Animate knightAnimator;
+    public float knightAnimatePushScaleMin = 0.5f;
+    public float knightAnimatePushSpeedRef = 2.0f; //divide on current wheel to speed up/down animation
     [M8.Animator.TakeSelector(animatorField = "knightAnimator")]
     public string knightTakePush;
     [M8.Animator.TakeSelector(animatorField = "knightAnimator")]
     public string knightTakeMove;
     public float knightReturnDelay;
     public Transform knightReturnPoint;
+    public WheelInfo[] wheelInfos;
 
     [Header("Sequence")]
     public AnimatorEnterExit seqTitle;
@@ -37,11 +46,14 @@ public class ActController_2_1 : ActCannonController {
     public AnimatorEnterExit seqIllustrateTraces3;
     public ModalDialogController seqDlgTraces3;
     public AnimatorEnterExit seqPressGraph;
+    public ModalDialogController seqDlgGraph;
     public ModalDialogController seqDlgPlay;
     public AnimatorEnterExit seqForceSlider;
 
     private bool mIsKnightLocked;
     private bool mIsGraphWait;
+
+    private int mCurWheelInfoIndex = 0;
 
     protected override void OnInstanceDeinit() {
         //
@@ -101,6 +113,7 @@ public class ActController_2_1 : ActCannonController {
         yield return seqIllustrateAxis.PlayExitWait();
         seqIllustrateAxis.gameObject.SetActive(false);
 
+        ApplyCurrentWheelInfoDisplay();
         cannonAnimator.Play(cannonTakeEnter);
         while(cannonAnimator.isPlaying)
             yield return null;
@@ -179,6 +192,11 @@ public class ActController_2_1 : ActCannonController {
             yield return null;
 
         //dialog about graph
+        yield return new WaitForSeconds(0.34f);
+
+        seqDlgGraph.Play();
+        while(seqDlgGraph.isPlaying)
+            yield return null;
 
         //wait for graph to be closed
         while(graphControl.graphGO.activeSelf)
@@ -199,8 +217,8 @@ public class ActController_2_1 : ActCannonController {
 
         //ready to play normally
         mIsKnightLocked = false;
-
-        knightWheelGO.SetActive(true);
+                
+        ApplyCurrentWheelInfoDisplay();
         cannonAnimator.Play(cannonTakeEnter);
         while(cannonAnimator.isPlaying)
             yield return null;
@@ -211,11 +229,7 @@ public class ActController_2_1 : ActCannonController {
         seqForceSlider.gameObject.SetActive(true);
         seqForceSlider.PlayEnter();
     }
-
-    protected override void OnFinish() {
-        //victory
-    }
-
+    
     protected override void OnShowGraph() {
         base.OnShowGraph();
 
@@ -242,9 +256,39 @@ public class ActController_2_1 : ActCannonController {
             StartCoroutine(DoExitSeqAnimator(seqForceSlider));
     }
 
+    private void ApplyCurrentWheelInfoDisplay() {
+        var inf = wheelInfos[mCurWheelInfoIndex];
+
+        //apply sprite
+        if(inf.sprite)
+            knightWheelSpriteRender.sprite = inf.sprite;
+
+        //apply mass info
+        knightWheelMassText.text = string.Format("{0:G0}kg", inf.mass);
+
+        knightWheelSpriteRender.gameObject.SetActive(true);
+    }
+
+    private void ApplyCurrentWheelInfoToUnit(UnitEntity unit) {
+        var inf = wheelInfos[mCurWheelInfoIndex];
+
+        unit.body.mass = inf.mass;
+
+        if(inf.sprite) {
+            var spriteRender = unit.GetComponentInChildren<SpriteRenderer>(true);
+            if(spriteRender) {
+                spriteRender.sprite = inf.sprite;
+            }
+        }
+    }
+
     IEnumerator DoKnightPush(M8.EntityBase cannonEnt) {
+        //apply wheel info on ent
+
         //wait for push
         var unitForceApply = cannonEnt.GetComponent<UnitStateForceApply>();
+
+        ApplyCurrentWheelInfoToUnit(unitForceApply.unit);
 
         while(!unitForceApply.unit.physicsEnabled)
             yield return null;
@@ -255,19 +299,25 @@ public class ActController_2_1 : ActCannonController {
         //push
         knightAnimator.Play(knightTakePush);
 
-        knightWheelGO.SetActive(false);        
+        knightWheelSpriteRender.gameObject.SetActive(false);        
 
-        Vector2 wheelOfs = knightRoot.position - knightWheelGO.transform.position;
+        Vector2 wheelOfs = knightRoot.position - knightWheelSpriteRender.transform.position;
                 
         while(unitForceApply.isPlaying) {
             knightRoot.position = unitForceApply.unit.position + wheelOfs;
+
+            var animScale = Mathf.Max(knightAnimatePushScaleMin, Mathf.Abs(unitForceApply.unit.body.velocity.x / knightAnimatePushSpeedRef));
+            knightAnimator.animScale = animScale;
+
             yield return null;
         }
+
+        knightAnimator.animScale = 1.0f;
         //
 
         //victory thing
 
-        //move back
+        //move back        
         knightAnimator.Play(knightTakeMove);
         knightSpriteRender.flipX = true;
 
@@ -294,8 +344,14 @@ public class ActController_2_1 : ActCannonController {
 
         GraphPopulate(!mIsKnightLocked);
 
+        //next wheel type
+        if(mCurWheelInfoIndex < wheelInfos.Length - 1)
+            mCurWheelInfoIndex++;
+        else
+            mCurWheelInfoIndex = 0;
+
         if(!mIsKnightLocked) {
-            knightWheelGO.SetActive(true);
+            ApplyCurrentWheelInfoDisplay();
             cannonAnimator.Play(cannonTakeEnter);
             while(cannonAnimator.isPlaying)
                 yield return null;
