@@ -18,7 +18,8 @@ public class ActController_2_2 : ActCannonController {
     public GameObject graphReminderGO;
 
     [Header("Sequence")]
-    public GameObject header;
+    public ModalDialogController seqDlgIntro;
+    public ModalDialogController seqDlgPlay;
 
     private bool mIsAngleChanged;
     private bool mIsShowGraphReminder;
@@ -49,11 +50,22 @@ public class ActController_2_2 : ActCannonController {
         yield return new WaitForSeconds(1.5f);
 
         //intro part
+        seqDlgIntro.Play();
+        while(seqDlgIntro.isPlaying)
+            yield return null;
 
         cannonEnterAnimator.Play(cannonEnterTake);
         while(cannonEnterAnimator.isPlaying)
             yield return null;
         cannonEnterAnimator.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1.0f);
+
+        seqDlgPlay.Play();
+        while(seqDlgPlay.isPlaying)
+            yield return null;
+
+        yield return new WaitForSeconds(1.0f);
 
         //everything ready
         cannonInterfaceGO.SetActive(true);
