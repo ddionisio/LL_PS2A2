@@ -78,6 +78,8 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private bool mInteractable = true;
     private bool mIsDragging;
 
+    private Collider2D[] mColls;
+
     void OnApplicationFocus(bool focus) {
         if(!focus) {
             if(mIsDragging) {
@@ -192,13 +194,22 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     }
 
     private void ApplyInteractable() {
+        if(mColls == null)
+            mColls = GetComponentsInChildren<Collider2D>();
+
         if(mInteractable) {
             if(spriteColorGroup) spriteColorGroup.Revert();
             if(uiColorGroup) uiColorGroup.Revert();
+
+            for(int i = 0; i < mColls.Length; i++)
+                mColls[i].enabled = true;
         }
         else {
             if(spriteColorGroup) spriteColorGroup.ApplyColor(disableColor);
             if(uiColorGroup) uiColorGroup.ApplyColor(disableColor);
+
+            for(int i = 0; i < mColls.Length; i++)
+                mColls[i].enabled = false;
         }
     }
 

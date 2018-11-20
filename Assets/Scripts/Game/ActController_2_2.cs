@@ -4,8 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActController_2_2 : ActCannonController {
+    [Header("Cannon")]
+    public M8.Animator.Animate cannonEnterAnimator;
+    [M8.Animator.TakeSelector(animatorField = "cannonEnterAnimator")]
+    public string cannonEnterTake;
+
+    public GameObject launchReadyGO;
+    public M8.Animator.Animate cannonAnimator;
+    [M8.Animator.TakeSelector(animatorField = "cannonAnimator")]
+    public string cannonTakeLaunch;
+
+    public GameObject cannonAngleDragHelpGO;
+    public GameObject graphReminderGO;
+
     [Header("Sequence")]
     public GameObject header;
+
+    private bool mIsAngleChanged;
+    private bool mIsShowGraphReminder;
 
     protected override void OnInstanceDeinit() {
         //
@@ -15,51 +31,97 @@ public class ActController_2_2 : ActCannonController {
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
-        
+                
         //
+        launchReadyGO.SetActive(false);
 
+        cannonEnterAnimator.ResetTake(cannonEnterTake);
+
+        cannonAngleDragHelpGO.SetActive(false);
+        graphReminderGO.SetActive(false);
     }
 
     protected override IEnumerator Start() {
         yield return base.Start();
 
-        //intro part
-
-        cannonInterfaceGO.SetActive(true);
-
-        //some other stuff?
-
         //show targets
         ShowTargets();
+        yield return new WaitForSeconds(1.5f);
 
-        if(trajectoryDisplayControl)
-            trajectoryDisplayControl.show = true;
+        //intro part
 
-        //enable cannon launch        
-        cannonLaunch.interactable = true;
-
-        //wait for launch
-        mIsCannonballFree = true; //free shot
-        mIsLaunchWait = true;
-        while(mIsLaunchWait)
+        cannonEnterAnimator.Play(cannonEnterTake);
+        while(cannonEnterAnimator.isPlaying)
             yield return null;
+        cannonEnterAnimator.gameObject.SetActive(false);
 
-        //explanations and such
+        //everything ready
+        cannonInterfaceGO.SetActive(true);
 
         //enable force/angle input
         angleSlider.interactable = true;
         forceSlider.interactable = true;
 
-        
+        //enable cannon launch
+        launchReadyGO.SetActive(true);
+        cannonLaunch.interactable = true;
+
+        if(trajectoryDisplayControl)
+            trajectoryDisplayControl.show = true;
+        //
+
+        //first time shows
+        mIsAngleChanged = false;
+        cannonAngleDragHelpGO.SetActive(true);
+
+        mIsShowGraphReminder = true;
+        //
+
+        //wait for launch
+        mIsLaunchWait = true;
+        while(mIsLaunchWait)
+            yield return null;
+
+        //wait for cannon launch ready
+        while(!cannonLaunch.interactable)
+            yield return null;
+
+        //remind about the graph
     }
 
     protected override void OnLaunched() {
         base.OnLaunched();
 
+        if(!mIsAngleChanged) {
+            cannonAngleDragHelpGO.SetActive(false);
+            mIsAngleChanged = true;
+        }
+
+        graphReminderGO.SetActive(false);
+
+        launchReadyGO.SetActive(false);
         cannonLaunch.interactable = false;
+
+        cannonAnimator.Play(cannonTakeLaunch);
 
         var ent = cannonballSpawner.Spawn();
         StartCoroutine(DoLaunch(ent));
+    }
+
+    protected override void OnAngleChanged(float val) {
+        base.OnAngleChanged(val);
+
+        if(!mIsAngleChanged) {            
+            cannonAngleDragHelpGO.SetActive(false);
+            mIsAngleChanged = true;
+        }
+    }
+
+    protected override void OnShowGraph() {
+        base.OnShowGraph();
+
+        graphReminderGO.SetActive(false);
+        mIsShowGraphReminder = false;
     }
 
     IEnumerator DoLaunch(M8.EntityBase cannonEnt) {
@@ -77,6 +139,12 @@ public class ActController_2_2 : ActCannonController {
 
         GraphPopulate(true);
 
+        launchReadyGO.SetActive(true);
         cannonLaunch.interactable = true;
+
+        if(mIsShowGraphReminder) {
+            graphReminderGO.SetActive(true);
+            mIsShowGraphReminder = false;
+        }
     }
 }

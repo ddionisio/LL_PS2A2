@@ -83,6 +83,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
             angleSlider.endAngle = -angleMax;
             angleSlider.value = angleStart;
             angleSlider.onValueChanged.Invoke(angleStart);
+
+            angleSlider.onValueChanged.AddListener(OnAngleChanged);
         }
 
         var targetGOs = GameObject.FindGameObjectsWithTag(targetTag);
@@ -177,6 +179,10 @@ public class ActCannonController : GameModeController<ActCannonController> {
     }
 
     protected virtual void OnForceValueChanged(float val) {
+
+    }
+
+    protected virtual void OnAngleChanged(float val) {
 
     }
 

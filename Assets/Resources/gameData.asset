@@ -43,12 +43,6 @@ MonoBehaviour:
       name: act_2_2
       path: Assets/Scenes/act_2_2.unity
   - introScene:
-      name: 
-      path: 
-    levelScene:
-      name: act_2_3
-      path: Assets/Scenes/act_2_3.unity
-  - introScene:
       name: act_intro
       path: Assets/Scenes/act_intro.unity
     levelScene:

@@ -119,9 +119,11 @@ public class TracerRigidbody2D : MonoBehaviour {
             }
 
             //cheat
-            mBodyContactCount = noContactUseGravityAccelInfo ? mBody.GetContacts(mBodyContacts) : 0;
-            if(mBodyContactCount == 0)
-                accel.y = (mBody.gravityScale * Physics2D.gravity).y;
+            if(noContactUseGravityAccelInfo) {
+                mBodyContactCount = mBody.GetContacts(mBodyContacts);
+                if(mBodyContactCount == 0)
+                    accel.y = (mBody.gravityScale * Physics2D.gravity).y;
+            }
 
             mPool.Spawn(template.name, points.Count.ToString(), null, pt, null);
 
