@@ -55,12 +55,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 50e22321d94a8b444b87ec532b5ac9d4, type: 3}
   - {fileID: 21300000, guid: f5e4e72120ff0af48bb1cecbea5cc258, type: 3}
   - {fileID: 21300000, guid: 9f698a2165627fa44a2a1798fa8e686a, type: 3}
+  - {fileID: 21300000, guid: f6bc5f2114c260e4ebef9058ce33919f, type: 3}
   - {fileID: 21300000, guid: f4683e31b11d8c249ac19e37611319cd, type: 3}
   - {fileID: 21300000, guid: 6c94a9914d2b9674a88004724c23d0ce, type: 3}
   - {fileID: 21300002, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
   - {fileID: 21300000, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
   - {fileID: 21300000, guid: 999f48e1159a7a148a01ab00360e44cc, type: 3}
+  - {fileID: 21300000, guid: 087daae18411f264da2cec115fe150a5, type: 3}
   - {fileID: 21300000, guid: cfce0ce1b6c72e54f9981e474f39ca7c, type: 3}
+  - {fileID: 21300000, guid: 3d71ede14c5ff014eb500400d6f8a6bb, type: 3}
   - {fileID: 21300002, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
   - {fileID: 21300000, guid: fbb2c7222f172d249afaedc7a0c98ddb, type: 3}
@@ -101,6 +104,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: eac1c26982317d54caaaf78261efa60e, type: 3}
   - {fileID: 21300000, guid: bb8a087995e8ab149b0f5c36c07f3d96, type: 3}
   - {fileID: 21300000, guid: 4337d879bef542541814bb56f0348057, type: 3}
+  - {fileID: 21300000, guid: 404333b9491132847ae8ba1b43efee84, type: 3}
   - {fileID: 21300000, guid: c8aff8b9b79a78745bcc2592e56ba612, type: 3}
   - {fileID: 21300000, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
   - {fileID: 21300002, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
@@ -124,8 +128,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 602f28dd20f929548b2afcda5f937709, type: 3}
   - {fileID: 21300000, guid: f339911e3bab88047920213e56866d24, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
+  - {fileID: 21300000, guid: 92b6118eea66e6d4abcffaea30d19028, type: 3}
   - {fileID: 21300000, guid: de9d478e2bcf54a429b14def3d215ffe, type: 3}
   - {fileID: 21300000, guid: 31c7ecce7a756db48a64dec20453a6f2, type: 3}
+  - {fileID: 21300000, guid: c83f3feef6a884e46840e19438debc18, type: 3}
   - {fileID: 21300000, guid: e2c431fedb5f61c4595be16efbd9f5cc, type: 3}
   - {fileID: 21300000, guid: abf8370fc0335b040a60604a961bdda6, type: 3}
   - {fileID: 21300000, guid: d100bf3fba8e48343b4f69fe5447d682, type: 3}
@@ -139,12 +145,15 @@ SpriteAtlas:
   - knight_move2
   - crateFrame
   - knight_victory2
+  - cannonBase
   - downArrow
   - knight_fall1
   - tutorialArrow2_bottom
   - tutorialArrow2
   - simplePanel
+  - cannonDoodad2
   - edge_shade_left_8x1
+  - cannonDoodad1
   - shadeWhite_bottomLeft
   - shadeWhite
   - puff06
@@ -185,6 +194,7 @@ SpriteAtlas:
   - puff01
   - optionButton
   - knight_move1
+  - blastWave
   - frameTop
   - shade
   - shade_bottom
@@ -208,8 +218,10 @@ SpriteAtlas:
   - princess_help1
   - puff05
   - edge_shade
+  - cannonAngleKnob
   - knight_push3
   - stop
+  - cannonStand
   - button
   - wheel
   - tutorialHandPoint
