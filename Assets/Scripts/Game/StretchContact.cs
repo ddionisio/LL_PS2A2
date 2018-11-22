@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StretchContact : MonoBehaviour {
     public Transform target;
+    public Transform endTarget;
+    public bool endTargetApplyUp = true;
     public float targetPixelHeight;
     public float targetPixelPerUnit = 32f;
     public float collisionStartOfs; //based on up dir
@@ -29,6 +31,7 @@ public class StretchContact : MonoBehaviour {
         Vector2 dest;
         float dist;
 
+        /*
         //grab the longest of hit between sides
         var extX = tgtScale.x * 0.5f;
 
@@ -44,9 +47,9 @@ public class StretchContact : MonoBehaviour {
         }
         else {
             hit = hitR;
-        }
-        //var hit = Physics2D.Raycast(pt, dir, collisionMaxDistance, collisionLayerMask);
+        }*/
 
+        var hit = Physics2D.Raycast(pt, dir, collisionMaxDistance, collisionLayerMask);
 
         if(hit.collider) {
             dest = pt + dir * hit.distance;
@@ -69,5 +72,11 @@ public class StretchContact : MonoBehaviour {
         var toPt = Vector2.Lerp(pt, dest, 0.5f);
         target.position = new Vector3(toPt.x, toPt.y, target.position.z);
         target.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, dir), Vector3.forward);
+
+        if(endTarget) {
+            endTarget.position = dest;
+            if(endTargetApplyUp)
+                endTarget.rotation = target.rotation;
+        }
     }
 }

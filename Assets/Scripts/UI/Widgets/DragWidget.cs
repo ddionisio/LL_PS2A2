@@ -89,6 +89,17 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         ResetState();
     }
 
+    protected virtual void SetupCursorUI() {
+        if(cursorUI) cursorUI.ApplyIcon(iconSpriteUI);
+    }
+
+    protected virtual void SetupCursorWorld() {
+        if(cursorWorld) {
+            cursorWorld.ApplyIcon(iconSpriteWorld);
+            cursorWorld.deleteEnabled = false;
+        }
+    }
+
     protected void ApplyCurDragEnabled() {
         if(active) {
             if(disableColorGroup) disableColorGroup.Revert();
@@ -181,17 +192,6 @@ public class DragWidget : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
 
         ApplyPosition(eventData);
-    }
-
-    private void SetupCursorUI() {
-        if(cursorUI) cursorUI.ApplyIcon(iconSpriteUI);
-    }
-
-    private void SetupCursorWorld() {
-        if(cursorWorld) {
-            cursorWorld.ApplyIcon(iconSpriteWorld);
-            cursorWorld.deleteEnabled = false;
-        }
     }
 
     private void ApplyCurSpace() {

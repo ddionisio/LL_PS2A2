@@ -18,7 +18,8 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
 
     [Header("Display")]
     public Transform ghostRoot;
-    public SpriteRenderer ghostSpriteRenderer;    
+    public SpriteRenderer ghostSpriteRenderer;
+    public M8.RendererAutoTileScale ghostAutoTileScale;
 
     public Vector2 surfacePoint { get; private set; }
     public Vector2 surfaceNormal { get; private set; }

@@ -31,6 +31,7 @@ public class Trigger2DGotoPlayAnimator : MonoBehaviour {
 
         var trans = transform;
         Vector2 fromPos = trans.position;
+        Vector2 fromUp = trans.up;
 
         //move to destination
         var easeFunc = DG.Tweening.Core.Easing.EaseManager.ToEaseFunction(moveEase);
@@ -43,6 +44,7 @@ public class Trigger2DGotoPlayAnimator : MonoBehaviour {
             float t = easeFunc(curTime, moveDelay, 0f, 0f);
 
             trans.position = Vector2.Lerp(fromPos, toPos, t);
+            trans.up = Vector2.Lerp(fromUp, Vector2.up, t);
         }
 
         //play animation

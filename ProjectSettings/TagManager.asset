@@ -11,6 +11,8 @@ TagManager:
   - Hit
   - Invalid
   - DragGuide
+  - ForceElementGroup
+  - ForcePlayGroup
   layers:
   - Default
   - TransparentFX
