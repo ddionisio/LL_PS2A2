@@ -109,7 +109,7 @@ public class TracerRigidbody2D : MonoBehaviour {
                 vel = Vector2.zero;
             else
                 vel = (pt - points[points.Count - 1].position) / timeInterval;
-
+            
             Vector2 accel;
 
             if(points.Count == 0)

@@ -16,8 +16,12 @@ public class EntitySpawnerWidget : DragWidget {
 
     public override bool active {
         get {
-            return base.active && mActiveUnits != null && mActiveUnits.Count < entityCount;
+            return base.active && (mActiveUnits == null || mActiveUnits.Count < entityCount); //note: if mActiveUnits == null, we haven't initialized yet
         }
+    }
+
+    public int activeUnitCount {
+        get { return mActiveUnits != null ? mActiveUnits.Count : 0; }
     }
 
     private M8.PoolController mPool;

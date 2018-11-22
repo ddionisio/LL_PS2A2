@@ -58,6 +58,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9f698a2165627fa44a2a1798fa8e686a, type: 3}
   - {fileID: 21300000, guid: f6bc5f2114c260e4ebef9058ce33919f, type: 3}
   - {fileID: 21300000, guid: f4683e31b11d8c249ac19e37611319cd, type: 3}
+  - {fileID: 21300000, guid: c15727612b5c3304ba9771bb96b4ebe0, type: 3}
   - {fileID: 21300000, guid: f10478718aaa5cd43bba1375b20d7466, type: 3}
   - {fileID: 21300000, guid: 6c94a9914d2b9674a88004724c23d0ce, type: 3}
   - {fileID: 21300002, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
@@ -76,6 +77,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f09376230546e5e4ebe4f92e26b46133, type: 3}
   - {fileID: 21300000, guid: 48bb4343820a6cb48a9858df40ae71c0, type: 3}
   - {fileID: 21300000, guid: 58723a436fc8850478dbca1deef763cd, type: 3}
+  - {fileID: 21300000, guid: dcfa4a736464c7b44825090362fee74a, type: 3}
   - {fileID: 21300000, guid: 5cb2d383447a0c2459c5d3dd3bd20e13, type: 3}
   - {fileID: 21300000, guid: 525ff3d3f42a6d941bddbafaba567ba2, type: 3}
   - {fileID: 21300000, guid: f8d800f3a28f3bd409eeb5bf6f187952, type: 3}
@@ -98,6 +100,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
   - {fileID: 21300002, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
   - {fileID: 21300000, guid: c0e2b1c7a40b880498981f555f0b3c4e, type: 3}
+  - {fileID: 21300000, guid: 326ab6c73d9e81346bb6774298a0d825, type: 3}
   - {fileID: 21300000, guid: 5427e4f7e1cb9704892fb4854f1cf6a9, type: 3}
   - {fileID: 21300000, guid: e7aaa91811c476a4c90a35498e2fbe33, type: 3}
   - {fileID: 21300000, guid: b5f1f248fc842084cb79fa132167e30b, type: 3}
@@ -125,6 +128,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: abde09da76107124dabbf1496430d911, type: 3}
   - {fileID: 21300000, guid: bddb662b911e1c243ae530e436e0fe1b, type: 3}
   - {fileID: 21300000, guid: 57d2f97b3c7997547a755d7a0eb581e9, type: 3}
+  - {fileID: 21300000, guid: 53a9fd7b548115a42a0e3d4705086bbd, type: 3}
   - {fileID: 21300000, guid: d50ec28b101991a4a91ae8a711ed5599, type: 3}
   - {fileID: 21300000, guid: d8c01a8bb74f85f4195fa213e9932844, type: 3}
   - {fileID: 21300000, guid: 2edb88abbbd8a5d42b0eb41b312e0b4d, type: 3}
@@ -134,6 +138,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6b9a3bbc009f44e44b5328ea38c65b26, type: 3}
   - {fileID: 21300000, guid: 36ce24ec9ae04524289ce0e80bf270be, type: 3}
   - {fileID: 21300000, guid: b757e5fc0eb3f2c4a8a76853e861080e, type: 3}
+  - {fileID: 21300000, guid: 4c0e2b2d7484ceb44a7b2159d910cc51, type: 3}
+  - {fileID: 21300000, guid: 22645e3dbec995a4eb0b9dc37e7dd917, type: 3}
+  - {fileID: 21300000, guid: c7f0327d502f1f04da82bff7f1111cf6, type: 3}
   - {fileID: 21300000, guid: 602f28dd20f929548b2afcda5f937709, type: 3}
   - {fileID: 21300000, guid: f339911e3bab88047920213e56866d24, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
@@ -158,6 +165,7 @@ SpriteAtlas:
   - knight_victory2
   - cannonBase
   - downArrow
+  - iconTrash
   - goldenballFaces_happy
   - knight_fall1
   - tutorialArrow2_bottom
@@ -176,6 +184,7 @@ SpriteAtlas:
   - block
   - princess_help2
   - pointerPanelBase
+  - circleFrame
   - cannonBallSmall
   - puff07
   - gear
@@ -198,6 +207,7 @@ SpriteAtlas:
   - tutorialArrow2_invert
   - tutorialArrow2_invert_bottom
   - princess_victory1
+  - circle32x32
   - dot
   - knight_push2
   - tutorialHandPointDown
@@ -225,6 +235,7 @@ SpriteAtlas:
   - puff08
   - cycleArrow
   - frame
+  - buttonIconStop
   - goblin_idle2
   - platePanel
   - knight_idle
@@ -234,6 +245,9 @@ SpriteAtlas:
   - puff04
   - circleGlow
   - frame3
+  - buttonCircleBase
+  - buttonIconPlay
+  - forcePlatformGlow
   - princess_help1
   - puff05
   - edge_shade

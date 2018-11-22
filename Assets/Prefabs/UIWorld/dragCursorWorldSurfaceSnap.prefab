@@ -506,6 +506,7 @@ MonoBehaviour:
   collisionLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  alwaysUpdate: 1
 --- !u!114 &114452775121646830
 MonoBehaviour:
   m_ObjectHideFlags: 1

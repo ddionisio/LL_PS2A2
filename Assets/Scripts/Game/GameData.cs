@@ -23,9 +23,41 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     [Header("Scoring")]
     public int hitScore = 500;
 
+    [Header("Signals")]
+    public SignalGameFlag signalGameFlagChanged;
+
     public bool isGameStarted { get; private set; } //true: we got through start normally, false: debug
     public int curLevelIndex { get; private set; }
     public LevelData curLevelData { get { return levels[curLevelIndex]; } }
+
+    private Dictionary<string, int> mFlags;
+
+    public void SetFlag(string key, int flag) {
+        if(mFlags == null)
+            mFlags = new Dictionary<string, int>();
+
+        if(mFlags.ContainsKey(key)) {
+            if(mFlags[key] != flag) {
+                mFlags[key] = flag;
+
+                if(signalGameFlagChanged) signalGameFlagChanged.Invoke(key, flag);
+            }
+        }
+        else {
+            mFlags.Add(key, flag);
+
+            if(signalGameFlagChanged) signalGameFlagChanged.Invoke(key, flag);
+        }
+    }
+
+    public int GetFlag(string key) {
+        if(mFlags == null)
+            return 0;
+
+        int flag = 0;
+        mFlags.TryGetValue(key, out flag);
+        return flag;
+    }
 
     public int ComputeHitScore(int hitQuota, int numHit) {
         float scale = ((float)hitQuota) / numHit;

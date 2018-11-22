@@ -34,3 +34,7 @@ MonoBehaviour:
     voiceDuration: 2
   - key: targetsEliminated
     voiceDuration: 3
+  - key: dragForceAdjustHelp
+    voiceDuration: 3
+  - key: playButtonHelp
+    voiceDuration: 3

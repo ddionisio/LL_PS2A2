@@ -17,9 +17,13 @@ public class EntitySpawnerGroup : MonoBehaviour {
     public DragCursorWidget cursorUI;
     public DragCursorWorld cursorWorld;
 
+    public EntitySpawnerWidget[] widgets { get; private set; }
+
     void Awake() {
         var root = template.transform.parent;
         root.gameObject.SetActive(false); //don't allow awake and enable to occur when instantiating items
+
+        widgets = new EntitySpawnerWidget[items.Length];
 
         for(int i = 0; i < items.Length; i++) {
             var item = items[i];
@@ -38,7 +42,10 @@ public class EntitySpawnerGroup : MonoBehaviour {
             inst.entityTemplate = item.prefab;
             inst.entityCount = item.count;
 
-            inst.initOnEnable = true;
+            inst.initOnEnable = false;
+            inst.Init();
+
+            widgets[i] = inst;
         }
 
         template.gameObject.SetActive(false);
