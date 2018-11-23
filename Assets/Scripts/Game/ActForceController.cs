@@ -11,19 +11,22 @@ public class ActForceController : GameModeController<ActForceController> {
     [M8.TagSelector]
     public string playerTag;
     public float playerAliveDuration = 8f;
-
-    [Header("Graph")]
-    public Button graphButton;
-    public TracerGraphControl graphControl;
-
     [M8.TagSelector]
     public string forceGroupUITag;
     [M8.TagSelector]
     public string playGroupUITag;
 
+    [Header("Graph")]
+    public Button graphButton;
+    public TracerGraphControl graphControl;
+
+    [Header("Victory")]
+    public string victoryModal = "victory_force";
+    public int victoryIndex;
+
     [Header("Signals")]
+    public M8.Signal signalGoal;
     public M8.Signal signalDeath;
-    public M8.Signal signalNext;
 
     [Header("Force Drag Instructions")]
     public bool isForceDragInstructions;
@@ -45,6 +48,8 @@ public class ActForceController : GameModeController<ActForceController> {
 
     protected override void OnInstanceDeinit() {
         base.OnInstanceDeinit();
+
+        signalGoal.callback -= OnSignalGoal;
     }
 
     protected override void OnInstanceInit() {
@@ -71,6 +76,8 @@ public class ActForceController : GameModeController<ActForceController> {
         if(dragGuideGO) dragGuideGO.SetActive(false);
         if(dragEntityGuideGO) dragEntityGuideGO.SetActive(false);
         if(playGuideGO) playGuideGO.SetActive(false);
+
+        signalGoal.callback += OnSignalGoal;
     }
 
     protected override IEnumerator Start() {
@@ -132,6 +139,19 @@ public class ActForceController : GameModeController<ActForceController> {
 
     protected virtual void OnShowGraph() {
         graphControl.ShowGraph();
+    }
+
+    void OnSignalGoal() {
+        graphButton.gameObject.SetActive(false);
+
+        M8.UIModal.Manager.instance.ModalCloseAll();
+
+        //transfer graph control
+        var parms = new M8.GenericParams();
+        parms.Add(ModalVictoryForce.parmIndex, victoryIndex);
+        parms.Add(ModalVictoryForce.parmTransferTraceGraph, graphControl);
+
+        M8.UIModal.Manager.instance.ModalOpen(victoryModal, parms);
     }
 
     IEnumerator DoPlayer() {

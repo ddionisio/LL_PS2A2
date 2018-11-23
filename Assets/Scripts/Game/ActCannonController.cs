@@ -147,6 +147,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     protected virtual void OnNext() { //called when next is pressed (activated during OnFinish)
         if(!string.IsNullOrEmpty(nextModal)) {
+            M8.UIModal.Manager.instance.ModalCloseAll();
+
             var modalParms = new M8.GenericParams();
             modalParms[TargetCrossoutCounterWidget.parmTargetCount] = mTargetCount;
             modalParms[TargetCrossoutCounterWidget.parmTargetCrossCount] = mTargetCount - mActiveTargets.Count;
