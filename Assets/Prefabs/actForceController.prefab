@@ -55,7 +55,7 @@ MonoBehaviour:
   mode: {fileID: 11400000, guid: 807690051874ae3499c1b1449b0c94c1, type: 2}
   signalModeChanged: {fileID: 11400000, guid: 4f9dce914f15a6c4b8c0af0d08028ac5, type: 2}
   playerTag: Player
-  playerAliveDuration: 8
+  playerAliveDuration: 10
   forceGroupUITag: ForceElementGroup
   playGroupUITag: ForcePlayGroup
   graphButton: {fileID: 0}

@@ -5665,11 +5665,11 @@ MonoBehaviour:
   signalModeChanged: {fileID: 11400000, guid: 4f9dce914f15a6c4b8c0af0d08028ac5, type: 2}
   trajectoryDisplayControl: {fileID: 0}
   forceSlider: {fileID: 533367863}
-  forceStart: 320
-  forceMin: 300
-  forceMax: 500
+  forceStart: 300
+  forceMin: 250
+  forceMax: 400
   angleSlider: {fileID: 446168616}
-  angleStart: 45
+  angleStart: 40
   angleMin: 30
   angleMax: 80
   cannonInterfaceGO: {fileID: 1262556984}

@@ -13,7 +13,6 @@ public class TracerRigidbody2D : MonoBehaviour {
     public string poolGroup = "tracer";
     public int capacity = 100;
     public float timeInterval = 0.1f;
-    public bool noContactUseGravityAccelInfo = true;
 
     public Rigidbody2D body {
         get {
@@ -52,10 +51,7 @@ public class TracerRigidbody2D : MonoBehaviour {
     private M8.PoolController mPool;
 
     private Coroutine mRecordRout;
-
-    private ContactPoint2D[] mBodyContacts = new ContactPoint2D[16];
-    private int mBodyContactCount;
-
+    
     private bool mIsInit;
     
     public void Record() {
@@ -117,14 +113,7 @@ public class TracerRigidbody2D : MonoBehaviour {
             else {
                 accel = (vel - points[points.Count - 1].velocity) / timeInterval;
             }
-
-            //cheat
-            if(noContactUseGravityAccelInfo) {
-                mBodyContactCount = mBody.GetContacts(mBodyContacts);
-                if(mBodyContactCount == 0)
-                    accel.y = (mBody.gravityScale * Physics2D.gravity).y;
-            }
-
+            
             mPool.Spawn(template.name, points.Count.ToString(), null, pt, null);
 
             if(points.Count == 0) {
