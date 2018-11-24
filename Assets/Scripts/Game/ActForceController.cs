@@ -23,6 +23,7 @@ public class ActForceController : GameModeController<ActForceController> {
     [Header("Victory")]
     public string victoryModal = "victory_force";
     public int victoryIndex;
+    public float victoryDelay = 2f;
 
     [Header("Signals")]
     public M8.Signal signalGoal;
@@ -143,6 +144,12 @@ public class ActForceController : GameModeController<ActForceController> {
 
     void OnSignalGoal() {
         graphButton.gameObject.SetActive(false);
+
+        StartCoroutine(DoVictory());
+    }
+
+    IEnumerator DoVictory() {
+        yield return new WaitForSeconds(victoryDelay);
 
         M8.UIModal.Manager.instance.ModalCloseAll();
 

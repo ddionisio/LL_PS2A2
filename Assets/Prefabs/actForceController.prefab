@@ -62,6 +62,7 @@ MonoBehaviour:
   graphControl: {fileID: 0}
   victoryModal: victory_force
   victoryIndex: 0
+  victoryDelay: 2.5
   signalGoal: {fileID: 11400000, guid: 9ebb92fbb1172fd4996ce631d6ffcfd5, type: 2}
   signalDeath: {fileID: 11400000, guid: df94e7f96f695a54084a264dc39acb3e, type: 2}
   isForceDragInstructions: 0
