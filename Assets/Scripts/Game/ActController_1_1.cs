@@ -11,6 +11,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     [Header("Sequence")]
     public float startDelay = 1f;
 
+    public CameraShakeControl cameraShaker;
+
     public AnimatorEnterExit titleAnim;
     public AnimatorEnterExit motionIllustrationAnim;
     public ModalDialogController introDialog;    
@@ -118,6 +120,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             yield return null;
 
         //fancy camera shake
+        cameraShaker.Shake();
 
         //some more dialog
         landingDialog.Play();
@@ -200,6 +203,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             yield return null;
 
         //fancy camera shake
+        cameraShaker.Shake();
 
         //game ready
         unitSpawnerWidget.active = true;
