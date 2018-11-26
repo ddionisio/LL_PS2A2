@@ -12,22 +12,22 @@ public class ActIntroController : GameModeController<ActIntroController> {
     [Header("Data")]
     public LevelData[] levelMatches;
 
-    [Header("Animation")]
-    public M8.Animator.Animate animator;
-    [M8.Animator.TakeSelector(animatorField="animator")]
-    public string takeEnter;
-    public float enterStartDelay = 1.0f;
+    [Header("Proceed")]
+    public GameObject proceedGO;
+    public float proceedShowDelay = 1.0f;
 
     [Header("Debug")]
     public int debugLevelIndex;
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
-
+                
         for(int i = 0; i < levelMatches.Length; i++) {
             if(levelMatches[i].rootGO)
                 levelMatches[i].rootGO.SetActive(false);
         }
+
+        proceedGO.SetActive(false);
     }
 
     protected override IEnumerator Start() {
@@ -51,9 +51,8 @@ public class ActIntroController : GameModeController<ActIntroController> {
             }
         }
 
-        yield return new WaitForSeconds(enterStartDelay);
+        yield return new WaitForSeconds(proceedShowDelay);
 
-        if(animator && !string.IsNullOrEmpty(takeEnter))
-            animator.Play(takeEnter);
+        proceedGO.SetActive(true);
     }
 }

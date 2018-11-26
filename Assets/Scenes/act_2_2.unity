@@ -7698,7 +7698,6 @@ MonoBehaviour:
   nameTextRef: 
   dialogTextRefs:
   - newton_second_law_2_dlg_1
-  - newton_second_law_2_dlg_2
   - newton_second_law_2_dlg_3
 --- !u!4 &1335952330
 Transform:

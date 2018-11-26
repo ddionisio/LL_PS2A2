@@ -39,7 +39,7 @@ public class TargetCrossoutCounterWidget : MonoBehaviour, M8.UIModal.Interface.I
                 //add new items
                 for(int i = mCount; i < count; i++) {
                     mItems[i] = Instantiate(template);
-                    mItems[i].transform.SetParent(root);
+                    mItems[i].transform.SetParent(root, false);
                     mItems[i].gameObject.SetActive(true);
                     mItems[i].crossGO.SetActive(false);
                 }
@@ -58,7 +58,7 @@ public class TargetCrossoutCounterWidget : MonoBehaviour, M8.UIModal.Interface.I
 
             for(int i = 0; i < count; i++) {
                 mItems[i] = Instantiate(template);
-                mItems[i].transform.SetParent(root);
+                mItems[i].transform.SetParent(root, false);
                 mItems[i].gameObject.SetActive(true);
                 mItems[i].crossGO.SetActive(false);
             }

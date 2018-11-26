@@ -80,6 +80,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dcfa4a736464c7b44825090362fee74a, type: 3}
   - {fileID: 21300000, guid: 5cb2d383447a0c2459c5d3dd3bd20e13, type: 3}
   - {fileID: 21300000, guid: 525ff3d3f42a6d941bddbafaba567ba2, type: 3}
+  - {fileID: 21300000, guid: fd3938d3ce8e1b44d8fbe9cfb36718db, type: 3}
   - {fileID: 21300000, guid: f8d800f3a28f3bd409eeb5bf6f187952, type: 3}
   - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
   - {fileID: 21300000, guid: 5670e0b407e9a92439a04022c216ceb3, type: 3}
@@ -196,6 +197,7 @@ SpriteAtlas:
   - circleFrame
   - cannonBallSmall
   - puff07
+  - wing
   - gear
   - baseGradient
   - goblin_hop2
