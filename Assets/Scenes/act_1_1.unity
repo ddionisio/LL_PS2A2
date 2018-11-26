@@ -1835,11 +1835,6 @@ Transform:
   m_Father: {fileID: 1165798545}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &280378431 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 20724188909023342, guid: 9dfa3b1d7414cf541894635e011e8d53,
-    type: 2}
-  m_PrefabInternal: {fileID: 1874559179}
 --- !u!1 &295996512
 GameObject:
   m_ObjectHideFlags: 0
@@ -6138,7 +6133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8dad77c895b81344aeff07a56d7de8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 280378431}
+  _camera: {fileID: 0}
   _cameraTag: 
   _cameraUseMain: 1
   duration: 0.5

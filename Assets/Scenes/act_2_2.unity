@@ -5955,6 +5955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1074725611}
   - component: {fileID: 1074725610}
+  - component: {fileID: 1074725612}
   m_Layer: 0
   m_Name: actController
   m_TagString: Untagged
@@ -6005,6 +6006,7 @@ MonoBehaviour:
   cannonTakeLaunch: launch
   cannonAngleDragHelpGO: {fileID: 1340001756}
   graphReminderGO: {fileID: 1604287861}
+  cameraShaker: {fileID: 1074725612}
   seqDlgIntro: {fileID: 1335952329}
   seqDlgPlay: {fileID: 41282339}
 --- !u!4 &1074725611
@@ -6022,6 +6024,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1074725612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1074725609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8dad77c895b81344aeff07a56d7de8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
+  _cameraTag: 
+  _cameraUseMain: 1
+  duration: 0.5
+  strength: 0.2
+  vibrate: 18
+  randomness: 90
+  fadeOut: 1
 --- !u!1 &1139323276
 GameObject:
   m_ObjectHideFlags: 0

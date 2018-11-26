@@ -17,6 +17,8 @@ public class ActController_2_2 : ActCannonController {
     public GameObject cannonAngleDragHelpGO;
     public GameObject graphReminderGO;
 
+    public CameraShakeControl cameraShaker;
+
     [Header("Sequence")]
     public ModalDialogController seqDlgIntro;
     public ModalDialogController seqDlgPlay;
@@ -145,9 +147,13 @@ public class ActController_2_2 : ActCannonController {
         graphControl.tracer.body = unitForceApply.unit.body;
         graphControl.tracer.Record();
 
-        //wait for tracer to finish
-        while(graphControl.tracer.isRecording)
+        //wait for cannon to end
+        while(unitForceApply.unit.physicsEnabled)
             yield return null;
+
+        cameraShaker.Shake();
+
+        graphControl.tracer.Stop();
 
         GraphPopulate(true);
 
