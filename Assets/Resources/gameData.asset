@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: gameData
   m_EditorClassIdentifier: 
   introScene:
-    name: intro
-    path: Assets/Scenes/intro.unity
+    name: 
+    path: 
   endScene:
     name: end
     path: Assets/Scenes/end.unity
@@ -73,3 +73,4 @@ MonoBehaviour:
       name: act_3_5
       path: Assets/Scenes/act_3_5.unity
   hitScore: 500
+  signalGameFlagChanged: {fileID: 0}
