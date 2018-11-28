@@ -25,6 +25,8 @@ public class ActController_3_end : GameModeController<ActController_3_end> {
         yield return new WaitForSeconds(startDelay);
 
         animator.Play(takePlay);
+        while(animator.isPlaying)
+            yield return null;
 
         yield return new WaitForSeconds(endDelay);
 

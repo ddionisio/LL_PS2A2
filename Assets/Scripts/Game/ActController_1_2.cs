@@ -20,6 +20,7 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     public ModalDialogController illustrateDialog;
     public float treasureDialogStartDelay = 2f;
     public ModalDialogController treasureDialog;
+    public GameObject dragWeightHelpGO;
     public string modalVictory;
 
     [Header("Signals")]
@@ -61,8 +62,10 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         //setup item
         itemBody.transform.position = itemStartPoint.position;
         itemBody.mass = itemBodyMasses[Random.Range(0, itemBodyMasses.Length)];
-        itemBody.gameObject.SetActive(false);        
+        itemBody.gameObject.SetActive(false);
         //
+
+        dragWeightHelpGO.SetActive(false);
 
         signalTreasureOpened.callback += OnSignalTreasureOpened;
         signalShowNext.callback += OnSignalShowNext;
@@ -100,7 +103,8 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         SetInteractiveEnabled(true);
 
         //drag instruction
-        
+        dragWeightHelpGO.SetActive(true);
+
         //SetInteractiveEnabled(false);
 
         //GameData.instance.Progress();
