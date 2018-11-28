@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/act_3_5.unity
     guid: befcce9941c1c9341ba0fe8252fd3259
+  - enabled: 1
+    path: Assets/Scenes/act_3_end.unity
+    guid: ab99140673e179d43ae3a6bc9f57b3f9
   m_configObjects: {}

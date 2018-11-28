@@ -210,7 +210,6 @@ MonoBehaviour:
   applyPortrait: 0
   nameTextRef: 
   dialogTextRefs:
-  - newton_second_law_2_dlg_4
   - newton_second_law_2_dlg_5
 --- !u!4 &41282340
 Transform:

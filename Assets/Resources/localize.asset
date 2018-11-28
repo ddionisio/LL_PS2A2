@@ -46,3 +46,7 @@ MonoBehaviour:
     voiceDuration: 3
   - key: act_3_title
     voiceDuration: 2
+  - key: end_title
+    voiceDuration: 2
+  - key: end_desc
+    voiceDuration: 3
