@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: castle
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: a5e091dfbc3266c418a66b4a775470e8, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 40072b42ceedabe4888083ea9d7d96cf, type: 3}
+  - {fileID: 21300000, guid: a13613346de6f4841bad736ee0a9114a, type: 3}
+  - {fileID: 21300000, guid: c9d98684e7138384c80083a4189aa14c, type: 3}
+  - {fileID: 21300000, guid: a12d8c25702a9b14aa8501314cec70dd, type: 3}
+  - {fileID: 21300000, guid: 3dab659681bc42a458cd6bfc82ec8d3c, type: 3}
+  - {fileID: 21300000, guid: 5105bb770848c50479222aa7e3cf3151, type: 3}
+  - {fileID: 21300000, guid: ca4f0e5aec0701a49a2b026f25c8b01c, type: 3}
+  - {fileID: 21300000, guid: 2ff6657b35f2efd408eb38236028af75, type: 3}
+  - {fileID: 21300000, guid: 9f087b2d0c858b143b7247540c4ef65c, type: 3}
+  - {fileID: 21300000, guid: e77e314e957c3a64b914f613e50f2130, type: 3}
+  - {fileID: 21300000, guid: 4bd3cd7e9f5fd004894ed5f88bcf6777, type: 3}
+  - {fileID: 21300000, guid: 914d95cfe766de64ab80764e4462f480, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - bricks4r
+  - king_1
+  - window
+  - column
+  - windowBackground
+  - ridge
+  - bricks3r
+  - debris0_large
+  - bricks2r
+  - king_2
+  - throne
+  - bricks1r
+  m_Tag: castle
+  m_IsVariant: 0
