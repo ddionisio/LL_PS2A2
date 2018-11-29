@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UnitEntity : M8.EntityBase {
     public const string parmPosition = "pos";
@@ -8,6 +9,10 @@ public class UnitEntity : M8.EntityBase {
 
     [Header("States")]
     public M8.EntityState stateOnSpawn;
+
+    [Header("Events")]
+    public UnityEvent spawnEvent;
+    public UnityEvent despawnEvent;
 
     public Vector2 position {
         get {
@@ -46,6 +51,8 @@ public class UnitEntity : M8.EntityBase {
     }
 
     protected override void OnDespawned() {
+        despawnEvent.Invoke();
+
         //reset stuff here
         StopCurrentRoutine();
 
@@ -81,6 +88,8 @@ public class UnitEntity : M8.EntityBase {
         }
 
         if(stateOnSpawn) state = stateOnSpawn;
+
+        spawnEvent.Invoke();
     }
 
     protected override void OnDestroy() {

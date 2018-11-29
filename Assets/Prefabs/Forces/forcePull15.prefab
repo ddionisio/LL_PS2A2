@@ -79,6 +79,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1324216387483704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4171931902142478}
+  - component: {fileID: 114338896279551210}
+  - component: {fileID: 114908366850880854}
+  m_Layer: 31
+  m_Name: spawnSfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1351832775621852
 GameObject:
   m_ObjectHideFlags: 1
@@ -151,6 +168,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4171931902142478
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324216387483704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4235278470669896}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4193737714419996
 Transform:
   m_ObjectHideFlags: 1
@@ -189,6 +219,7 @@ Transform:
   m_Children:
   - {fileID: 4615604069775658}
   - {fileID: 4652007827583606}
+  - {fileID: 4171931902142478}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -462,6 +493,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entity: {fileID: 114790263990183192}
   drag: {fileID: 114832973714316768}
+--- !u!114 &114338896279551210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324216387483704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e42b2db3ae4514f9816d12fdbd2bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCallback:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114908366850880854}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: M8.UnityEventGenericParams, Assembly-CSharp, Version=2.1.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114371659532631272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -483,6 +541,7 @@ MonoBehaviour:
   collisionLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  alwaysUpdate: 0
 --- !u!114 &114441175862813172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -582,6 +641,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiIcon: {fileID: 21300000, guid: 209cab0128d862543b2c7cead89e25a4, type: 3}
   uiWorldIcon: {fileID: 21300002, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
+--- !u!114 &114908366850880854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324216387483704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2d1119dad2cbe4495e6e70fd0c0f8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paths:
+  - Audio/jump1.wav
+  - Audio/jump2.wav
+  - Audio/jump3.wav
+  - Audio/jump4.wav
+  isBackground: 0
+  isLoop: 0
 --- !u!212 &212327956292279512
 SpriteRenderer:
   m_ObjectHideFlags: 1

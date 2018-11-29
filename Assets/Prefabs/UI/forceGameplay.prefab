@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 222448230454799108}
   - component: {fileID: 114502178829826346}
   - component: {fileID: 114606724225690636}
+  - component: {fileID: 114163344563235080}
   m_Layer: 5
   m_Name: graphButton
   m_TagString: Untagged
@@ -193,6 +194,7 @@ GameObject:
   - component: {fileID: 114270655549417652}
   - component: {fileID: 114928269623121162}
   - component: {fileID: 114739900037822224}
+  - component: {fileID: 114479214070466262}
   m_Layer: 5
   m_Name: restartButton
   m_TagString: Untagged
@@ -348,6 +350,7 @@ GameObject:
   - component: {fileID: 114735726072326850}
   - component: {fileID: 114389143497284872}
   - component: {fileID: 114999019303425722}
+  - component: {fileID: 114532782494853958}
   m_Layer: 5
   m_Name: trash
   m_TagString: Untagged
@@ -506,6 +509,7 @@ GameObject:
   - component: {fileID: 114383033220164278}
   - component: {fileID: 114218455684764002}
   - component: {fileID: 114877714100221064}
+  - component: {fileID: 114407709142846358}
   m_Layer: 5
   m_Name: playButton
   m_TagString: Untagged
@@ -883,6 +887,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114163344563235080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074287919365414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a3c5eed06b8294cac22cb2be2351eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/click.wav
+  isBackground: 0
+  isLoop: 0
+  button: {fileID: 0}
 --- !u!114 &114197918105985922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1306,6 +1325,17 @@ MonoBehaviour:
           m_StringArgument: entityPool
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114532782494853958}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   clickSignal: {fileID: 0}
@@ -1356,6 +1386,21 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114407709142846358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941846033189738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a3c5eed06b8294cac22cb2be2351eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/click.wav
+  isBackground: 0
+  isLoop: 0
+  button: {fileID: 0}
 --- !u!114 &114466522518934476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1383,6 +1428,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114479214070466262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186338148413642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a3c5eed06b8294cac22cb2be2351eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/click.wav
+  isBackground: 0
+  isLoop: 0
+  button: {fileID: 0}
 --- !u!114 &114483293629706382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1428,6 +1488,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114532782494853958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572508800806618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e46a1230fadd44974d60bf6374f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/click.wav
+  isBackground: 0
+  isLoop: 0
 --- !u!114 &114541462688194038
 MonoBehaviour:
   m_ObjectHideFlags: 1

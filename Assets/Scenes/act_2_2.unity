@@ -6004,6 +6004,7 @@ MonoBehaviour:
   launchReadyGO: {fileID: 1199810532}
   cannonAnimator: {fileID: 1253725313}
   cannonTakeLaunch: launch
+  cannonLaunchSfxPath: Audio/cannonFire.wav
   cannonAngleDragHelpGO: {fileID: 1340001756}
   graphReminderGO: {fileID: 1604287861}
   cameraShaker: {fileID: 1074725612}

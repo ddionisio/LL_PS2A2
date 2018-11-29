@@ -15,7 +15,8 @@ public class LoLPlaySoundButtonClick : LoLPlaySound {
         if(!button)
             button = GetComponent<Button>();
 
-        button.onClick.AddListener(OnClick);
+        if(button)
+            button.onClick.AddListener(OnClick);
     }
 
     void OnClick() {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModalVictoryForce : M8.UIModal.Controller, M8.UIModal.Interface.IPush, M8.UIModal.Interface.IPop {
+public class ModalVictoryForce : ModalVictory, M8.UIModal.Interface.IPush, M8.UIModal.Interface.IPop {
     public const string parmTransferTraceGraph = "mvf_transfer";
     public const string parmIndex = "mvf_index";
 

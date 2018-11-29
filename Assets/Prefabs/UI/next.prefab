@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114051631845020030}
   - component: {fileID: 114878108269275522}
   - component: {fileID: 114536706225568360}
+  - component: {fileID: 114554378204416814}
   m_Layer: 5
   m_Name: ButtonProceed
   m_TagString: Untagged
@@ -512,6 +513,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   signal: {fileID: 11400000, guid: db4b0ab37b39e4542a1b6f752cfcfb79, type: 2}
+--- !u!114 &114554378204416814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298002921314548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a3c5eed06b8294cac22cb2be2351eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/click.wav
+  isBackground: 0
+  isLoop: 0
+  button: {fileID: 0}
 --- !u!114 &114631238107808336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -720,7 +736,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 86.99988, y: -23}
-  m_SizeDelta: {x: 173.99994, y: 46}
+  m_SizeDelta: {x: 173.99994, y: 0}
   m_Pivot: {x: 0.9999999, y: -0.00000020861626}
 --- !u!224 &224686649630207474
 RectTransform:

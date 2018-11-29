@@ -7868,7 +7868,7 @@ Transform:
   - {fileID: 1228371340}
   - {fileID: 1053506317}
   m_Father: {fileID: 1225464633}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &784540924
 BoxCollider2D:
@@ -9626,7 +9626,7 @@ Transform:
   - {fileID: 475101132}
   - {fileID: 143680518}
   m_Father: {fileID: 1225464633}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1225216376
 GameObject:
@@ -9735,6 +9735,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2119719318}
+  - {fileID: 1961194881}
   - {fileID: 1211049684}
   - {fileID: 784540923}
   m_Father: {fileID: 1165798545}
@@ -9754,6 +9755,7 @@ MonoBehaviour:
   targetGO: {fileID: 784540922}
   defaultActive: 0
   delay: 1.5
+  activeSfxPath: Audio/unlock.wav
   signalActive: {fileID: 11400000, guid: d10049b8b7a279d409e8bcac5ed48968, type: 2}
   signalInactive: {fileID: 11400000, guid: d6ceb404ca5c7e34797ef129e8e923c7, type: 2}
 --- !u!61 &1225464635
@@ -9828,6 +9830,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2119719319}
         m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1961194882}
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17724,7 +17737,7 @@ MonoBehaviour:
   beamRestAngularSpeed: 4
   beamRestDelay: 2
   beamRestAngularDrag: 10000
-  unlockBeamMinRotate: 1.5
+  unlockBeamMinRotate: 1.75
   unlockGOActives:
   - {fileID: 1803057734}
   - {fileID: 720327659}
@@ -17813,6 +17826,49 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4753846518628416, guid: 2dc03550a21766543bdcf6ddf709a7a6,
     type: 2}
   m_PrefabInternal: {fileID: 640156487}
+--- !u!1 &1961194880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961194881}
+  - component: {fileID: 1961194882}
+  m_Layer: 8
+  m_Name: openSfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1961194881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1961194880}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1225464633}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1961194882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1961194880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e46a1230fadd44974d60bf6374f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/openPrize.wav
+  isBackground: 0
+  isLoop: 0
 --- !u!1 &1973375990
 GameObject:
   m_ObjectHideFlags: 0

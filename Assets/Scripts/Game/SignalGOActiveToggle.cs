@@ -12,6 +12,7 @@ public class SignalGOActiveToggle : MonoBehaviour {
     public GameObject targetGO;
     public bool defaultActive;
     public float delay;
+    public string activeSfxPath;
 
     [Header("Signal")]
     public M8.Signal signalActive;
@@ -40,7 +41,15 @@ public class SignalGOActiveToggle : MonoBehaviour {
             case State.Deactivate:
                 mCurTime += Time.deltaTime;
                 if(mCurTime >= delay) {
-                    targetGO.SetActive(mState == State.Activate);
+                    if(mState == State.Activate) {
+                        targetGO.SetActive(true);
+
+                        if(!string.IsNullOrEmpty(activeSfxPath))
+                            LoLManager.instance.PlaySound(activeSfxPath, false, false);
+                    }
+                    else
+                        targetGO.SetActive(false);
+
                     mState = State.None;
                 }
                 break;

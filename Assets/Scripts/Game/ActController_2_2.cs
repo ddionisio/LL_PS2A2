@@ -13,6 +13,7 @@ public class ActController_2_2 : ActCannonController {
     public M8.Animator.Animate cannonAnimator;
     [M8.Animator.TakeSelector(animatorField = "cannonAnimator")]
     public string cannonTakeLaunch;
+    public string cannonLaunchSfxPath;
 
     public GameObject cannonAngleDragHelpGO;
     public GameObject graphReminderGO;
@@ -117,6 +118,9 @@ public class ActController_2_2 : ActCannonController {
         cannonLaunch.interactable = false;
 
         cannonAnimator.Play(cannonTakeLaunch);
+
+        if(!string.IsNullOrEmpty(cannonLaunchSfxPath))
+            LoLManager.instance.PlaySound(cannonLaunchSfxPath, false, false);
 
         var ent = cannonballSpawner.Spawn();
         StartCoroutine(DoLaunch(ent));

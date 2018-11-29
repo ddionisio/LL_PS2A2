@@ -113,6 +113,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &8137309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8137311}
+  - component: {fileID: 8137310}
+  m_Layer: 0
+  m_Name: goldenBallEnterSfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &8137310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 8137309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e46a1230fadd44974d60bf6374f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/warpIn.wav
+  isBackground: 0
+  isLoop: 0
+--- !u!4 &8137311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 8137309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 202055800}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &14383931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4808,7 +4851,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8137311}
+  - {fileID: 1885209463}
+  - {fileID: 622589587}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4830,12 +4876,12 @@ MonoBehaviour:
     numLoop: 1
     loopMode: 0
     loopBackToFrame: 0
-    trackCounter: 28
+    trackCounter: 31
     groupCounter: 0
     rootGroup:
       group_name: 
       group_id: 0
-      elements: 02000000030000000400000005000000060000000700000008000000090000000d0000000e0000000a0000000b0000000c0000000f00000010000000110000001200000013000000140000001b0000001c00000015000000160000001700000018000000190000001a000000
+      elements: 020000000300000004000000050000001d0000001e000000060000000700000008000000090000000d0000000e0000000a0000000b0000000c0000000f00000010000000110000001200000013000000140000001b0000001c00000015000000160000001700000018000000190000001a0000001f000000
       foldout: 1
     groupValues: []
   _defaultTakeName: 
@@ -4865,6 +4911,24 @@ MonoBehaviour:
       _targetPath: 
       obj: {fileID: 1642002611}
       componentName: ParticleSystem
+    - id: 29
+      name: Track28
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 8137310}
+      componentName: LoLPlaySound
+    - id: 31
+      name: Track30
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 622589586}
+      componentName: LoLPlaySound
+    - id: 30
+      name: Track29
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 1885209462}
+      componentName: LoLPlaySound
     _eventKeys:
     - version: 0
       interp: 0
@@ -4896,43 +4960,37 @@ MonoBehaviour:
       useSendMessage: 0
       parameters: []
       methodName: Play
+    - version: 0
+      interp: 0
+      frame: 5
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      useSendMessage: 0
+      parameters: []
+      methodName: Play
+    - version: 0
+      interp: 0
+      frame: 175
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      useSendMessage: 0
+      parameters: []
+      methodName: Play
+    - version: 0
+      interp: 0
+      frame: 65
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      useSendMessage: 0
+      parameters: []
+      methodName: Play
     _goSetActiveTracks:
-    - id: 12
-      name: Track11
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 1810433153}
-      startActive: 0
-    - id: 10
-      name: Track9
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 642031340}
-      startActive: 0
-    - id: 18
-      name: Track17
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 1822954794}
-      startActive: 0
-    - id: 14
-      name: Track13
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 661886707}
-      startActive: 0
-    - id: 7
-      name: Track6
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 673219811}
-      startActive: 0
-    - id: 9
-      name: Track8
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 687149052}
-      startActive: 0
     - id: 11
       name: Track10
       foldout: 1
@@ -4944,6 +5002,18 @@ MonoBehaviour:
       foldout: 1
       _targetPath: 
       obj: {fileID: 2019010837}
+      startActive: 0
+    - id: 9
+      name: Track8
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 687149052}
+      startActive: 0
+    - id: 7
+      name: Track6
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 673219811}
       startActive: 0
     - id: 17
       name: Track16
@@ -4957,6 +5027,30 @@ MonoBehaviour:
       _targetPath: 
       obj: {fileID: 1565002958}
       startActive: 0
+    - id: 10
+      name: Track9
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 642031340}
+      startActive: 0
+    - id: 12
+      name: Track11
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 1810433153}
+      startActive: 0
+    - id: 14
+      name: Track13
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 661886707}
+      startActive: 0
+    - id: 18
+      name: Track17
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 1822954794}
+      startActive: 0
     _goSetActiveKeys:
     - version: 1
       interp: 1
@@ -4969,48 +5063,12 @@ MonoBehaviour:
       endFrame: -1
     - version: 1
       interp: 1
-      frame: 35
+      frame: 115
       easeType: 1
       amplitude: 0
       period: 0
       customEase: []
       setActive: 1
-      endFrame: -1
-    - version: 1
-      interp: 1
-      frame: 135
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      setActive: 1
-      endFrame: -1
-    - version: 1
-      interp: 1
-      frame: 95
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      setActive: 1
-      endFrame: -1
-    - version: 1
-      interp: 1
-      frame: 65
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      setActive: 1
-      endFrame: 80
-    - version: 1
-      interp: 1
-      frame: 80
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      setActive: 0
       endFrame: -1
     - version: 1
       interp: 1
@@ -5032,21 +5090,21 @@ MonoBehaviour:
       endFrame: -1
     - version: 1
       interp: 1
-      frame: 35
+      frame: 65
       easeType: 1
       amplitude: 0
       period: 0
       customEase: []
       setActive: 1
-      endFrame: -1
+      endFrame: 80
     - version: 1
       interp: 1
-      frame: 115
+      frame: 80
       easeType: 1
       amplitude: 0
       period: 0
       customEase: []
-      setActive: 1
+      setActive: 0
       endFrame: -1
     - version: 1
       interp: 1
@@ -5075,7 +5133,61 @@ MonoBehaviour:
       customEase: []
       setActive: 0
       endFrame: -1
+    - version: 1
+      interp: 1
+      frame: 35
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      setActive: 1
+      endFrame: -1
+    - version: 1
+      interp: 1
+      frame: 35
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      setActive: 1
+      endFrame: -1
+    - version: 1
+      interp: 1
+      frame: 95
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      setActive: 1
+      endFrame: -1
+    - version: 1
+      interp: 1
+      frame: 135
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      setActive: 1
+      endFrame: -1
     _materialTracks:
+    - id: 25
+      name: Track24
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 761336981}
+      _matOverride: {fileID: 0}
+      _matInd: 0
+      _property: speedY
+      _propertyType: 2
+    - id: 23
+      name: Track22
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 1123615088}
+      _matOverride: {fileID: 0}
+      _matInd: 0
+      _property: speedY
+      _propertyType: 2
     - id: 24
       name: Track23
       foldout: 1
@@ -5093,24 +5205,6 @@ MonoBehaviour:
       _matOverride: {fileID: 0}
       _matInd: 0
       _property: speedX
-      _propertyType: 2
-    - id: 23
-      name: Track22
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 1123615088}
-      _matOverride: {fileID: 0}
-      _matInd: 0
-      _property: speedY
-      _propertyType: 2
-    - id: 25
-      name: Track24
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 761336981}
-      _matOverride: {fileID: 0}
-      _matInd: 0
-      _property: speedY
       _propertyType: 2
     _materialKeys:
     - version: 1
@@ -5162,7 +5256,7 @@ MonoBehaviour:
       customEase: []
       endFrame: 230
       texture: {fileID: 0}
-      _val4: {x: -0.03, y: 0, z: 0, w: 0}
+      _val4: {x: -0.015, y: 0, z: 0, w: 0}
     - version: 1
       interp: 1
       frame: 230
@@ -5182,7 +5276,7 @@ MonoBehaviour:
       customEase: []
       endFrame: 230
       texture: {fileID: 0}
-      _val4: {x: -0.015, y: 0, z: 0, w: 0}
+      _val4: {x: -0.03, y: 0, z: 0, w: 0}
     - version: 1
       interp: 1
       frame: 230
@@ -5196,6 +5290,16 @@ MonoBehaviour:
     _orientationTracks: []
     _orientationKeys: []
     _propertyTracks:
+    - id: 16
+      name: Track15
+      foldout: 1
+      _targetPath: 
+      valueType: 6
+      obj: {fileID: 2019010837}
+      component: {fileID: 2019010839}
+      componentName: Image
+      fieldName: 
+      propertyName: color
     - id: 6
       name: Track5
       foldout: 1
@@ -5206,14 +5310,24 @@ MonoBehaviour:
       componentName: SpriteRenderer
       fieldName: 
       propertyName: sprite
-    - id: 16
-      name: Track15
+    - id: 8
+      name: Track7
       foldout: 1
       _targetPath: 
       valueType: 6
-      obj: {fileID: 2019010837}
-      component: {fileID: 2019010839}
-      componentName: Image
+      obj: {fileID: 673219811}
+      component: {fileID: 673219813}
+      componentName: SpriteRenderer
+      fieldName: 
+      propertyName: color
+    - id: 2
+      name: Track1
+      foldout: 1
+      _targetPath: 
+      valueType: 6
+      obj: {fileID: 1895696507}
+      component: {fileID: 1895696509}
+      componentName: SpriteColorGroup
       fieldName: 
       propertyName: color
     - id: 28
@@ -5226,63 +5340,7 @@ MonoBehaviour:
       componentName: SpriteRenderer
       fieldName: 
       propertyName: flipX
-    - id: 2
-      name: Track1
-      foldout: 1
-      _targetPath: 
-      valueType: 6
-      obj: {fileID: 1895696507}
-      component: {fileID: 1895696509}
-      componentName: SpriteColorGroup
-      fieldName: 
-      propertyName: color
-    - id: 8
-      name: Track7
-      foldout: 1
-      _targetPath: 
-      valueType: 6
-      obj: {fileID: 673219811}
-      component: {fileID: 673219813}
-      componentName: SpriteRenderer
-      fieldName: 
-      propertyName: color
     _propertyKeys:
-    - version: 2
-      interp: 2
-      frame: 1
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      endFrame: 35
-      val: 0
-      valString: 
-      valObj: {fileID: 21300000, guid: 2edb88abbbd8a5d42b0eb41b312e0b4d, type: 3}
-      vect4: {x: 0, y: 0, z: 0, w: 0}
-    - version: 2
-      interp: 2
-      frame: 35
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      endFrame: 100
-      val: 0
-      valString: 
-      valObj: {fileID: 21300000, guid: 7242659cc528db5438228b4bdd0033ed, type: 3}
-      vect4: {x: 0, y: 0, z: 0, w: 0}
-    - version: 2
-      interp: 2
-      frame: 100
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      endFrame: -1
-      val: 0
-      valString: 
-      valObj: {fileID: 21300000, guid: 03e9d29f4e9e993479e7df803ba2c5b0, type: 3}
-      vect4: {x: 0, y: 0, z: 0, w: 0}
     - version: 2
       interp: 1
       frame: 115
@@ -5333,28 +5391,76 @@ MonoBehaviour:
       vect4: {x: 0, y: 0, z: 0, w: 0}
     - version: 2
       interp: 2
-      frame: 275
+      frame: 1
       easeType: 1
       amplitude: 0
       period: 0
       customEase: []
-      endFrame: 295
-      val: -1
+      endFrame: 35
+      val: 0
       valString: 
-      valObj: {fileID: 0}
+      valObj: {fileID: 21300000, guid: 2edb88abbbd8a5d42b0eb41b312e0b4d, type: 3}
       vect4: {x: 0, y: 0, z: 0, w: 0}
     - version: 2
       interp: 2
-      frame: 295
+      frame: 35
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: 100
+      val: 0
+      valString: 
+      valObj: {fileID: 21300000, guid: 7242659cc528db5438228b4bdd0033ed, type: 3}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
+    - version: 2
+      interp: 2
+      frame: 100
       easeType: 1
       amplitude: 0
       period: 0
       customEase: []
       endFrame: -1
-      val: 1
+      val: 0
+      valString: 
+      valObj: {fileID: 21300000, guid: 03e9d29f4e9e993479e7df803ba2c5b0, type: 3}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
+    - version: 2
+      interp: 1
+      frame: 65
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: 73
+      val: 0
       valString: 
       valObj: {fileID: 0}
-      vect4: {x: 0, y: 0, z: 0, w: 0}
+      vect4: {x: 0.97647065, y: 0.5529412, z: 0.34509805, w: 0}
+    - version: 2
+      interp: 1
+      frame: 73
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: 80
+      val: 0
+      valString: 
+      valObj: {fileID: 0}
+      vect4: {x: 0.97647065, y: 0.5529412, z: 0.34509805, w: 1}
+    - version: 2
+      interp: 1
+      frame: 80
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: -1
+      val: 0
+      valString: 
+      valObj: {fileID: 0}
+      vect4: {x: 1, y: 0.8431373, z: 0.6, w: 1}
     - version: 2
       interp: 1
       frame: 5
@@ -5404,41 +5510,29 @@ MonoBehaviour:
       valObj: {fileID: 0}
       vect4: {x: 1, y: 1, z: 1, w: 0}
     - version: 2
-      interp: 1
-      frame: 65
+      interp: 2
+      frame: 275
       easeType: 1
       amplitude: 0
       period: 0
       customEase: []
-      endFrame: 73
-      val: 0
+      endFrame: 295
+      val: -1
       valString: 
       valObj: {fileID: 0}
-      vect4: {x: 0.97647065, y: 0.5529412, z: 0.34509805, w: 0}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
     - version: 2
-      interp: 1
-      frame: 73
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      endFrame: 80
-      val: 0
-      valString: 
-      valObj: {fileID: 0}
-      vect4: {x: 0.97647065, y: 0.5529412, z: 0.34509805, w: 1}
-    - version: 2
-      interp: 1
-      frame: 80
+      interp: 2
+      frame: 295
       easeType: 1
       amplitude: 0
       period: 0
       customEase: []
       endFrame: -1
-      val: 0
+      val: 1
       valString: 
       valObj: {fileID: 0}
-      vect4: {x: 1, y: 0.8431373, z: 0.6, w: 1}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
     _rotationEulerTracks: []
     _rotationEulerKeys: []
     _rotationTracks:
@@ -5485,27 +5579,6 @@ MonoBehaviour:
       rotation: {x: 0, y: 0, z: 0.8251135, w: 0.56496704}
       endFrame: -1
     _translationTracks:
-    - id: 20
-      name: Track19
-      foldout: 1
-      _targetPath: 
-      _obj: {fileID: 14383932}
-      pixelSnap: 0
-      pixelPerUnit: 32
-    - id: 26
-      name: Track25
-      foldout: 1
-      _targetPath: 
-      _obj: {fileID: 458123601}
-      pixelSnap: 0
-      pixelPerUnit: 32
-    - id: 4
-      name: Track3
-      foldout: 1
-      _targetPath: 
-      _obj: {fileID: 1895696508}
-      pixelSnap: 0
-      pixelPerUnit: 32
     - id: 13
       name: Track12
       foldout: 1
@@ -5520,7 +5593,74 @@ MonoBehaviour:
       _obj: {fileID: 956782214}
       pixelSnap: 0
       pixelPerUnit: 32
+    - id: 20
+      name: Track19
+      foldout: 1
+      _targetPath: 
+      _obj: {fileID: 14383932}
+      pixelSnap: 0
+      pixelPerUnit: 32
+    - id: 4
+      name: Track3
+      foldout: 1
+      _targetPath: 
+      _obj: {fileID: 1895696508}
+      pixelSnap: 0
+      pixelPerUnit: 32
+    - id: 26
+      name: Track25
+      foldout: 1
+      _targetPath: 
+      _obj: {fileID: 458123601}
+      pixelSnap: 0
+      pixelPerUnit: 32
     _translationKeys:
+    - version: 2
+      interp: 0
+      frame: 100
+      easeType: 2
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -2, y: -5.14, z: 0}
+      endFrame: 120
+      path:
+      - {x: -2, y: -5.14, z: 0}
+      - {x: -2, y: 9.52, z: 0}
+      isConstSpeed: 1
+    - version: 2
+      interp: 0
+      frame: 120
+      easeType: 2
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -2, y: 9.52, z: 0}
+      endFrame: 120
+      path: []
+      isConstSpeed: 1
+    - version: 2
+      interp: 2
+      frame: 1
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: 0, y: 0, z: 0}
+      endFrame: 135
+      path: []
+      isConstSpeed: 1
+    - version: 2
+      interp: 2
+      frame: 135
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: 45, y: 0, z: 0}
+      endFrame: 135
+      path: []
+      isConstSpeed: 1
     - version: 2
       interp: 1
       frame: 145
@@ -5597,30 +5737,6 @@ MonoBehaviour:
       isConstSpeed: 1
     - version: 2
       interp: 0
-      frame: 230
-      easeType: 2
-      amplitude: 0
-      period: 0
-      customEase: []
-      position: {x: 1, y: 1, z: 0}
-      endFrame: 280
-      path:
-      - {x: 1, y: 1, z: 0}
-      - {x: 11.7, y: 10.66, z: 0}
-      isConstSpeed: 1
-    - version: 2
-      interp: 0
-      frame: 280
-      easeType: 2
-      amplitude: 0
-      period: 0
-      customEase: []
-      position: {x: 11.7, y: 10.66, z: 0}
-      endFrame: 280
-      path: []
-      isConstSpeed: 1
-    - version: 2
-      interp: 0
       frame: 30
       easeType: 4
       amplitude: 0
@@ -5645,48 +5761,26 @@ MonoBehaviour:
       isConstSpeed: 1
     - version: 2
       interp: 0
-      frame: 100
+      frame: 230
       easeType: 2
       amplitude: 0
       period: 0
       customEase: []
-      position: {x: -2, y: -5.14, z: 0}
-      endFrame: 120
+      position: {x: 1, y: 1, z: 0}
+      endFrame: 280
       path:
-      - {x: -2, y: -5.14, z: 0}
-      - {x: -2, y: 9.52, z: 0}
+      - {x: 1, y: 1, z: 0}
+      - {x: 11.7, y: 10.66, z: 0}
       isConstSpeed: 1
     - version: 2
       interp: 0
-      frame: 120
+      frame: 280
       easeType: 2
       amplitude: 0
       period: 0
       customEase: []
-      position: {x: -2, y: 9.52, z: 0}
-      endFrame: 120
-      path: []
-      isConstSpeed: 1
-    - version: 2
-      interp: 2
-      frame: 1
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      position: {x: 0, y: 0, z: 0}
-      endFrame: 135
-      path: []
-      isConstSpeed: 1
-    - version: 2
-      interp: 2
-      frame: 135
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      position: {x: 45, y: 0, z: 0}
-      endFrame: 135
+      position: {x: 11.7, y: 10.66, z: 0}
+      endFrame: 280
       path: []
       isConstSpeed: 1
     _unityAnimationTracks: []
@@ -5697,10 +5791,7 @@ MonoBehaviour:
     - type: 4
       index: 0
       keyIndices: 00000000
-    - type: 7
-      index: 0
-      keyIndices: 000000000100000002000000
-    - type: 5
+    - type: 10
       index: 0
       keyIndices: 0000000001000000
     - type: 4
@@ -5708,34 +5799,7 @@ MonoBehaviour:
       keyIndices: 01000000
     - type: 4
       index: 2
-      keyIndices: 02000000
-    - type: 10
-      index: 0
-      keyIndices: 000000000100000002000000030000000400000005000000
-    - type: 7
-      index: 1
-      keyIndices: 03000000040000000500000006000000
-    - type: 10
-      index: 1
-      keyIndices: 0600000007000000
-    - type: 10
-      index: 2
-      keyIndices: 0800000009000000
-    - type: 7
-      index: 2
-      keyIndices: 0700000008000000
-    - type: 7
-      index: 3
-      keyIndices: 090000000a0000000b0000000c000000
-    - type: 4
-      index: 3
-      keyIndices: 03000000
-    - type: 5
-      index: 1
       keyIndices: 0200000003000000
-    - type: 7
-      index: 4
-      keyIndices: 0d0000000e0000000f000000
     - type: 3
       index: 0
       keyIndices: 0000000001000000
@@ -5743,39 +5807,78 @@ MonoBehaviour:
       index: 1
       keyIndices: 02000000
     - type: 4
-      index: 4
+      index: 3
       keyIndices: 0400000005000000
     - type: 4
-      index: 5
-      keyIndices: 0600000007000000
-    - type: 4
-      index: 6
-      keyIndices: 08000000
-    - type: 10
-      index: 3
-      keyIndices: 0a0000000b000000
-    - type: 4
-      index: 7
-      keyIndices: 09000000
-    - type: 4
-      index: 8
-      keyIndices: 0a000000
-    - type: 10
       index: 4
-      keyIndices: 0c0000000d000000
-    - type: 4
-      index: 9
-      keyIndices: 0b0000000c000000
-    - type: 5
-      index: 2
-      keyIndices: 0400000005000000
-    - type: 5
-      index: 3
-      keyIndices: 0600000007000000
+      keyIndices: 06000000
     - type: 9
       index: 0
       keyIndices: 00000000010000000200000003000000
-    _takeTrackCounts: 1b000000
+    - type: 3
+      index: 2
+      keyIndices: 03000000
+    - type: 3
+      index: 3
+      keyIndices: 04000000
+    - type: 5
+      index: 0
+      keyIndices: 0000000001000000
+    - type: 10
+      index: 1
+      keyIndices: 0200000003000000
+    - type: 4
+      index: 5
+      keyIndices: 0700000008000000
+    - type: 5
+      index: 1
+      keyIndices: 0200000003000000
+    - type: 10
+      index: 2
+      keyIndices: 040000000500000006000000070000000800000009000000
+    - type: 7
+      index: 0
+      keyIndices: 00000000010000000200000003000000
+    - type: 4
+      index: 6
+      keyIndices: 09000000
+    - type: 4
+      index: 7
+      keyIndices: 0a000000
+    - type: 7
+      index: 1
+      keyIndices: 040000000500000006000000
+    - type: 5
+      index: 2
+      keyIndices: 0400000005000000
+    - type: 4
+      index: 8
+      keyIndices: 0b000000
+    - type: 10
+      index: 3
+      keyIndices: 0a0000000b000000
+    - type: 7
+      index: 2
+      keyIndices: 070000000800000009000000
+    - type: 7
+      index: 3
+      keyIndices: 0a0000000b0000000c0000000d000000
+    - type: 4
+      index: 9
+      keyIndices: 0c000000
+    - type: 5
+      index: 3
+      keyIndices: 0600000007000000
+    - type: 7
+      index: 4
+      keyIndices: 0e0000000f000000
+    - type: 3
+      index: 4
+      keyIndices: 05000000
+    - type: 10
+      index: 4
+      keyIndices: 0c0000000d000000
+    _takeTrackCounts: 1e000000
 --- !u!1 &212017345
 GameObject:
   m_ObjectHideFlags: 0
@@ -6067,6 +6170,49 @@ Transform:
   - {fileID: 2006733527}
   m_Father: {fileID: 1822954795}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &622589585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 622589587}
+  - component: {fileID: 622589586}
+  m_Layer: 0
+  m_Name: impactSfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &622589586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 622589585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e46a1230fadd44974d60bf6374f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/bang4.wav
+  isBackground: 0
+  isLoop: 0
+--- !u!4 &622589587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 622589585}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 202055800}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &642031340
 GameObject:
@@ -11873,7 +12019,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1280087065}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000016912732, y: -0.00005427986, z: 0}
+  m_LocalPosition: {x: -0.000019364774, y: -0.000057202087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 14383932}
@@ -26874,6 +27020,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1885209461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1885209463}
+  - component: {fileID: 1885209462}
+  m_Layer: 0
+  m_Name: knightTransformSfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1885209462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885209461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e46a1230fadd44974d60bf6374f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/warpExit.wav
+  isBackground: 0
+  isLoop: 0
+--- !u!4 &1885209463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885209461}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 202055800}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1887838781
 GameObject:
   m_ObjectHideFlags: 0

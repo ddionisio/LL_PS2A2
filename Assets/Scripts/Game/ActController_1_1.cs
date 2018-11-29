@@ -27,6 +27,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
     public DragWidget unitSpawnerWidget;
 
+    public string blockLandSfxPath;
+
     public Rigidbody2DMoveController block1;
     public Transform block1StartPt;
     [M8.TagSelector]
@@ -127,6 +129,9 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         //fancy camera shake
         cameraShaker.Shake();
 
+        if(!string.IsNullOrEmpty(blockLandSfxPath))
+            LoLManager.instance.PlaySound(blockLandSfxPath, false, false);
+
         //some more dialog
         landingDialog.Play();
         while(landingDialog.isPlaying)
@@ -209,6 +214,9 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         //fancy camera shake
         cameraShaker.Shake();
+
+        if(!string.IsNullOrEmpty(blockLandSfxPath))
+            LoLManager.instance.PlaySound(blockLandSfxPath, false, false);
 
         //game ready
         unitSpawnerWidget.active = true;

@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 222362072706894742}
   - component: {fileID: 114516526210830314}
   - component: {fileID: 114482662378448714}
+  - component: {fileID: 114497701761591164}
   m_Layer: 5
   m_Name: launchButton
   m_TagString: Untagged
@@ -282,6 +283,7 @@ GameObject:
   - component: {fileID: 222276930299904298}
   - component: {fileID: 114209947519371578}
   - component: {fileID: 114094909424461738}
+  - component: {fileID: 114900256518891544}
   m_Layer: 5
   m_Name: graphButton
   m_TagString: Untagged
@@ -1621,6 +1623,21 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114497701761591164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1438649255004576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a3c5eed06b8294cac22cb2be2351eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/click.wav
+  isBackground: 0
+  isLoop: 0
+  button: {fileID: 0}
 --- !u!114 &114516526210830314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1955,6 +1972,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: pressGraph
   isKeyExclusive: 0
+--- !u!114 &114900256518891544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496723548492090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a3c5eed06b8294cac22cb2be2351eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPath: Audio/click.wav
+  isBackground: 0
+  isLoop: 0
+  button: {fileID: 0}
 --- !u!114 &114913897322249556
 MonoBehaviour:
   m_ObjectHideFlags: 1

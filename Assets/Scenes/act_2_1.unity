@@ -7191,11 +7191,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114830704127687744, guid: a94660b0c70b69e4483fbb9727914165,
-        type: 2}
-      propertyPath: noContactUseGravityAccelInfo
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a94660b0c70b69e4483fbb9727914165, type: 2}
   m_IsPrefabAsset: 0
@@ -8477,6 +8472,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224807241817203342, guid: 64ea06887176dd74e92dc7870bce2955,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 1822064288131266, guid: 64ea06887176dd74e92dc7870bce2955, type: 2}
       propertyPath: m_IsActive

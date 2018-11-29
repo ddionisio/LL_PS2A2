@@ -57,6 +57,8 @@ GameObject:
   - component: {fileID: 114512888276933476}
   - component: {fileID: 114236386442015548}
   - component: {fileID: 114878694010632232}
+  - component: {fileID: 114227317852671040}
+  - component: {fileID: 114357465593217240}
   - component: {fileID: 50257915805046926}
   - component: {fileID: 61984535534764430}
   - component: {fileID: 114899382243012990}
@@ -168,6 +170,33 @@ MonoBehaviour:
   activateOnStart: 0
   activator: {fileID: 0}
   stateOnSpawn: {fileID: 11400000, guid: 9fedc66efd6243044be48c843b112cb9, type: 2}
+--- !u!114 &114227317852671040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993494107269678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e42b2db3ae4514f9816d12fdbd2bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCallback:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114357465593217240}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: M8.UnityEventGenericParams, Assembly-CSharp, Version=2.1.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114236386442015548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,6 +246,24 @@ MonoBehaviour:
   color: {r: 0.6627451, g: 0.8196079, b: 0.5176471, a: 1}
   solid: 0
   useCollider: 1
+--- !u!114 &114357465593217240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993494107269678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2d1119dad2cbe4495e6e70fd0c0f8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paths:
+  - Audio/jump1.wav
+  - Audio/jump2.wav
+  - Audio/jump3.wav
+  - Audio/jump4.wav
+  isBackground: 0
+  isLoop: 0
 --- !u!114 &114381427412891204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,10 +317,13 @@ MonoBehaviour:
   tagIgnoreSide: Player
   states:
   - {fileID: 11400000, guid: b56fdf212b9c45249b00af40a43183b3, type: 2}
+  idleDelayMin: 0
+  idleDelayMax: 0
   spriteRender: {fileID: 212119286276250646}
   animator: {fileID: 114899382243012990}
   takeAir: air
   takeGroundIdle: idle
+  takeGroundIdleDelay: 
   takeGroundMove: move
   takeGroundPush: push
 --- !u!114 &114878694010632232
