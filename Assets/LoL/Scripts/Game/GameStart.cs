@@ -31,6 +31,8 @@ public class GameStart : GameModeController<GameStart> {
         //wait for LoL to load/initialize
         while(!LoLManager.instance.isReady)
             yield return null;
+
+        yield return new WaitForSeconds(0.5f);
         
         //start title
         if(titleText) titleText.text = LoLLocalize.Get(titleStringRef);

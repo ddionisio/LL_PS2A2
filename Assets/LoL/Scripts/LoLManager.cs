@@ -454,9 +454,11 @@ public class LoLManager : M8.SingletonBehaviour<LoLManager> {
             mLanguageJson = null;
         }
 
+        yield return new WaitForSeconds(0.5f);
+
         SetupVolumes();
 
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
 
         mIsReady = true;
     }

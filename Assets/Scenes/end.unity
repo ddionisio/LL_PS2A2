@@ -5895,10 +5895,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1076670171
-  m_SortingLayer: -3
+  m_SortingLayerID: 626682191
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bd3cd7e9f5fd004894ed5f88bcf6777, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa8fa3d50533c9f41a3d3aa9547f988a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6317,8 +6317,8 @@ MonoBehaviour:
   sprite: {fileID: 1788360834}
   mode: 0
   frames:
-  - {fileID: 21300000, guid: a13613346de6f4841bad736ee0a9114a, type: 3}
-  - {fileID: 21300000, guid: e77e314e957c3a64b914f613e50f2130, type: 3}
+  - {fileID: 21300000, guid: 74a079a57cfe04e4a8853f73f9f29d1e, type: 3}
+  - {fileID: 21300000, guid: adf250f61b9bc3e47a6f7af20acf085d, type: 3}
   startDelay: 0
   nextDelay: 0.5
   playOnStart: 1
@@ -6354,10 +6354,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1076670171
-  m_SortingLayer: -3
+  m_SortingLayerID: 626682191
+  m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: a13613346de6f4841bad736ee0a9114a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74a079a57cfe04e4a8853f73f9f29d1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6568,7 +6568,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: GAME COMPLETE
+  m_Text: GLORY IS YOURS
 --- !u!222 &1812872619
 CanvasRenderer:
   m_ObjectHideFlags: 0

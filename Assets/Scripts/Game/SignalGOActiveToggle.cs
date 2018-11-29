@@ -13,6 +13,7 @@ public class SignalGOActiveToggle : MonoBehaviour {
     public bool defaultActive;
     public float delay;
     public string activeSfxPath;
+    public Rigidbody2D activeLockBody;
 
     [Header("Signal")]
     public M8.Signal signalActive;
@@ -46,6 +47,10 @@ public class SignalGOActiveToggle : MonoBehaviour {
 
                         if(!string.IsNullOrEmpty(activeSfxPath))
                             LoLManager.instance.PlaySound(activeSfxPath, false, false);
+
+                        if(activeLockBody) {
+                            activeLockBody.bodyType = RigidbodyType2D.Static;
+                        }
                     }
                     else
                         targetGO.SetActive(false);

@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 91123bccfc22f93488d1e7e27f22d122, type: 3}
     m_FontSize: 16
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -2014,7 +2014,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 91123bccfc22f93488d1e7e27f22d122, type: 3}
     m_FontSize: 16
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -4240,7 +4240,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 91123bccfc22f93488d1e7e27f22d122, type: 3}
     m_FontSize: 16
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -4375,6 +4375,21 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 224889634064160998, guid: fe4a4e055d8584e46975f4ab4561d8a9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -288
+      objectReference: {fileID: 0}
+    - target: {fileID: 224134357755346504, guid: fe4a4e055d8584e46975f4ab4561d8a9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -288
+      objectReference: {fileID: 0}
+    - target: {fileID: 224889634064160998, guid: fe4a4e055d8584e46975f4ab4561d8a9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 224606259734740618, guid: fe4a4e055d8584e46975f4ab4561d8a9,
         type: 2}

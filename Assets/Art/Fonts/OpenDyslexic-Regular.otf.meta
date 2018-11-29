@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 91123bccfc22f93488d1e7e27f22d122
-timeCreated: 1511591754
-licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -14,10 +12,12 @@ TrueTypeFontImporter:
   fontNames:
   - OpenDyslexic
   fallbackFontReferences:
-  - {fileID: 12800000, guid: 6a4e080bd30c85e458d02bab064eb669, type: 3}
+  - {instanceID: 0}
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 1
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

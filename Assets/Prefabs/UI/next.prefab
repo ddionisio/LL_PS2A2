@@ -61,13 +61,14 @@ GameObject:
   - component: {fileID: 114744115453840972}
   - component: {fileID: 114719218325212220}
   - component: {fileID: 114349468710731016}
+  - component: {fileID: 114549706017328556}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1748179342829218
 GameObject:
   m_ObjectHideFlags: 1
@@ -101,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &114051631845020030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,12 +148,12 @@ MonoBehaviour:
     numLoop: 1
     loopMode: 0
     loopBackToFrame: 0
-    trackCounter: 2
+    trackCounter: 3
     groupCounter: 0
     rootGroup:
       group_name: 
       group_id: 0
-      elements: 02000000
+      elements: 0200000003000000
       foldout: 1
     groupValues: []
   _defaultTakeName: enter
@@ -171,8 +172,23 @@ MonoBehaviour:
     _cameraSwitcherKeys: []
     _eventTracks: []
     _eventKeys: []
-    _goSetActiveTracks: []
-    _goSetActiveKeys: []
+    _goSetActiveTracks:
+    - id: 3
+      name: Track2
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 1558760728383938}
+      startActive: 0
+    _goSetActiveKeys:
+    - version: 1
+      interp: 1
+      frame: 10
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      setActive: 1
+      endFrame: -1
     _materialTracks: []
     _materialKeys: []
     _orientationTracks: []
@@ -224,10 +240,13 @@ MonoBehaviour:
     _scaleTracks: []
     _scaleKeys: []
     _trackLookups:
+    - type: 4
+      index: 0
+      keyIndices: 00000000
     - type: 7
       index: 0
       keyIndices: 0000000001000000
-    _takeTrackCounts: 01000000
+    _takeTrackCounts: 02000000
 --- !u!114 &114312123718031104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -513,6 +532,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   signal: {fileID: 11400000, guid: db4b0ab37b39e4542a1b6f752cfcfb79, type: 2}
+--- !u!114 &114549706017328556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1558760728383938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7662fad8a432c5646a4f605263befd60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playGroup: 
+  playIndex: -1
+  autoPlay: 1
 --- !u!114 &114554378204416814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -736,7 +769,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 86.99988, y: -23}
-  m_SizeDelta: {x: 173.99994, y: 0}
+  m_SizeDelta: {x: 173.99994, y: 46}
   m_Pivot: {x: 0.9999999, y: -0.00000020861626}
 --- !u!224 &224686649630207474
 RectTransform:
@@ -773,7 +806,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 90.99988, y: -27}
-  m_SizeDelta: {x: 181.99994, y: 52}
+  m_SizeDelta: {x: 181.99994, y: 6}
   m_Pivot: {x: 0.9999999, y: -0.00000020861626}
 --- !u!224 &224982516025055480
 RectTransform:
