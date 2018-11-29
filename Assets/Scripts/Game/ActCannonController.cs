@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActCannonController : GameModeController<ActCannonController> {
+    [Header("Music")]
+    public string musicPath;
+
     [Header("Display")]
     public PhysicsTrajectoryDisplayControl trajectoryDisplayControl;
 
@@ -139,6 +142,13 @@ public class ActCannonController : GameModeController<ActCannonController> {
         }
 
         base.OnInstanceDeinit();
+    }
+
+    protected override IEnumerator Start() {
+        if(!string.IsNullOrEmpty(musicPath))
+            LoLManager.instance.PlaySound(musicPath, true, true);
+
+        yield return base.Start();
     }
 
     protected virtual void OnFinish() {

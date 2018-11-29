@@ -9,6 +9,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public Transform dragGuideTo;
 
     [Header("Sequence")]
+    public string musicPath;
+
     public float startDelay = 1f;
 
     public CameraShakeControl cameraShaker;
@@ -91,7 +93,10 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         signalUnitDragEnd.callback += OnSignalUnitDragEnd;
     }
 
-    protected override IEnumerator Start() {        
+    protected override IEnumerator Start() {
+        if(!string.IsNullOrEmpty(musicPath))
+            LoLManager.instance.PlaySound(musicPath, true, true);
+
         yield return base.Start();
 
         titleAnim.gameObject.SetActive(true);

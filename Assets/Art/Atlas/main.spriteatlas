@@ -73,7 +73,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fbb2c7222f172d249afaedc7a0c98ddb, type: 3}
   - {fileID: 21300000, guid: fe0fe492a14d5304eb376b932691f3d2, type: 3}
   - {fileID: 21300000, guid: e0b19ee2e34fae14fa6a6ef191a674e6, type: 3}
-  - {fileID: 21300000, guid: fde78cf21a65a2248a76a1c56c4b2bdf, type: 3}
   - {fileID: 21300000, guid: 3a0f651362280ae4ba8e6edf566dd7e8, type: 3}
   - {fileID: 21300000, guid: f09376230546e5e4ebe4f92e26b46133, type: 3}
   - {fileID: 21300000, guid: 48bb4343820a6cb48a9858df40ae71c0, type: 3}
@@ -83,6 +82,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 525ff3d3f42a6d941bddbafaba567ba2, type: 3}
   - {fileID: 21300000, guid: fd3938d3ce8e1b44d8fbe9cfb36718db, type: 3}
   - {fileID: 21300000, guid: f8d800f3a28f3bd409eeb5bf6f187952, type: 3}
+  - {fileID: 21300000, guid: 8a3c2b046cb7b1744a3c827fa7c3dd1a, type: 3}
   - {fileID: 21300000, guid: 5445ee2485073944db31d01fc7d4c44c, type: 3}
   - {fileID: 21300000, guid: a13613346de6f4841bad736ee0a9114a, type: 3}
   - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
@@ -201,7 +201,6 @@ SpriteAtlas:
   - puff06
   - iconForcePush
   - knight_carry2
-  - portraitRobot
   - goldenballFaces_eyes
   - block
   - princess_help2
@@ -211,6 +210,7 @@ SpriteAtlas:
   - puff07
   - wing
   - gear
+  - portraitRobot_2
   - knightSuper_1
   - king_1
   - baseGradient

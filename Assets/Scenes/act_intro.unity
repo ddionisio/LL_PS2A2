@@ -1570,10 +1570,13 @@ MonoBehaviour:
   levelMatches:
   - levelIndex: 0
     rootGO: {fileID: 997942855}
+    musicPath: Audio/VillageConsort.mp3
   - levelIndex: 2
     rootGO: {fileID: 734521527}
+    musicPath: Audio/MarchoftheSpoons.mp3
   - levelIndex: 5
     rootGO: {fileID: 954159709}
+    musicPath: Audio/MysteryBazaar.mp3
   proceedGO: {fileID: 1567691396}
   proceedShowDelay: 1
   debugLevelIndex: 0

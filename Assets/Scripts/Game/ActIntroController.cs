@@ -7,6 +7,7 @@ public class ActIntroController : GameModeController<ActIntroController> {
     public struct LevelData {
         public int levelIndex;
         public GameObject rootGO;
+        public string musicPath;
     }
 
     [Header("Data")]
@@ -31,8 +32,6 @@ public class ActIntroController : GameModeController<ActIntroController> {
     }
 
     protected override IEnumerator Start() {
-        yield return base.Start();
-
         int levelInd;
 
         if(GameData.instance.isGameStarted)
@@ -42,14 +41,24 @@ public class ActIntroController : GameModeController<ActIntroController> {
             levelInd = debugLevelIndex;
         }
 
-        //show matching level
+        LevelData curLevelData = new LevelData();
+
         for(int i = 0; i < levelMatches.Length; i++) {
             if(levelMatches[i].levelIndex == levelInd) {
-                if(levelMatches[i].rootGO)
-                    levelMatches[i].rootGO.SetActive(true);
+                curLevelData = levelMatches[i];
                 break;
             }
         }
+
+        //play music
+        if(!string.IsNullOrEmpty(curLevelData.musicPath))
+            LoLManager.instance.PlaySound(curLevelData.musicPath, true, true);
+
+        yield return base.Start();
+
+        //show matching level
+        if(curLevelData.rootGO)
+            curLevelData.rootGO.SetActive(true);
 
         yield return new WaitForSeconds(proceedShowDelay);
 

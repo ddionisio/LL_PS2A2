@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EndController : GameModeController<EndController> {
+    public string musicPath;
+
     public float startDelay;
+
     public GameObject endGO;
 
     protected override void OnInstanceInit() {
@@ -13,6 +16,9 @@ public class EndController : GameModeController<EndController> {
     }
 
     protected override IEnumerator Start() {
+        if(!string.IsNullOrEmpty(musicPath))
+            LoLManager.instance.PlaySound(musicPath, true, true);
+
         yield return base.Start();
 
         //wait a bit

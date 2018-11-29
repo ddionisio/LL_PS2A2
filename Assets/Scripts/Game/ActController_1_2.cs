@@ -15,6 +15,8 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     public Transform itemStartPoint;
     
     [Header("Sequence")]
+    public string musicPath;
+
     public ModalDialogController introDialog;
     public GameObject illustrateGO;
     public ModalDialogController illustrateDialog;
@@ -72,6 +74,9 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     }
 
     protected override IEnumerator Start() {
+        if(!string.IsNullOrEmpty(musicPath))
+            LoLManager.instance.PlaySound(musicPath, true, true);
+
         yield return base.Start();
 
         //intro

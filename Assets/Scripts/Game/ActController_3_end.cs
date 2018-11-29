@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ActController_3_end : GameModeController<ActController_3_end> {
 
+    public string musicPath;
+
     [Header("Sequence")]
     public float startDelay = 1f;
 
@@ -20,6 +22,9 @@ public class ActController_3_end : GameModeController<ActController_3_end> {
     }
 
     protected override IEnumerator Start() {
+        if(!string.IsNullOrEmpty(musicPath))
+            LoLManager.instance.PlaySound(musicPath, true, true);
+
         yield return base.Start();
 
         yield return new WaitForSeconds(startDelay);

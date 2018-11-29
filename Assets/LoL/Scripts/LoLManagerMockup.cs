@@ -26,6 +26,9 @@ public class LoLManagerMockup : LoLManager {
 
     public override void PlaySound(string path, bool background, bool loop) {
         if(background && !string.IsNullOrEmpty(mLastSoundBackgroundPath)) {
+            if(loop && mLastSoundBackgroundIsLoop && mLastSoundBackgroundPath == path) //already playing the looped music path?
+                return;
+
             AudioSource bkgrndAudioSrc;
             if(mAudioItems.TryGetValue(mLastSoundBackgroundPath, out bkgrndAudioSrc)) {
                 bkgrndAudioSrc.Stop();
@@ -49,6 +52,7 @@ public class LoLManagerMockup : LoLManager {
             //Debug.Log("Played Background: " + path);
 
             mLastSoundBackgroundPath = path;
+            mLastSoundBackgroundIsLoop = loop;
         }
     }
 
@@ -79,6 +83,10 @@ public class LoLManagerMockup : LoLManager {
         mCurProgress = Mathf.Clamp(progress, 0, progressMax);
         
         ProgressCallback();
+    }
+
+    public override void Complete() {
+        Debug.Log("COMPLETE");
     }
 
     protected override IEnumerator Start() {

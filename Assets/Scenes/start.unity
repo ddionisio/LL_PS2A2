@@ -397,7 +397,7 @@ MonoBehaviour:
   titleGO: {fileID: 1814529463}
   titleText: {fileID: 372129834}
   titleStringRef: title
-  musicPath: 
+  musicPath: Audio/VillageConsort.mp3
 --- !u!4 &202055800
 Transform:
   m_ObjectHideFlags: 0

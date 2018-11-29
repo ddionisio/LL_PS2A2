@@ -9077,6 +9077,7 @@ MonoBehaviour:
   - 29
   - 19
   itemStartPoint: {fileID: 1868190471}
+  musicPath: Audio/VillageConsort.mp3
   introDialog: {fileID: 1335952329}
   illustrateGO: {fileID: 413889303}
   illustrateDialog: {fileID: 1662580251}

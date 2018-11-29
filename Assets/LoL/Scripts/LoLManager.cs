@@ -177,6 +177,9 @@ public class LoLManager : M8.SingletonBehaviour<LoLManager> {
     
     public virtual void PlaySound(string path, bool background, bool loop) {
         if(background && !string.IsNullOrEmpty(mLastSoundBackgroundPath)) {
+            if(loop && mLastSoundBackgroundIsLoop && mLastSoundBackgroundPath == path) //already playing the looped music path?
+                return;
+
             LOLSDK.Instance.StopSound(mLastSoundBackgroundPath);
 
             //Debug.Log("Stop Background: " + mLastSoundBackgroundPath);

@@ -8,6 +8,8 @@ using UnityEngine.UI;
 /// </summary>
 public class ActForceController : GameModeController<ActForceController> {
     [Header("Game")]
+    public string musicPath;
+
     [M8.TagSelector]
     public string playerTag;
     public float playerAliveDuration = 8f;
@@ -82,6 +84,9 @@ public class ActForceController : GameModeController<ActForceController> {
     }
 
     protected override IEnumerator Start() {
+        if(!string.IsNullOrEmpty(musicPath))
+            LoLManager.instance.PlaySound(musicPath, true, true);
+
         yield return base.Start();
 
         //spawn player

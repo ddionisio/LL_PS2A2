@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ActController_2_end : GameModeController<ActController_2_end> {
 
+    public string musicPath;
+
     [Header("Sequence")]
     public float startWait = 1f;
     public ModalDialogController dialog;
@@ -14,6 +16,9 @@ public class ActController_2_end : GameModeController<ActController_2_end> {
     }
 
     protected override IEnumerator Start() {
+        if(!string.IsNullOrEmpty(musicPath))
+            LoLManager.instance.PlaySound(musicPath, true, true);
+
         yield return base.Start();
 
         yield return new WaitForSeconds(startWait);
