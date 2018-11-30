@@ -42,8 +42,13 @@ public class LoLMusicToggleWidget : MonoBehaviour, M8.UIModal.Interface.IActive 
 
             //play back last music if there's no music playing
             if(toggleRefreshMusic) {
-                if(!string.IsNullOrEmpty(LoLManager.instance.lastSoundBackgroundPath)) {
-                    LoLManager.instance.PlaySound(LoLManager.instance.lastSoundBackgroundPath, true, LoLManager.instance.lastSoundBackgroundIsLoop);
+                var lastSoundBackgroundPath = LoLManager.instance.lastSoundBackgroundPath;
+                var lastSoundBackgroundIsLoop = LoLManager.instance.lastSoundBackgroundIsLoop;
+
+                LoLManager.instance.StopCurrentBackgroundSound();
+
+                if(!string.IsNullOrEmpty(lastSoundBackgroundPath)) {
+                    LoLManager.instance.PlaySound(lastSoundBackgroundPath, true, lastSoundBackgroundIsLoop);
                 }
                 else if(!string.IsNullOrEmpty(mLastMusicPlayingPath)) {
                     LoLManager.instance.PlaySound(mLastMusicPlayingPath, true, mLastMusicIsLoop);
