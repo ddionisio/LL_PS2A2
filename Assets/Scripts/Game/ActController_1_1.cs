@@ -17,11 +17,13 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
     public AnimatorEnterExit titleAnim;
     public AnimatorEnterExit motionIllustrationAnim;
-    public ModalDialogController introDialog;    
-    public ModalDialogController landingDialog;
-    public GameObject sumForceIllustrationGO;
-    public ModalDialogController sumForceDialog;
-    public ModalDialogController beginGameDialog;
+    public ModalDialogController introDialog;
+    public ModalDialogController kidnapDialog;
+    public float gravityDialogWaitDelay = 0.6f;
+    public ModalDialogController gravityDialog;
+    public ModalDialogController landDialog;    
+    public ModalDialogController goblinPushDialog;
+    public ModalDialogController blockSmallDialog;
 
     public GameObject interfaceRootGO;
 
@@ -34,11 +36,18 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     [M8.TagSelector]
     public string block1GoalTag;
 
-    public ModalDialogController inertiaDialog1;
-
-    public AnimatorEnterExit inertiaIllustrationAnim;
-
-    public ModalDialogController inertiaDialog2;
+    public WheelJoint2D[] block1Wheels;
+    public float block1WheelsAirFreq = 10f;
+    public float block1WheelsGroundFreq = 1000000f;
+    public GameObject block1ForceNetGO;
+    public GameObject block1ForceGravityGO;
+    public GameObject block1ForceBalancedGO;
+    public GameObject block1ForceUnbalancedGO;
+    public GameObject block1ForceKnightGO;
+    public GameObject block1ForceGoblinGO;
+    public Transform block1NetForceDirRoot;
+    public GameObject block1NetForceNoneGO;
+    public float block1VelocityXThreshold = 0.03f;
 
     public Rigidbody2DMoveController block2;
     public Transform block2StartPt;
@@ -57,12 +66,23 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     [M8.Animator.TakeSelector(animatorField = "princessAnim")]
     public string princessTakeHelp;
 
+    [Header("Goblin")]
+    public EntitySpawnerWidget knightSpawner;
+    public GameObject goblinTemplate;
+    public string goblinPool;
+    public Transform[] goblinPts;
+
     [Header("Signals")]
     public M8.Signal signalUnitsClear;
     public SignalDragWidget signalUnitDragEnd;
 
     private DragToGuideWidget mDragGuide;
     private bool mIsDragGuideShown;
+    
+    private M8.PoolController mGoblinPoolCtrl;
+    private M8.CacheList<UnitEntity> mGoblins;
+
+    private Coroutine mBlock1ForceRout;
 
     protected override void OnInstanceDeinit() {
         signalUnitDragEnd.callback -= OnSignalUnitDragEnd;
@@ -73,23 +93,41 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
 
+        mGoblinPoolCtrl = M8.PoolController.GetPool(goblinPool);
+        mGoblinPoolCtrl.AddType(goblinTemplate, goblinPts.Length, goblinPts.Length);
+        mGoblins = new M8.CacheList<UnitEntity>(goblinPts.Length);
+
         var dragGuideGO = GameObject.FindGameObjectWithTag(tagDragGuide);
         mDragGuide = dragGuideGO.GetComponent<DragToGuideWidget>();
 
         titleAnim.gameObject.SetActive(false);
         motionIllustrationAnim.gameObject.SetActive(false);
-        inertiaIllustrationAnim.gameObject.SetActive(false);
 
-        sumForceIllustrationGO.SetActive(false);
+        block1ForceNetGO.SetActive(false);
+        block1ForceGravityGO.SetActive(false);
+        block1ForceBalancedGO.SetActive(false);
+        block1ForceUnbalancedGO.SetActive(false);
+        block1ForceKnightGO.SetActive(false);
+        block1ForceGoblinGO.SetActive(false);
+        block1NetForceDirRoot.gameObject.SetActive(false);
+        block1NetForceNoneGO.SetActive(false);
 
         interfaceRootGO.SetActive(false);
 
         princessGO.SetActive(false);
 
         victoryGO.SetActive(false);
-        
+
+        block1.gameObject.SetActive(false);
         block1.transform.position = block1StartPt.position;
 
+        for(int i = 0; i < block1Wheels.Length; i++) {
+            var suspension = block1Wheels[i].suspension;
+            suspension.frequency = block1WheelsAirFreq;
+            block1Wheels[i].suspension = suspension;
+        }
+
+        block2.gameObject.SetActive(false);
         block2.transform.position = block2StartPt.position;
 
         signalUnitDragEnd.callback += OnSignalUnitDragEnd;
@@ -119,38 +157,59 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         yield return motionIllustrationAnim.PlayExitWait();
         motionIllustrationAnim.gameObject.SetActive(false);
 
+        //princess
+        yield return DoPrincessDistress();
+
+        //help
+        kidnapDialog.Play();
+        while(kidnapDialog.isPlaying)
+            yield return null;
+
         //get block 1 ready
+        block1.gameObject.SetActive(true);
         block1.body.simulated = true;
+
+        block1ForceGravityGO.SetActive(true);
+
+        mBlock1ForceRout = StartCoroutine(DoForceBalance());
+
+        //wait a bit, then pause and describe the gravity
+        yield return new WaitForSeconds(gravityDialogWaitDelay);
+
+        M8.SceneManager.instance.Pause();
+
+        gravityDialog.Play();
+        while(gravityDialog.isPlaying)
+            yield return null;
+
+        M8.SceneManager.instance.Resume();
 
         //wait for block 1 to hit ground
         while(!block1.isGrounded)
             yield return null;
-
+                
         //fancy camera shake
         cameraShaker.Shake();
 
         if(!string.IsNullOrEmpty(blockLandSfxPath))
             LoLManager.instance.PlaySound(blockLandSfxPath, false, false);
 
-        //some more dialog
-        landingDialog.Play();
-        while(landingDialog.isPlaying)
-            yield return null;
+        yield return new WaitForSeconds(1f);
+                
+        for(int i = 0; i < block1Wheels.Length; i++) {
+            var suspension = block1Wheels[i].suspension;
+            suspension.frequency = block1WheelsGroundFreq;
+            block1Wheels[i].suspension = suspension;
+        }
+        //
 
-        sumForceIllustrationGO.SetActive(true);
+        yield return new WaitForSeconds(1f);
 
-        sumForceDialog.Play();
-        while(sumForceDialog.isPlaying)
-            yield return null;
-
-        sumForceIllustrationGO.SetActive(false);
-
-        //princess
-        StartCoroutine(DoPrincessDistress());
+        block1ForceGravityGO.SetActive(false);
 
         //some more dialog
-        beginGameDialog.Play();
-        while(beginGameDialog.isPlaying)
+        landDialog.Play();
+        while(landDialog.isPlaying)
             yield return null;
 
         //show interaction
@@ -163,6 +222,27 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         yield return new WaitForSeconds(0.35f);
         mDragGuide.Show(false, unitSpawnerWidget.icon.transform.position, dragGuideTo.position);
         mIsDragGuideShown = true;
+
+        //wait for block1 to start moving
+
+        //send 1 goblin
+        StartCoroutine(DoGoblins());
+
+        //wait for block to move block1ForceKnightGO
+        while(block1.body.velocity.x <= block1VelocityXThreshold)
+            yield return null;
+
+        //show knight force
+        block1ForceKnightGO.SetActive(true);
+
+        //wait for goblin force display
+        while(!block1ForceGoblinGO.activeSelf)
+            yield return null;
+
+        //dialog
+        goblinPushDialog.Play();
+        while(goblinPushDialog.isPlaying)
+            yield return null;
 
         //wait for block1 to contact goal
         bool isBlockFinish = false;
@@ -179,7 +259,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
             yield return null;
         }
-
+                
         unitSpawnerWidget.active = false;
 
         //animation
@@ -187,25 +267,28 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         //clear out units
         signalUnitsClear.Invoke();
 
+        block1ForceKnightGO.SetActive(false);
+        block1ForceGoblinGO.SetActive(false);
+
         //more dialog
-        yield return new WaitForSeconds(0.5f);
-                
-        inertiaDialog1.Play();
-        while(inertiaDialog1.isPlaying)
-            yield return null;
+        yield return new WaitForSeconds(2f);
 
-        inertiaIllustrationAnim.gameObject.SetActive(true);
-        yield return inertiaIllustrationAnim.PlayEnterWait();
+        //clear out block1 info
+        StopCoroutine(mBlock1ForceRout);
+        block1ForceNetGO.SetActive(false);
+        block1ForceBalancedGO.SetActive(false);
+        block1ForceUnbalancedGO.SetActive(false);
+        block1NetForceDirRoot.gameObject.SetActive(false);
+        block1NetForceNoneGO.SetActive(false);
+        //
 
-        inertiaDialog2.Play();
-        while(inertiaDialog2.isPlaying)
+        blockSmallDialog.Play();
+        while(blockSmallDialog.isPlaying)
             yield return null;
-                
-        yield return inertiaIllustrationAnim.PlayExitWait();
-        inertiaIllustrationAnim.gameObject.SetActive(false);
         //
 
         //block 2 ready
+        block2.gameObject.SetActive(true);
         block2.body.simulated = true;
 
         //wait for block 2 to hit ground
@@ -264,6 +347,101 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             yield return null;
 
         princessAnim.Play(princessTakeHelp);
+    }
+
+    IEnumerator DoGoblins() {
+
+        int lastKnightActiveCount = knightSpawner.activeUnitCount;
+
+        for(int i = goblinPts.Length - 1; i >= 0; i--) {
+            var t = goblinPts[i];
+
+            var goblin = mGoblinPoolCtrl.Spawn<UnitEntity>(goblinTemplate.name, "", null, t.position, null);
+
+            mGoblins.Add(goblin);
+
+            yield return new WaitForSeconds(Random.Range(0.3f, 0.6f));
+        }
+
+        while(mGoblins.Count > 0) {
+            var goblin = mGoblins.RemoveLast();
+
+            while(!goblin.body.simulated) //wait for it to be physically active
+                yield return null;
+
+            //wait for knight to be spawned
+            while(knightSpawner.activeUnitCount == lastKnightActiveCount)
+                yield return null;
+
+            lastKnightActiveCount = knightSpawner.activeUnitCount;
+
+            //wait for block to be moving to the right
+            while(block1.body.velocity.x <= block1VelocityXThreshold)
+                yield return null;
+
+            //move goblin
+            goblin.bodyMoveCtrl.moveHorizontal = -1f;
+
+            //activate goblin force display once it touches
+            if(!block1ForceGoblinGO.activeSelf) {
+                while((goblin.bodyMoveCtrl.collisionFlags & CollisionFlags.CollidedSides) == CollisionFlags.None)
+                    yield return null;
+
+                block1ForceGoblinGO.SetActive(true);
+            }
+        }
+    }
+
+    IEnumerator DoForceBalance() {
+        block1ForceNetGO.SetActive(true);
+
+        var waitFixed = new WaitForFixedUpdate();
+
+        Vector2 lastPos = block1.transform.position;
+        Vector2 lastVel = Vector2.zero;
+
+        const float interval = 0.1f;
+
+        while(block1.body.simulated) {
+            //wait a bit
+            float curTime = 0f;
+            while(curTime < interval) {
+                yield return waitFixed;
+                curTime += Time.fixedDeltaTime;
+            }
+
+            Vector2 curPos = block1.body.position;
+
+            var curVel = curPos - lastPos;
+            lastPos = curPos;
+                        
+            var accel = (curVel - lastVel) / interval;
+
+            //round up
+            accel.x = (float)System.Math.Round(accel.x, 4);
+            accel.y = (float)System.Math.Round(accel.y, 4);
+
+            lastVel = curVel;
+
+            bool isVelChanged = accel != Vector2.zero;            
+
+            if(isVelChanged) {
+                block1ForceBalancedGO.SetActive(false);
+                block1ForceUnbalancedGO.SetActive(true);
+
+                block1NetForceDirRoot.gameObject.SetActive(true);
+                block1NetForceDirRoot.up = accel.normalized;
+
+                block1NetForceNoneGO.SetActive(false);
+            }
+            else {
+                block1ForceBalancedGO.SetActive(true);
+                block1ForceUnbalancedGO.SetActive(false);
+
+                block1NetForceDirRoot.gameObject.SetActive(false);
+                block1NetForceNoneGO.SetActive(true);
+            }            
+        }
     }
 
     void OnSignalUnitDragEnd(DragWidgetSignalInfo inf) {

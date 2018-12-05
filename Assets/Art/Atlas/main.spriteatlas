@@ -73,6 +73,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fbb2c7222f172d249afaedc7a0c98ddb, type: 3}
   - {fileID: 21300000, guid: fe0fe492a14d5304eb376b932691f3d2, type: 3}
   - {fileID: 21300000, guid: e0b19ee2e34fae14fa6a6ef191a674e6, type: 3}
+  - {fileID: 21300000, guid: 276f34f2d54428043b3a56c45ebd82cd, type: 3}
   - {fileID: 21300000, guid: 3a0f651362280ae4ba8e6edf566dd7e8, type: 3}
   - {fileID: 21300000, guid: f09376230546e5e4ebe4f92e26b46133, type: 3}
   - {fileID: 21300000, guid: 48bb4343820a6cb48a9858df40ae71c0, type: 3}
@@ -96,6 +97,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0e07e0456ea94494fbeff1cb310382f4, type: 3}
   - {fileID: 21300000, guid: 7428624581668694ca5e5ec7e287bb0d, type: 3}
   - {fileID: 21300000, guid: bc04ab6563b288c4f9b896c3e170f800, type: 3}
+  - {fileID: 21300000, guid: d4803375962b6094fa0a1a4ca9058833, type: 3}
   - {fileID: 21300000, guid: 7ee1277557e2463498f0b5f351b362b7, type: 3}
   - {fileID: 21300000, guid: be2dbb853d57963488d2a21261213b40, type: 3}
   - {fileID: 21300000, guid: 74a079a57cfe04e4a8853f73f9f29d1e, type: 3}
@@ -201,6 +203,7 @@ SpriteAtlas:
   - puff06
   - iconForcePush
   - knight_carry2
+  - iconKnight
   - goldenballFaces_eyes
   - block
   - princess_help2
@@ -224,6 +227,7 @@ SpriteAtlas:
   - pointerPanelFrame
   - wrongX
   - goal_circleTiny
+  - iconGoblin
   - goldenball
   - goldenballFaces_neutral
   - king_1_sm
