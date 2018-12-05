@@ -18,6 +18,8 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     public string musicPath;
 
     public ModalDialogController introDialog;
+    public AnimatorEnterExit inertiaIllustrationAnim;
+    public ModalDialogController inertiaDialog;
     public GameObject illustrateGO;
     public ModalDialogController illustrateDialog;
     public float treasureDialogStartDelay = 2f;
@@ -59,6 +61,8 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         dragCursor.gameObject.SetActive(false);
         //
 
+        inertiaIllustrationAnim.gameObject.SetActive(false);
+
         illustrateGO.gameObject.SetActive(false);
 
         //setup item
@@ -85,6 +89,19 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         introDialog.Play();
         while(introDialog.isPlaying)
             yield return null;
+        //
+
+        //inertia
+        inertiaIllustrationAnim.gameObject.SetActive(true);
+        yield return inertiaIllustrationAnim.PlayEnterWait();
+
+        inertiaDialog.Play();
+        while(inertiaDialog.isPlaying)
+            yield return null;
+
+        yield return inertiaIllustrationAnim.PlayExitWait();
+        inertiaIllustrationAnim.gameObject.SetActive(false);
+        //
 
         //illustrate
         illustrateGO.SetActive(true);
