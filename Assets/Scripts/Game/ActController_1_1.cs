@@ -23,7 +23,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public ModalDialogController gravityDialog;
     public ModalDialogController landDialog;    
     public ModalDialogController goblinPushDialog;
-    public ModalDialogController blockSmallDialog;
+    public ModalDialogController block1FinishDialog;
+    public ModalDialogController block2Dialog;
 
     public GameObject interfaceRootGO;
 
@@ -51,6 +52,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
     public Rigidbody2DMoveController block2;
     public Transform block2StartPt;
+    public GameObject block2ForcesGO;
 
     public GameObject victoryGO;
     public float victoryStartDelay = 0.5f;
@@ -67,7 +69,6 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public string princessTakeHelp;
 
     [Header("Goblin")]
-    public EntitySpawnerWidget knightSpawner;
     public GameObject goblinTemplate;
     public string goblinPool;
     public Transform[] goblinPts;
@@ -111,6 +112,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         block1ForceGoblinGO.SetActive(false);
         block1NetForceDirRoot.gameObject.SetActive(false);
         block1NetForceNoneGO.SetActive(false);
+        block2ForcesGO.SetActive(false);
 
         interfaceRootGO.SetActive(false);
 
@@ -215,21 +217,31 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         //show interaction
         interfaceRootGO.SetActive(true);
 
+        //set to only one knight
+        var knightSpawner = (EntitySpawnerWidget)unitSpawnerWidget;
+        var lastKnightCount = knightSpawner.entityCount;
+        knightSpawner.SetEntityCount(1);
+
         //game ready
         unitSpawnerWidget.active = true;
 
         //drag instruction
         yield return new WaitForSeconds(0.35f);
         mDragGuide.Show(false, unitSpawnerWidget.icon.transform.position, dragGuideTo.position);
-        mIsDragGuideShown = true;
+
+        while(knightSpawner.activeUnitCount == 0)
+            yield return null;
+
+        mDragGuide.Hide();
+        //
 
         //wait for block1 to start moving
 
         //send 1 goblin
         StartCoroutine(DoGoblins());
 
-        //wait for block to move block1ForceKnightGO
-        while(block1.body.velocity.x <= block1VelocityXThreshold)
+        //wait for block contact
+        while((block1.collisionFlags & CollisionFlags.CollidedSides) == CollisionFlags.None)
             yield return null;
 
         //show knight force
@@ -243,6 +255,13 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         goblinPushDialog.Play();
         while(goblinPushDialog.isPlaying)
             yield return null;
+
+        //add the rest of knights counter
+        knightSpawner.SetEntityCount(lastKnightCount);
+
+        //show drag again
+        mDragGuide.Show(false, unitSpawnerWidget.icon.transform.position, dragGuideTo.position);
+        mIsDragGuideShown = true;
 
         //wait for block1 to contact goal
         bool isBlockFinish = false;
@@ -282,8 +301,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         block1NetForceNoneGO.SetActive(false);
         //
 
-        blockSmallDialog.Play();
-        while(blockSmallDialog.isPlaying)
+        block1FinishDialog.Play();
+        while(block1FinishDialog.isPlaying)
             yield return null;
         //
 
@@ -301,8 +320,23 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         if(!string.IsNullOrEmpty(blockLandSfxPath))
             LoLManager.instance.PlaySound(blockLandSfxPath, false, false);
 
+        block2Dialog.Play();
+        while(block2Dialog.isPlaying)
+            yield return null;
+
         //game ready
         unitSpawnerWidget.active = true;
+
+        //show drag again
+        mDragGuide.Show(false, unitSpawnerWidget.icon.transform.position, dragGuideTo.position);
+        mIsDragGuideShown = true;
+
+        //wait for knight contact, then show forces
+        while((block2.collisionFlags & CollisionFlags.CollidedSides) == CollisionFlags.None)
+            yield return null;
+
+        block2ForcesGO.SetActive(true);
+        //
 
         //wait for block2 to contact block 1
         isBlockFinish = false;
@@ -324,6 +358,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         //clear out units
         signalUnitsClear.Invoke();
+
+        block2ForcesGO.SetActive(false);
 
         //victory
         yield return new WaitForSeconds(victoryStartDelay);
@@ -350,8 +386,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     }
 
     IEnumerator DoGoblins() {
-
-        int lastKnightActiveCount = knightSpawner.activeUnitCount;
+        var knightSpawner = (EntitySpawnerWidget)unitSpawnerWidget;
+        int lastKnightActiveCount = 0;
 
         for(int i = goblinPts.Length - 1; i >= 0; i--) {
             var t = goblinPts[i];
