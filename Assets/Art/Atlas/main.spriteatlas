@@ -49,6 +49,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 20b84e50a13858b4396b901cb2518757, type: 3}
   - {fileID: 21300000, guid: ec1d7380b4a816543ae5c51d27cd53e8, type: 3}
   - {fileID: 21300000, guid: e843d4c0768107b498fae5e95476f45c, type: 3}
+  - {fileID: 21300000, guid: 011ea7c0d1698444e88a2285fec0e1f4, type: 3}
   - {fileID: 21300000, guid: 6d4849d03b6a83240acbeef60ddd429a, type: 3}
   - {fileID: 21300000, guid: 209cab0128d862543b2c7cead89e25a4, type: 3}
   - {fileID: 21300000, guid: 16ec1f012196d7d4b854c5bc30208390, type: 3}
@@ -175,10 +176,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d100bf3fba8e48343b4f69fe5447d682, type: 3}
   - {fileID: 21300000, guid: 03e9d29f4e9e993479e7df803ba2c5b0, type: 3}
   - {fileID: 21300000, guid: a6d4e2df876d9cf4a949049b9e01b638, type: 3}
+  - {fileID: 21300000, guid: cfeba4efd21f1234081fbc19dd095303, type: 3}
   m_PackedSpriteNamesToIndex:
   - roundRect
   - frameBottom
   - goblin_move1
+  - hintButton
   - goblin_hop1
   - iconForcePull
   - graphIcon
@@ -305,5 +308,6 @@ SpriteAtlas:
   - tutorialHandPoint
   - knightSuper_6
   - forcePlatform
+  - forcePlatformBlank
   m_Tag: main
   m_IsVariant: 0

@@ -108,10 +108,10 @@ public class GraphLineWidget : MonoBehaviour {
             y = (float)System.Math.Round(y, yDecimalRound);
 
         float xLen = Mathf.Abs(mXMax - mXMin);
-        float nX = (x - mXMin) / xLen;
+        float nX = xLen != 0f ? (x - mXMin) / xLen : 0f;
 
         float yLen = Mathf.Abs(mYMax - mYMin);
-        float nY = (y - mYMin) / yLen;
+        float nY = yLen != 0f ? (y - mYMin) / yLen : 0f;
 
         Transform lastDotTrans = mDots.Count > 0 ? mDots[mDots.Count - 1].t : null;
 

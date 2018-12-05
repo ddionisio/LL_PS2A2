@@ -13,6 +13,7 @@ TagManager:
   - DragGuide
   - ForceElementGroup
   - ForcePlayGroup
+  - HintGroup
   layers:
   - Default
   - TransparentFX
