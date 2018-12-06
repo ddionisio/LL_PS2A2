@@ -39,21 +39,50 @@ public class ActController_2_1 : ActCannonController {
     public ModalDialogController seqDlgAxis;
     public ModalDialogController seqDlgKnightEnter;
     public AnimatorEnterExit seqPressLaunch;
-    public AnimatorEnterExit seqIllustrateTraces1;
-    public ModalDialogController seqDlgTraces1;
-    public AnimatorEnterExit seqIllustrateTraces2;
-    public ModalDialogController seqDlgTraces2;
-    public AnimatorEnterExit seqIllustrateTraces3;
-    public ModalDialogController seqDlgTraces3;
+    
     public AnimatorEnterExit seqPressGraph;
     public ModalDialogController seqDlgGraph;
     public ModalDialogController seqDlgPlay;
     public AnimatorEnterExit seqForceSlider;
 
+    [System.Serializable]
+    public struct WheelTimeDialogData {
+        [M8.Localize]
+        public string textRef;
+        public float timeMin;
+        public float timeMax;
+    }
+
+    [Header("Wheel Time")]
+    public AnimatorEnterExit wheelTimeAnim;
+    public Slider wheelTimeSlider;
+    [M8.Localize]
+    public string wheelTimeSecondFormatTextRef;
+    public Text wheelTimeThumbLabel;
+    public GameObject wheelTimeGhost;
+    public Transform wheelTimeGhostDisplayRoot;
+    public Transform wheelTimeCanvasRoot;
+    [M8.Localize]
+    public string wheelTimeVelocityTextRef;
+    public Text wheelTimeVelocityLabel;
+    [M8.Localize]
+    public string wheelTimeForceBalancedTextRef;
+    [M8.Localize]
+    public string wheelTimeForceUnbalancedTextRef;
+    public Text wheelTimeForceStateLabel;
+    public GameObject wheelTimeDialogGO;
+    public Text wheelTimeDialogLabel;
+    public WheelTimeDialogData[] wheelTimeDialogs;
+
     private bool mIsKnightLocked;
     private bool mIsGraphWait;
 
     private int mCurWheelInfoIndex = 0;
+
+    private int mCurWheelTracerInd = 0;
+    private int mCurWheelTracerMaxInd;
+    private int mCurWheelDialogInd;
+    private bool mIsWheelTimeWaitNext;
 
     protected override void OnInstanceDeinit() {
         //
@@ -68,15 +97,16 @@ public class ActController_2_1 : ActCannonController {
         seqIllustrateFormula.gameObject.SetActive(false);
         seqIllustrateAxis.gameObject.SetActive(false);
         seqPressLaunch.gameObject.SetActive(false);
-        seqIllustrateTraces1.gameObject.SetActive(false);
-        seqIllustrateTraces2.gameObject.SetActive(false);
-        seqIllustrateTraces3.gameObject.SetActive(false);
         seqPressGraph.gameObject.SetActive(false);
         seqForceSlider.gameObject.SetActive(false);
 
         cannonAnimator.ResetTake(cannonTakeEnter);
 
         //
+        wheelTimeSlider.onValueChanged.AddListener(OnWheelTimeSliderChanged);
+
+        wheelTimeAnim.gameObject.SetActive(false);
+        wheelTimeGhost.SetActive(false);
     }
 
     protected override IEnumerator Start() {
@@ -143,43 +173,33 @@ public class ActController_2_1 : ActCannonController {
         //wait for tracer to finish        
         do { yield return null; } while(graphControl.tracer.isRecording);
 
-        //explain traces 1
-        seqIllustrateTraces1.gameObject.SetActive(true);
-        yield return seqIllustrateTraces1.PlayEnterWait();
 
-        yield return new WaitForSeconds(0.5f);
+        //wheel time
+        mCurWheelTracerMaxInd = graphControl.tracer.points.Count - 2;
 
-        seqDlgTraces1.Play();
-        while(seqDlgTraces1.isPlaying)
+        wheelTimeSlider.minValue = 0f;
+        wheelTimeSlider.maxValue = mCurWheelTracerMaxInd;
+
+        mCurWheelDialogInd = -1;
+        ApplyWheelTime(0);
+
+        wheelTimeGhost.SetActive(true);
+
+        wheelTimeAnim.gameObject.SetActive(true);
+        yield return wheelTimeAnim.PlayEnterWait();
+                
+        mIsWheelTimeWaitNext = true; //wait for slider to get to end where next is show, wait for it to be pressed.
+        while(mIsWheelTimeWaitNext)
             yield return null;
 
-        yield return seqIllustrateTraces1.PlayExitWait();
-        seqIllustrateTraces1.gameObject.SetActive(false);
+        wheelTimeGhost.SetActive(false);
+
+        yield return wheelTimeAnim.PlayExitWait();
+        wheelTimeAnim.gameObject.SetActive(false);
+
+        nextGO.SetActive(false);
         //
 
-        //explain traces 2
-        seqIllustrateTraces2.gameObject.SetActive(true);
-        yield return seqIllustrateTraces2.PlayEnterWait();
-
-        seqDlgTraces2.Play();
-        while(seqDlgTraces2.isPlaying)
-            yield return null;
-
-        yield return seqIllustrateTraces2.PlayExitWait();
-        seqIllustrateTraces2.gameObject.SetActive(false);
-        //
-
-        //explain traces 3
-        seqIllustrateTraces3.gameObject.SetActive(true);
-        yield return seqIllustrateTraces3.PlayEnterWait();
-
-        seqDlgTraces3.Play();
-        while(seqDlgTraces3.isPlaying)
-            yield return null;
-
-        yield return seqIllustrateTraces3.PlayExitWait();
-        seqIllustrateTraces3.gameObject.SetActive(false);
-        //
 
         //graph stuff
         graphButton.interactable = true;
@@ -229,7 +249,16 @@ public class ActController_2_1 : ActCannonController {
         seqForceSlider.gameObject.SetActive(true);
         seqForceSlider.PlayEnter();
     }
-    
+
+    protected override void OnNext() {
+        if(mIsWheelTimeWaitNext) {
+            mIsWheelTimeWaitNext = false;
+            return;
+        }
+
+        base.OnNext();
+    }
+
     protected override void OnShowGraph() {
         base.OnShowGraph();
 
@@ -364,5 +393,60 @@ public class ActController_2_1 : ActCannonController {
         seq.PlayExit();
         yield return seq.PlayExitWait();
         seq.gameObject.SetActive(false);
+    }
+
+    void OnWheelTimeSliderChanged(float val) {
+        int traceIndex = (int)val;
+        if(mCurWheelTracerInd != traceIndex)
+            ApplyWheelTime(traceIndex);
+    }
+
+    void ApplyWheelTime(int traceIndex) {
+        mCurWheelTracerInd = traceIndex;
+
+        var trace = graphControl.tracer.points[traceIndex];
+
+        float time = graphControl.tracer.timeInterval * traceIndex;
+
+        //update slider time
+        wheelTimeThumbLabel.text = string.Format(M8.Localize.Get(wheelTimeSecondFormatTextRef), time);
+
+        //update ghost position
+        wheelTimeCanvasRoot.position = trace.position;
+        wheelTimeGhostDisplayRoot.position = trace.position;
+        wheelTimeGhostDisplayRoot.localEulerAngles = new Vector3(0f, 0f, trace.rotate);
+
+        //update stats
+        wheelTimeVelocityLabel.text = string.Format("{0}\nX = {1:0.00} m/s\nY = {2:0.00} m/s", M8.Localize.Get(wheelTimeVelocityTextRef), trace.velocity.x, trace.velocity.y);
+
+        bool isForceBalanced = trace.accelApprox == Vector2.zero;
+        if(isForceBalanced)
+            wheelTimeForceStateLabel.text = M8.Localize.Get(wheelTimeForceBalancedTextRef);
+        else
+            wheelTimeForceStateLabel.text = M8.Localize.Get(wheelTimeForceUnbalancedTextRef);
+
+        //check if dialog needs to be played
+        int dlgIndex = -1;
+        for(int i = 0; i < wheelTimeDialogs.Length; i++) {
+            var dlg = wheelTimeDialogs[i];
+            if(time >= dlg.timeMin && time <= dlg.timeMax) {
+                dlgIndex = i;
+
+                //update and play dialog?
+                if(mCurWheelDialogInd != dlgIndex) {
+                    wheelTimeDialogLabel.text = M8.Localize.Get(dlg.textRef);
+                    LoLManager.instance.SpeakText(dlg.textRef);
+                }
+                break;
+            }
+        }
+
+        mCurWheelDialogInd = dlgIndex;
+
+        wheelTimeDialogGO.SetActive(dlgIndex != -1);
+
+        if(mCurWheelTracerInd == mCurWheelTracerMaxInd) {
+            nextGO.SetActive(true);
+        }
     }
 }

@@ -106,6 +106,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: acc693e53995d994db00a2e827df4731, type: 3}
   - {fileID: 21300000, guid: 6dbc24065d948454b8d3830139b6edb1, type: 3}
   - {fileID: 21300000, guid: d3b62b06b2244664a96c803eb6c98e90, type: 3}
+  - {fileID: 21300000, guid: f1d12b160a0f87441a584099eb888f88, type: 3}
   - {fileID: 21300000, guid: f5ecc866a57489543839535be0996796, type: 3}
   - {fileID: 21300000, guid: c003ca86d84f581448549280afdefe7c, type: 3}
   - {fileID: 21300000, guid: 8168db962f507fe41b0b1c640813d1d7, type: 3}
@@ -238,6 +239,7 @@ SpriteAtlas:
   - frameTiny
   - frame2
   - wheel3
+  - stopwatch
   - knight_carry1Highlight
   - iconUnlock
   - goldenballFaces_eyesClosed

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TracerRigidbody2D : MonoBehaviour {
     public struct PointData {
         public Vector2 position;
+        public float rotate;
         public Vector2 velocity;
         public Vector2 accelApprox;
     }
@@ -98,6 +99,7 @@ public class TracerRigidbody2D : MonoBehaviour {
 
         while(!points.IsFull && mBody.simulated && mBody.gameObject.activeInHierarchy) {
             var pt = mBody.position;
+            var rot = mBody.rotation;
 
             //var vel = mBody.velocity;
             Vector2 vel;
@@ -153,7 +155,7 @@ public class TracerRigidbody2D : MonoBehaviour {
                     mMaxAccelApprox.y = accel.y;
             }
 
-            points.Add(new PointData() { position=pt, velocity=vel, accelApprox=accel });
+            points.Add(new PointData() { position=pt, rotate=rot, velocity =vel, accelApprox=accel });
                         
             float curTime = 0f;
             while(curTime < timeInterval) {
