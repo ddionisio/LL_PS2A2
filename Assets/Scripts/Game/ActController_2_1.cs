@@ -51,6 +51,7 @@ public class ActController_2_1 : ActCannonController {
         public string textRef;
         public float timeMin;
         public float timeMax;
+        public GameObject goActive;
     }
 
     [Header("Wheel Time")]
@@ -61,7 +62,6 @@ public class ActController_2_1 : ActCannonController {
     public Text wheelTimeThumbLabel;
     public GameObject wheelTimeGhost;
     public Transform wheelTimeGhostDisplayRoot;
-    public Transform wheelTimeCanvasRoot;
     [M8.Localize]
     public string wheelTimeVelocityTextRef;
     public Text wheelTimeVelocityLabel;
@@ -107,6 +107,11 @@ public class ActController_2_1 : ActCannonController {
 
         wheelTimeAnim.gameObject.SetActive(false);
         wheelTimeGhost.SetActive(false);
+
+        for(int i = 0; i < wheelTimeDialogs.Length; i++) {
+            if(wheelTimeDialogs[i].goActive)
+                wheelTimeDialogs[i].goActive.SetActive(false);
+        }
     }
 
     protected override IEnumerator Start() {
@@ -412,8 +417,7 @@ public class ActController_2_1 : ActCannonController {
         wheelTimeThumbLabel.text = string.Format(M8.Localize.Get(wheelTimeSecondFormatTextRef), time);
 
         //update ghost position
-        wheelTimeCanvasRoot.position = trace.position;
-        wheelTimeGhostDisplayRoot.position = trace.position;
+        wheelTimeGhost.transform.position = trace.position;
         wheelTimeGhostDisplayRoot.localEulerAngles = new Vector3(0f, 0f, trace.rotate);
 
         //update stats
@@ -427,23 +431,37 @@ public class ActController_2_1 : ActCannonController {
 
         //check if dialog needs to be played
         int dlgIndex = -1;
+        GameObject goActive = null;
+        string textRef = null;
         for(int i = 0; i < wheelTimeDialogs.Length; i++) {
             var dlg = wheelTimeDialogs[i];
             if(time >= dlg.timeMin && time <= dlg.timeMax) {
                 dlgIndex = i;
 
+                textRef = dlg.textRef;
+                goActive = dlg.goActive;
+
                 //update and play dialog?
-                if(mCurWheelDialogInd != dlgIndex) {
-                    wheelTimeDialogLabel.text = M8.Localize.Get(dlg.textRef);
-                    LoLManager.instance.SpeakText(dlg.textRef);
+                if(mCurWheelDialogInd != dlgIndex) {                    
+                    wheelTimeDialogLabel.text = M8.Localize.Get(textRef);
+                    LoLManager.instance.SpeakText(textRef);
+
+                    if(goActive)
+                        goActive.SetActive(true);
                 }
                 break;
             }
         }
 
+        if(mCurWheelDialogInd != -1 && mCurWheelDialogInd != dlgIndex) {
+            var dlg = wheelTimeDialogs[mCurWheelDialogInd];
+            if(dlg.goActive && dlg.goActive != goActive)
+                dlg.goActive.SetActive(false);
+        }
+
         mCurWheelDialogInd = dlgIndex;
 
-        wheelTimeDialogGO.SetActive(dlgIndex != -1);
+        wheelTimeDialogGO.SetActive(dlgIndex != -1 && !string.IsNullOrEmpty(textRef));
 
         if(mCurWheelTracerInd == mCurWheelTracerMaxInd) {
             nextGO.SetActive(true);
