@@ -160,6 +160,7 @@ MonoBehaviour:
   dialogTextRefs:
   - act_2_end_dlg_1
   - act_2_end_dlg_2
+  - act_2_end_dlg_3
 --- !u!1001 &692529813
 Prefab:
   m_ObjectHideFlags: 0
@@ -219,6 +220,14 @@ Prefab:
         type: 2}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988689286594946, guid: 13c01fd41cb91ab439a1efc2752093fb, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988689286594946, guid: 13c01fd41cb91ab439a1efc2752093fb, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13c01fd41cb91ab439a1efc2752093fb, type: 2}

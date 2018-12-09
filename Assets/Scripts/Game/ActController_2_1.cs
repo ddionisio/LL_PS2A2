@@ -31,8 +31,6 @@ public class ActController_2_1 : ActCannonController {
     public WheelInfo[] wheelInfos;
 
     [Header("Sequence")]
-    public AnimatorEnterExit seqTitle;
-    public ModalDialogController seqDlgIntro;
     public AnimatorEnterExit seqIllustrateFormula;
     public ModalDialogController seqDlgFormula;
     public AnimatorEnterExit seqIllustrateAxis;
@@ -92,8 +90,7 @@ public class ActController_2_1 : ActCannonController {
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
-
-        seqTitle.gameObject.SetActive(false);
+        
         seqIllustrateFormula.gameObject.SetActive(false);
         seqIllustrateAxis.gameObject.SetActive(false);
         seqPressLaunch.gameObject.SetActive(false);
@@ -116,18 +113,7 @@ public class ActController_2_1 : ActCannonController {
 
     protected override IEnumerator Start() {
         yield return base.Start();
-
-        //intro part
-        seqTitle.gameObject.SetActive(true);
-        yield return seqTitle.PlayEnterWait();
-
-        seqDlgIntro.Play();
-        while(seqDlgIntro.isPlaying)
-            yield return null;
-
-        yield return seqTitle.PlayExitWait();
-        seqTitle.gameObject.SetActive(false);
-
+        
         seqIllustrateFormula.gameObject.SetActive(true);
         yield return seqIllustrateFormula.PlayEnterWait();
 

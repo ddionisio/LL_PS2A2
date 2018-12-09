@@ -12,6 +12,7 @@ public class HintControl : MonoBehaviour {
     public int showHintStopCount = 4; //show the button after certain stops
 
     public GameObject hintToolTipGO;
+    public string hintShowFlag;
 
     [Header("Signals")]
     public M8.Signal signalPlay;
@@ -102,7 +103,12 @@ public class HintControl : MonoBehaviour {
 
                 button.interactable = true;
 
-                hintToolTipGO.SetActive(true);
+                var flag = GameData.instance.GetFlag(hintShowFlag);
+                if(flag == 0) {
+                    hintToolTipGO.SetActive(true);
+
+                    GameData.instance.SetFlag(hintShowFlag, 1);
+                }
             }
         }
     }
