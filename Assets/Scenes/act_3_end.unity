@@ -4876,12 +4876,12 @@ MonoBehaviour:
     numLoop: 1
     loopMode: 0
     loopBackToFrame: 0
-    trackCounter: 31
+    trackCounter: 33
     groupCounter: 0
     rootGroup:
       group_name: 
       group_id: 0
-      elements: 020000000300000004000000050000001d0000001e000000060000000700000008000000090000000d0000000e0000000a0000000b0000000c0000000f00000010000000110000001200000013000000140000001b0000001c00000015000000160000001700000018000000190000001a0000001f000000
+      elements: 020000000300000004000000050000001d0000001e000000060000000700000008000000090000000d0000000e0000000a0000000b0000000c0000000f00000010000000110000001200000013000000140000001b0000001c00000015000000160000001700000018000000190000001a0000001f0000002000000021000000
       foldout: 1
     groupValues: []
   _defaultTakeName: 
@@ -4899,17 +4899,17 @@ MonoBehaviour:
     _cameraSwitcherTracks: []
     _cameraSwitcherKeys: []
     _eventTracks:
-    - id: 3
-      name: Track2
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 2022079707}
-      componentName: ParticleSystem
     - id: 5
       name: Track4
       foldout: 1
       _targetPath: 
       obj: {fileID: 1642002611}
+      componentName: ParticleSystem
+    - id: 3
+      name: Track2
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 2022079707}
       componentName: ParticleSystem
     - id: 29
       name: Track28
@@ -4932,6 +4932,16 @@ MonoBehaviour:
     _eventKeys:
     - version: 0
       interp: 0
+      frame: 60
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      useSendMessage: 0
+      parameters: []
+      methodName: Play
+    - version: 0
+      interp: 0
       frame: 1
       easeType: 1
       amplitude: 0
@@ -4950,16 +4960,6 @@ MonoBehaviour:
       useSendMessage: 0
       parameters: []
       methodName: Stop
-    - version: 0
-      interp: 0
-      frame: 60
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      useSendMessage: 0
-      parameters: []
-      methodName: Play
     - version: 0
       interp: 0
       frame: 5
@@ -4997,6 +4997,12 @@ MonoBehaviour:
       _targetPath: 
       obj: {fileID: 1990006408}
       startActive: 0
+    - id: 17
+      name: Track16
+      foldout: 1
+      _targetPath: 
+      obj: {fileID: 1698735541}
+      startActive: 1
     - id: 15
       name: Track14
       foldout: 1
@@ -5015,12 +5021,6 @@ MonoBehaviour:
       _targetPath: 
       obj: {fileID: 673219811}
       startActive: 0
-    - id: 17
-      name: Track16
-      foldout: 1
-      _targetPath: 
-      obj: {fileID: 1698735541}
-      startActive: 1
     - id: 21
       name: Track20
       foldout: 1
@@ -5063,6 +5063,15 @@ MonoBehaviour:
       endFrame: -1
     - version: 1
       interp: 1
+      frame: 125
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      setActive: 0
+      endFrame: -1
+    - version: 1
+      interp: 1
       frame: 115
       easeType: 1
       amplitude: 0
@@ -5100,15 +5109,6 @@ MonoBehaviour:
     - version: 1
       interp: 1
       frame: 80
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      setActive: 0
-      endFrame: -1
-    - version: 1
-      interp: 1
-      frame: 125
       easeType: 1
       amplitude: 0
       period: 0
@@ -5300,16 +5300,6 @@ MonoBehaviour:
       componentName: Image
       fieldName: 
       propertyName: color
-    - id: 6
-      name: Track5
-      foldout: 1
-      _targetPath: 
-      valueType: 13
-      obj: {fileID: 2068310729}
-      component: {fileID: 2068310731}
-      componentName: SpriteRenderer
-      fieldName: 
-      propertyName: sprite
     - id: 8
       name: Track7
       foldout: 1
@@ -5320,6 +5310,16 @@ MonoBehaviour:
       componentName: SpriteRenderer
       fieldName: 
       propertyName: color
+    - id: 6
+      name: Track5
+      foldout: 1
+      _targetPath: 
+      valueType: 13
+      obj: {fileID: 2068310729}
+      component: {fileID: 2068310731}
+      componentName: SpriteRenderer
+      fieldName: 
+      propertyName: sprite
     - id: 2
       name: Track1
       foldout: 1
@@ -5390,42 +5390,6 @@ MonoBehaviour:
       valObj: {fileID: 0}
       vect4: {x: 0, y: 0, z: 0, w: 0}
     - version: 2
-      interp: 2
-      frame: 1
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      endFrame: 35
-      val: 0
-      valString: 
-      valObj: {fileID: 21300000, guid: 2edb88abbbd8a5d42b0eb41b312e0b4d, type: 3}
-      vect4: {x: 0, y: 0, z: 0, w: 0}
-    - version: 2
-      interp: 2
-      frame: 35
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      endFrame: 100
-      val: 0
-      valString: 
-      valObj: {fileID: 21300000, guid: 7242659cc528db5438228b4bdd0033ed, type: 3}
-      vect4: {x: 0, y: 0, z: 0, w: 0}
-    - version: 2
-      interp: 2
-      frame: 100
-      easeType: 1
-      amplitude: 0
-      period: 0
-      customEase: []
-      endFrame: -1
-      val: 0
-      valString: 
-      valObj: {fileID: 21300000, guid: 03e9d29f4e9e993479e7df803ba2c5b0, type: 3}
-      vect4: {x: 0, y: 0, z: 0, w: 0}
-    - version: 2
       interp: 1
       frame: 65
       easeType: 1
@@ -5461,6 +5425,42 @@ MonoBehaviour:
       valString: 
       valObj: {fileID: 0}
       vect4: {x: 1, y: 0.8431373, z: 0.6, w: 1}
+    - version: 2
+      interp: 2
+      frame: 1
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: 35
+      val: 0
+      valString: 
+      valObj: {fileID: 21300000, guid: 2edb88abbbd8a5d42b0eb41b312e0b4d, type: 3}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
+    - version: 2
+      interp: 2
+      frame: 35
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: 100
+      val: 0
+      valString: 
+      valObj: {fileID: 21300000, guid: 7242659cc528db5438228b4bdd0033ed, type: 3}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
+    - version: 2
+      interp: 2
+      frame: 100
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: -1
+      val: 0
+      valString: 
+      valObj: {fileID: 21300000, guid: 03e9d29f4e9e993479e7df803ba2c5b0, type: 3}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
     - version: 2
       interp: 1
       frame: 5
@@ -5533,8 +5533,32 @@ MonoBehaviour:
       valString: 
       valObj: {fileID: 0}
       vect4: {x: 0, y: 0, z: 0, w: 0}
-    _rotationEulerTracks: []
-    _rotationEulerKeys: []
+    _rotationEulerTracks:
+    - id: 33
+      name: Track32
+      foldout: 1
+      _targetPath: 
+      axis: -1
+      _obj: {fileID: 1413343085}
+    _rotationEulerKeys:
+    - version: 1
+      interp: 1
+      frame: 230
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      rotation: {x: -0, y: 0, z: 40.3}
+      endFrame: 255
+    - version: 1
+      interp: 1
+      frame: 255
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      rotation: {x: -0, y: 0, z: 600}
+      endFrame: -1
     _rotationTracks:
     - id: 27
       name: Track26
@@ -5593,13 +5617,6 @@ MonoBehaviour:
       _obj: {fileID: 956782214}
       pixelSnap: 0
       pixelPerUnit: 32
-    - id: 20
-      name: Track19
-      foldout: 1
-      _targetPath: 
-      _obj: {fileID: 14383932}
-      pixelSnap: 0
-      pixelPerUnit: 32
     - id: 4
       name: Track3
       foldout: 1
@@ -5607,11 +5624,25 @@ MonoBehaviour:
       _obj: {fileID: 1895696508}
       pixelSnap: 0
       pixelPerUnit: 32
+    - id: 20
+      name: Track19
+      foldout: 1
+      _targetPath: 
+      _obj: {fileID: 14383932}
+      pixelSnap: 0
+      pixelPerUnit: 32
     - id: 26
       name: Track25
       foldout: 1
       _targetPath: 
       _obj: {fileID: 458123601}
+      pixelSnap: 0
+      pixelPerUnit: 32
+    - id: 32
+      name: Track31
+      foldout: 1
+      _targetPath: 
+      _obj: {fileID: 1413343085}
       pixelSnap: 0
       pixelPerUnit: 32
     _translationKeys:
@@ -5662,6 +5693,30 @@ MonoBehaviour:
       path: []
       isConstSpeed: 1
     - version: 2
+      interp: 0
+      frame: 30
+      easeType: 4
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -1.94, y: -2.06, z: 0}
+      endFrame: 50
+      path:
+      - {x: -1.94, y: -2.06, z: 0}
+      - {x: -1.94, y: -4.56, z: 0}
+      isConstSpeed: 1
+    - version: 2
+      interp: 0
+      frame: 50
+      easeType: 4
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -1.94, y: -4.56, z: 0}
+      endFrame: 50
+      path: []
+      isConstSpeed: 1
+    - version: 2
       interp: 1
       frame: 145
       easeType: 3
@@ -5672,7 +5727,7 @@ MonoBehaviour:
       endFrame: 175
       path:
       - {x: -12.46, y: -10.04, z: 0}
-      - {x: -0.34, y: 0.12, z: 0}
+      - {x: -1.07, y: -0.49, z: 0}
       isConstSpeed: 1
     - version: 2
       interp: 2
@@ -5681,7 +5736,7 @@ MonoBehaviour:
       amplitude: 0
       period: 0
       customEase: []
-      position: {x: -0.34, y: 0.12, z: 0}
+      position: {x: -1.07, y: -0.49, z: 0}
       endFrame: 275
       path:
       - {x: -0.34, y: 0.12, z: 0}
@@ -5737,30 +5792,6 @@ MonoBehaviour:
       isConstSpeed: 1
     - version: 2
       interp: 0
-      frame: 30
-      easeType: 4
-      amplitude: 0
-      period: 0
-      customEase: []
-      position: {x: -1.94, y: -2.06, z: 0}
-      endFrame: 50
-      path:
-      - {x: -1.94, y: -2.06, z: 0}
-      - {x: -1.94, y: -4.56, z: 0}
-      isConstSpeed: 1
-    - version: 2
-      interp: 0
-      frame: 50
-      easeType: 4
-      amplitude: 0
-      period: 0
-      customEase: []
-      position: {x: -1.94, y: -4.56, z: 0}
-      endFrame: 50
-      path: []
-      isConstSpeed: 1
-    - version: 2
-      interp: 0
       frame: 230
       easeType: 2
       amplitude: 0
@@ -5770,7 +5801,7 @@ MonoBehaviour:
       endFrame: 280
       path:
       - {x: 1, y: 1, z: 0}
-      - {x: 11.7, y: 10.66, z: 0}
+      - {x: 13.18, y: 11.51, z: 0}
       isConstSpeed: 1
     - version: 2
       interp: 0
@@ -5779,8 +5810,56 @@ MonoBehaviour:
       amplitude: 0
       period: 0
       customEase: []
-      position: {x: 11.7, y: 10.66, z: 0}
+      position: {x: 13.18, y: 11.51, z: 0}
       endFrame: 280
+      path: []
+      isConstSpeed: 1
+    - version: 2
+      interp: 0
+      frame: 230
+      easeType: 2
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -1.39, y: 1.63, z: 0}
+      endFrame: 255
+      path:
+      - {x: -1.39, y: 1.63, z: 0}
+      - {x: -2.58, y: 5.13, z: 0}
+      - {x: -5.84, y: 7.47, z: 0}
+      - {x: -12.02, y: 7.19, z: 0}
+      isConstSpeed: 1
+    - version: 2
+      interp: 0
+      frame: 240
+      easeType: 2
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -2.58, y: 5.13, z: 0}
+      endFrame: 240
+      path: []
+      isConstSpeed: 1
+    - version: 2
+      interp: 0
+      frame: 247
+      easeType: 2
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -5.84, y: 7.47, z: 0}
+      endFrame: 247
+      path: []
+      isConstSpeed: 1
+    - version: 2
+      interp: 0
+      frame: 255
+      easeType: 2
+      amplitude: 0
+      period: 0
+      customEase: []
+      position: {x: -12.02, y: 7.19, z: 0}
+      endFrame: 255
       path: []
       isConstSpeed: 1
     _unityAnimationTracks: []
@@ -5788,97 +5867,103 @@ MonoBehaviour:
     _scaleTracks: []
     _scaleKeys: []
     _trackLookups:
-    - type: 4
-      index: 0
-      keyIndices: 00000000
     - type: 10
       index: 0
       keyIndices: 0000000001000000
+    - type: 4
+      index: 0
+      keyIndices: 00000000
     - type: 4
       index: 1
       keyIndices: 01000000
     - type: 4
       index: 2
-      keyIndices: 0200000003000000
+      keyIndices: 02000000
     - type: 3
       index: 0
-      keyIndices: 0000000001000000
+      keyIndices: 00000000
     - type: 3
       index: 1
-      keyIndices: 02000000
+      keyIndices: 0100000002000000
     - type: 4
       index: 3
-      keyIndices: 0400000005000000
+      keyIndices: 0300000004000000
     - type: 4
       index: 4
-      keyIndices: 06000000
-    - type: 9
-      index: 0
-      keyIndices: 00000000010000000200000003000000
+      keyIndices: 0500000006000000
     - type: 3
       index: 2
       keyIndices: 03000000
+    - type: 9
+      index: 0
+      keyIndices: 00000000010000000200000003000000
+    - type: 8
+      index: 0
+      keyIndices: 0000000001000000
     - type: 3
       index: 3
       keyIndices: 04000000
-    - type: 5
-      index: 0
-      keyIndices: 0000000001000000
-    - type: 10
-      index: 1
-      keyIndices: 0200000003000000
     - type: 4
       index: 5
       keyIndices: 0700000008000000
+    - type: 10
+      index: 1
+      keyIndices: 0200000003000000
+    - type: 5
+      index: 0
+      keyIndices: 0000000001000000
     - type: 5
       index: 1
       keyIndices: 0200000003000000
-    - type: 10
-      index: 2
-      keyIndices: 040000000500000006000000070000000800000009000000
-    - type: 7
-      index: 0
-      keyIndices: 00000000010000000200000003000000
     - type: 4
       index: 6
       keyIndices: 09000000
-    - type: 4
-      index: 7
-      keyIndices: 0a000000
+    - type: 7
+      index: 0
+      keyIndices: 00000000010000000200000003000000
     - type: 7
       index: 1
       keyIndices: 040000000500000006000000
-    - type: 5
-      index: 2
-      keyIndices: 0400000005000000
+    - type: 4
+      index: 7
+      keyIndices: 0a000000
     - type: 4
       index: 8
       keyIndices: 0b000000
-    - type: 10
-      index: 3
-      keyIndices: 0a0000000b000000
+    - type: 5
+      index: 2
+      keyIndices: 0400000005000000
     - type: 7
       index: 2
       keyIndices: 070000000800000009000000
-    - type: 7
-      index: 3
-      keyIndices: 0a0000000b0000000c0000000d000000
+    - type: 10
+      index: 2
+      keyIndices: 0400000005000000
     - type: 4
       index: 9
       keyIndices: 0c000000
+    - type: 7
+      index: 3
+      keyIndices: 0a0000000b0000000c0000000d000000
+    - type: 10
+      index: 3
+      keyIndices: 060000000700000008000000090000000a0000000b000000
     - type: 5
       index: 3
       keyIndices: 0600000007000000
-    - type: 7
-      index: 4
-      keyIndices: 0e0000000f000000
-    - type: 3
-      index: 4
-      keyIndices: 05000000
     - type: 10
       index: 4
       keyIndices: 0c0000000d000000
-    _takeTrackCounts: 1e000000
+    - type: 3
+      index: 4
+      keyIndices: 05000000
+    - type: 7
+      index: 4
+      keyIndices: 0e0000000f000000
+    - type: 10
+      index: 5
+      keyIndices: 0e0000000f0000001000000011000000
+    _takeTrackCounts: 20000000
 --- !u!1 &212017345
 GameObject:
   m_ObjectHideFlags: 0
@@ -6153,6 +6238,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2037259537}
+  - {fileID: 1413343085}
   m_Father: {fileID: 1822954795}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11039,84 +11125,6 @@ Transform:
   m_Father: {fileID: 1698735542}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &748521784
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1916285240216846, guid: 73de890b8b0835846a57e13ee54e1a7c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 748521785}
-  - component: {fileID: 748521786}
-  m_Layer: 0
-  m_Name: circleGlow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &748521785
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 4467671905919910, guid: 73de890b8b0835846a57e13ee54e1a7c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 748521784}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1895696508}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &748521786
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 212913157832651718, guid: 73de890b8b0835846a57e13ee54e1a7c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 748521784}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 626682191
-  m_SortingLayer: 1
-  m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 36ce24ec9ae04524289ce0e80bf270be, type: 3}
-  m_Color: {r: 1, g: 0.5686275, b: 0.34509805, a: 0}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.33, y: 0.33}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &761336979
 GameObject:
   m_ObjectHideFlags: 0
@@ -11400,7 +11408,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-834808
+  m_Name: pb_Mesh57282
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -12019,7 +12027,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1280087065}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000019364774, y: -0.000057202087, z: 0}
+  m_LocalPosition: {x: -0.000021816815, y: -0.000060124315, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 14383932}
@@ -12410,7 +12418,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -12792,7 +12800,7 @@ ParticleSystem:
     radiusThickness: 0
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 0, z: -22.2}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -12816,7 +12824,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 1.87
       mode: 0
       spread: 0
       speed:
@@ -12873,7 +12881,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 90
+      value: 118.65
       mode: 0
       spread: 0
       speed:
@@ -16872,6 +16880,81 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &1413343084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1413343085}
+  - component: {fileID: 1413343086}
+  m_Layer: 0
+  m_Name: goblinSpace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1413343085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1413343084}
+  m_LocalRotation: {x: 0, y: 0, z: 0.34447905, w: 0.938794}
+  m_LocalPosition: {x: -1.39, y: 1.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 458123601}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1413343086
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1413343084}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 626682191
+  m_SortingLayer: 1
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 21300000, guid: d6e058e4634aca64684fc62a5e92d6aa, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 0.9375}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1442040278
 GameObject:
   m_ObjectHideFlags: 0
@@ -17022,7 +17105,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1565002958}
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.71, z: 0}
+  m_LocalPosition: {x: 0, y: 0.52, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children: []
   m_Father: {fileID: 14383932}
@@ -17064,7 +17147,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 626682191
   m_SortingLayer: 1
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -21788,7 +21871,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1895696508}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &1642002610
 ParticleSystemRenderer:
@@ -27177,7 +27260,6 @@ Transform:
   m_LocalPosition: {x: -1.94, y: -2.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 748521785}
   - {fileID: 1642002609}
   - {fileID: 2022079705}
   - {fileID: 2066015084}
@@ -27198,7 +27280,6 @@ MonoBehaviour:
   type: 1
   initOnAwake: 0
   spriteRenders:
-  - {fileID: 748521786}
   - {fileID: 2066015085}
   - {fileID: 1855218514}
   - {fileID: 1462403433}
@@ -27577,7 +27658,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1895696508}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &2022079706
 ParticleSystemRenderer:
@@ -32206,7 +32287,7 @@ Transform:
   m_GameObject: {fileID: 2037259536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.01, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 1364214078}
   m_Father: {fileID: 458123601}
@@ -32290,7 +32371,7 @@ Transform:
   - {fileID: 1855218513}
   - {fileID: 1058327203}
   m_Father: {fileID: 1895696508}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2066015085
 SpriteRenderer:

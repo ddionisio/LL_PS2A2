@@ -53,6 +53,12 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public Rigidbody2DMoveController block2;
     public Transform block2StartPt;
     public GameObject block2ForcesGO;
+    public GameObject block2ForceNetGO;
+    public GameObject block2ForceGravityGO;
+    public GameObject block2ForceBalancedGO;
+    public GameObject block2ForceUnbalancedGO;
+    public Transform block2NetForceDirRoot;
+    public GameObject block2NetForceNoneGO;
 
     public GameObject victoryGO;
     public float victoryStartDelay = 0.5f;
@@ -83,7 +89,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     private M8.PoolController mGoblinPoolCtrl;
     private M8.CacheList<UnitEntity> mGoblins;
 
-    private Coroutine mBlock1ForceRout;
+    private Coroutine mBlockForceRout;
 
     protected override void OnInstanceDeinit() {
         signalUnitDragEnd.callback -= OnSignalUnitDragEnd;
@@ -112,7 +118,14 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         block1ForceGoblinGO.SetActive(false);
         block1NetForceDirRoot.gameObject.SetActive(false);
         block1NetForceNoneGO.SetActive(false);
+
         block2ForcesGO.SetActive(false);
+        block2ForceNetGO.SetActive(false);
+        block2ForceGravityGO.SetActive(false);
+        block2ForceBalancedGO.SetActive(false);
+        block2ForceUnbalancedGO.SetActive(false);
+        block2NetForceDirRoot.gameObject.SetActive(false);
+        block2NetForceNoneGO.SetActive(false);
 
         interfaceRootGO.SetActive(false);
 
@@ -173,7 +186,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         block1ForceGravityGO.SetActive(true);
 
-        mBlock1ForceRout = StartCoroutine(DoForceBalance());
+        mBlockForceRout = StartCoroutine(DoForceBalance(block1, block1ForceNetGO, block1ForceBalancedGO, block1ForceUnbalancedGO, block1NetForceDirRoot, block1NetForceNoneGO));
 
         //wait a bit, then pause and describe the gravity
         yield return new WaitForSeconds(gravityDialogWaitDelay);
@@ -293,7 +306,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         yield return new WaitForSeconds(2f);
 
         //clear out block1 info
-        StopCoroutine(mBlock1ForceRout);
+        StopCoroutine(mBlockForceRout);
         block1ForceNetGO.SetActive(false);
         block1ForceBalancedGO.SetActive(false);
         block1ForceUnbalancedGO.SetActive(false);
@@ -310,6 +323,10 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         block2.gameObject.SetActive(true);
         block2.body.simulated = true;
 
+        block2ForceGravityGO.SetActive(true);
+
+        mBlockForceRout = StartCoroutine(DoForceBalance(block2, block2ForceNetGO, block2ForceBalancedGO, block2ForceUnbalancedGO, block2NetForceDirRoot, block2NetForceNoneGO));
+
         //wait for block 2 to hit ground
         while(!block2.isGrounded)
             yield return null;
@@ -319,6 +336,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         if(!string.IsNullOrEmpty(blockLandSfxPath))
             LoLManager.instance.PlaySound(blockLandSfxPath, false, false);
+
+        block2ForceGravityGO.SetActive(false);
 
         block2Dialog.Play();
         while(block2Dialog.isPlaying)
@@ -359,7 +378,13 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         //clear out units
         signalUnitsClear.Invoke();
 
+        StopCoroutine(mBlockForceRout);
         block2ForcesGO.SetActive(false);
+        block2ForceNetGO.SetActive(false);
+        block2ForceBalancedGO.SetActive(false);
+        block2ForceUnbalancedGO.SetActive(false);
+        block2NetForceDirRoot.gameObject.SetActive(false);
+        block2NetForceNoneGO.SetActive(false);
 
         //victory
         yield return new WaitForSeconds(victoryStartDelay);
@@ -399,6 +424,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             yield return new WaitForSeconds(Random.Range(0.3f, 0.6f));
         }
 
+        bool isFirst = true;
+
         while(mGoblins.Count > 0) {
             var goblin = mGoblins.RemoveLast();
 
@@ -415,6 +442,12 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             while(block1.body.velocity.x <= block1VelocityXThreshold)
                 yield return null;
 
+            //wait a bit
+            if(isFirst) {
+                isFirst = false;
+                yield return new WaitForSeconds(2f);
+            }
+
             //move goblin
             goblin.bodyMoveCtrl.moveHorizontal = -1f;
 
@@ -428,17 +461,19 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         }
     }
 
-    IEnumerator DoForceBalance() {
-        block1ForceNetGO.SetActive(true);
+    IEnumerator DoForceBalance(Rigidbody2DMoveController block, 
+        GameObject blockForceNetGO, GameObject blockForceBalancedGO, GameObject blockForceUnbalancedGO, 
+        Transform blockNetForceDirRoot, GameObject blockNetForceNoneGO) {
+        blockForceNetGO.SetActive(true);
 
         var waitFixed = new WaitForFixedUpdate();
 
-        Vector2 lastPos = block1.transform.position;
+        Vector2 lastPos = block.transform.position;
         Vector2 lastVel = Vector2.zero;
 
         const float interval = 0.1f;
 
-        while(block1.body.simulated) {
+        while(block.body.simulated) {
             //wait a bit
             float curTime = 0f;
             while(curTime < interval) {
@@ -446,7 +481,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
                 curTime += Time.fixedDeltaTime;
             }
 
-            Vector2 curPos = block1.body.position;
+            Vector2 curPos = block.body.position;
 
             var curVel = curPos - lastPos;
             lastPos = curPos;
@@ -462,20 +497,20 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
             bool isVelChanged = accel != Vector2.zero;            
 
             if(isVelChanged) {
-                block1ForceBalancedGO.SetActive(false);
-                block1ForceUnbalancedGO.SetActive(true);
+                blockForceBalancedGO.SetActive(false);
+                blockForceUnbalancedGO.SetActive(true);
 
-                block1NetForceDirRoot.gameObject.SetActive(true);
-                block1NetForceDirRoot.up = accel.normalized;
+                blockNetForceDirRoot.gameObject.SetActive(true);
+                blockNetForceDirRoot.up = accel.normalized;
 
-                block1NetForceNoneGO.SetActive(false);
+                blockNetForceNoneGO.SetActive(false);
             }
             else {
-                block1ForceBalancedGO.SetActive(true);
-                block1ForceUnbalancedGO.SetActive(false);
+                blockForceBalancedGO.SetActive(true);
+                blockForceUnbalancedGO.SetActive(false);
 
-                block1NetForceDirRoot.gameObject.SetActive(false);
-                block1NetForceNoneGO.SetActive(true);
+                blockNetForceDirRoot.gameObject.SetActive(false);
+                blockNetForceNoneGO.SetActive(true);
             }            
         }
     }

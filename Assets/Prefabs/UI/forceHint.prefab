@@ -130,7 +130,7 @@ MonoBehaviour:
   target: {fileID: 1831181914534214}
   defaultActive: 1
   resetActive: 0
-  delay: 4
+  delay: 5
 --- !u!114 &114063833026527506
 MonoBehaviour:
   m_ObjectHideFlags: 1
