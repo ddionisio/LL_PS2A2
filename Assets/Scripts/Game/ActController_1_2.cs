@@ -7,6 +7,8 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     [Header("Data")]
     [M8.TagSelector]
     public string interactTag;
+    [M8.TagSelector]
+    public string tagDragGuide;
     public DragCursorWorld dragCursor;
 
     //TODO: figure out randomization of left side object
@@ -25,6 +27,8 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     public float treasureDialogStartDelay = 2f;
     public ModalDialogController treasureDialog;
     public GameObject dragWeightHelpGO;
+    public Transform dragWeightStartAnchor;
+    public Transform dragWeightEndAnchor;
     public string modalVictory;
 
     [Header("Signals")]
@@ -32,10 +36,16 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     public M8.Signal signalShowNext;
     
     private DragRigidbody2D[] mDragBodies;
-        
+
+    private DragToGuideWidget mDragGuide;
+    private bool mIsDragGuideShown;
+
     protected override void OnInstanceDeinit() {
         signalTreasureOpened.callback -= OnSignalTreasureOpened;
         signalShowNext.callback -= OnSignalShowNext;
+
+        if(mIsDragGuideShown && mDragGuide)
+            mDragGuide.Hide();
 
         base.OnInstanceDeinit();
     }
@@ -52,6 +62,9 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
             var dragBodyComp = interactGOs[i].GetComponent<DragRigidbody2D>();
             if(dragBodyComp) {
                 dragBodyComp.SetDragCursor(dragCursor);
+
+                dragBodyComp.dragEndCallback += OnBodyDragEnd;
+
                 dragBodyList.Add(dragBodyComp);
             }
         }
@@ -70,6 +83,10 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         itemBody.mass = itemBodyMasses[Random.Range(0, itemBodyMasses.Length)];
         itemBody.gameObject.SetActive(false);
         //
+
+        //drag instructs
+        var dragGuideGO = GameObject.FindGameObjectWithTag(tagDragGuide);
+        mDragGuide = dragGuideGO.GetComponent<DragToGuideWidget>();
 
         dragWeightHelpGO.SetActive(false);
 
@@ -127,11 +144,20 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         //drag instruction
         dragWeightHelpGO.SetActive(true);
 
+        if(mDragGuide) {
+            var cam = Camera.main;
+            Vector2 sPos = cam.WorldToScreenPoint(dragWeightStartAnchor.position);
+            Vector2 ePos = cam.WorldToScreenPoint(dragWeightEndAnchor.position);
+
+            mDragGuide.Show(false, sPos, ePos);
+            mIsDragGuideShown = true;
+        }
+
         //SetInteractiveEnabled(false);
 
         //GameData.instance.Progress();
     }
-    
+
     private void SetInteractiveEnabled(bool aEnabled) {
         for(int i = 0; i < mDragBodies.Length; i++) {
             mDragBodies[i].isDragEnabled = aEnabled;
@@ -144,5 +170,12 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
 
     void OnSignalShowNext() {
         M8.UIModal.Manager.instance.ModalOpen(modalVictory);
+    }
+
+    void OnBodyDragEnd() {
+        if(mIsDragGuideShown) {
+            mDragGuide.Hide();
+            mIsDragGuideShown = false;
+        }
     }
 }

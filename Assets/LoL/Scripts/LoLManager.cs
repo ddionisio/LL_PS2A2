@@ -8,8 +8,8 @@ using fastJSON;
 using LoLSDK;
 
 public class LoLManager : M8.SingletonBehaviour<LoLManager> {
-    public const float musicVolumeDefault = 0.4f;
-    public const float soundVolumeDefault = 0.6f;
+    public const float musicVolumeDefault = 0.3f;
+    public const float soundVolumeDefault = 0.4f;
     public const float fadeVolumeDefault = 0.2f;
 
     public class QuestionAnswered {
