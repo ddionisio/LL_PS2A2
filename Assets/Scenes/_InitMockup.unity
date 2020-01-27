@@ -422,7 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameID: com.daviddionisio.PS2A2
   _progressMax: 0
-  userSettings: {fileID: 11400000, guid: 9ab6acfbc605b1b45aa1c7a95ea3ebb6, type: 2}
+  userSettings: {fileID: 0}
   _useFadeMusicScale: 1
   _fadeMusicScale: 0.8
   _ignorePlaySoundOnMute: 1
