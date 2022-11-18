@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using fastJSON;
+//using fastJSON;
 
 [CreateAssetMenu(fileName = "localize", menuName = "LoL/Localize")]
 public class LoLLocalize : M8.Localize, ISerializationCallbackReceiver {
@@ -70,7 +70,8 @@ public class LoLLocalize : M8.Localize, ISerializationCallbackReceiver {
         //load up the language
         Dictionary<string, object> defs;
         if(!string.IsNullOrEmpty(json)) {
-            defs = JSON.Parse(json) as Dictionary<string, object>;
+            //defs = JSON.Parse(json) as Dictionary<string, object>;
+            defs = new Dictionary<string, object>();
         }
         else
             defs = new Dictionary<string, object>();
@@ -199,9 +200,10 @@ public class LoLLocalize : M8.Localize, ISerializationCallbackReceiver {
 
         string json = System.IO.File.ReadAllText(filepath);
 
-        var defs = JSON.Parse(json) as Dictionary<string, object>;
+        //var defs = JSON.Parse(json) as Dictionary<string, object>;
+        var defs = new Dictionary<string, object>();
 
-        Load(editorLanguageCode, JSON.ToJSON(defs[editorLanguageCode]));
+        Load(editorLanguageCode, "");// JSON.ToJSON(defs[editorLanguageCode]));
     }
 #endif
 }
