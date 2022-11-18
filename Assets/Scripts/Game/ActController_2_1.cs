@@ -14,7 +14,7 @@ public class ActController_2_1 : ActCannonController {
     public M8.Animator.Animate cannonAnimator;
     [M8.Animator.TakeSelector(animatorField = "cannonAnimator")]
     public string cannonTakeEnter;
-        
+
     public Transform knightRoot;
     public SpriteRenderer knightSpriteRender;
     public SpriteRenderer knightWheelSpriteRender;
@@ -37,7 +37,7 @@ public class ActController_2_1 : ActCannonController {
     public ModalDialogController seqDlgAxis;
     public ModalDialogController seqDlgKnightEnter;
     public AnimatorEnterExit seqPressLaunch;
-    
+
     public AnimatorEnterExit seqPressGraph;
     public ModalDialogController seqDlgGraph;
     public ModalDialogController seqDlgPlay;
@@ -90,7 +90,7 @@ public class ActController_2_1 : ActCannonController {
 
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
-        
+
         seqIllustrateFormula.gameObject.SetActive(false);
         seqIllustrateAxis.gameObject.SetActive(false);
         seqPressLaunch.gameObject.SetActive(false);
@@ -113,14 +113,14 @@ public class ActController_2_1 : ActCannonController {
 
     protected override IEnumerator Start() {
         yield return base.Start();
-        
+
         seqIllustrateFormula.gameObject.SetActive(true);
         yield return seqIllustrateFormula.PlayEnterWait();
 
         seqDlgFormula.Play();
         while(seqDlgFormula.isPlaying)
             yield return null;
-                
+
         yield return seqIllustrateFormula.PlayExitWait();
         seqIllustrateFormula.gameObject.SetActive(false);
 
@@ -162,7 +162,7 @@ public class ActController_2_1 : ActCannonController {
             yield return null;
 
         //wait for tracer to finish        
-        do { yield return null; } while(graphControl.tracer.isRecording);
+        do { yield return null; } while(graphControl.tracer.isRecording || graphControl.tracer.points == null);
 
 
         //wheel time
