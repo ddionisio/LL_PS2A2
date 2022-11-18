@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using LoLExt;
+
 public class ModalSetTitle : MonoBehaviour, M8.UIModal.Interface.IActive, M8.UIModal.Interface.IPush {
     public const string parmTextRef = "settitle_tRef";
     public const string parmText = "settitle_t";

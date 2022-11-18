@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using LoLExt;
+
 /// <summary>
 /// This is for Act 3 levels
 /// </summary>

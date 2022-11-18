@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using LoLExt;
+
 public class ActController_2_1 : ActCannonController {
     [System.Serializable]
     public struct WheelInfo {

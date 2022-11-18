@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fba05c719519b4db251fead2709c54, type: 3}
+  m_Name: soundPlaylist
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Audio/achieve.wav
+    clip: {fileID: 8300000, guid: 8a845a5e7feb7524db92b235750101da, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/bang1.wav
+    clip: {fileID: 8300000, guid: adef8453a63e4444c8ebf996c2a405ba, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/bang2.wav
+    clip: {fileID: 8300000, guid: fe3777efd97200840be1a5dc4de898d6, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/bang3.wav
+    clip: {fileID: 8300000, guid: bc2c4c8e846f7c94ca5a6008f2d3254a, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/bang4.wav
+    clip: {fileID: 8300000, guid: 879c0addf7cf9f44cac6cdcb5655505d, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/boop.wav
+    clip: {fileID: 8300000, guid: 8d392e9b80cf8ef41aabdb8543b33d0b, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/cannonFire.wav
+    clip: {fileID: 8300000, guid: d198116b7354dfe4f8f9f2e677e9232c, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/click.wav
+    clip: {fileID: 8300000, guid: d2b113efdb9485d408dc0603c6ff611f, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/correct.wav
+    clip: {fileID: 8300000, guid: 56e6f29117757be4091a1d42c3f0a50d, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/femaleScream1.wav
+    clip: {fileID: 8300000, guid: 041b28021a35ce54391ab7625c47e295, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/femaleScream2.wav
+    clip: {fileID: 8300000, guid: 78629cb2efef1f94d8173005b756380b, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/jump1.wav
+    clip: {fileID: 8300000, guid: 3f33f2c107cb5b54faa5cc821ba7f71b, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/jump2.wav
+    clip: {fileID: 8300000, guid: bd7a3140c005c9048bbebe6519eb7d45, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/jump3.wav
+    clip: {fileID: 8300000, guid: 358a5089757a692449f3849b054b8e0c, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/jump4.wav
+    clip: {fileID: 8300000, guid: 0a0e6a27f0058f843a5c6b091f4f2c38, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/openPrize.wav
+    clip: {fileID: 8300000, guid: 92bfca7eb7017f04aac025b0299ac2bb, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/unlock.wav
+    clip: {fileID: 8300000, guid: ce6b55c8d64df444188f6f08992da488, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/warpExit.wav
+    clip: {fileID: 8300000, guid: 3e153842a6aa51640a513d076241a399, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/warpIn.wav
+    clip: {fileID: 8300000, guid: b868e7dc09606db42a75fbce978aa2f8, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  - name: Audio/yay.wav
+    clip: {fileID: 8300000, guid: 0418ed97852e4a548b1d7e52c58bb793, type: 3}
+    clipVariants: []
+    spatialBlend: 0
+  max: 32
+  audioMixer: {fileID: 0}
+  muteOnFocusLost: 1

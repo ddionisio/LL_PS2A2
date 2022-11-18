@@ -41,7 +41,7 @@ namespace M8 {
         }
 
         [SerializeField]
-        UserData _userData;
+        UserData _userData = null;
 
         //[spawn id, SpawnInfo]
         private Dictionary<int, SpawnInfo> mSpawns;
@@ -99,7 +99,7 @@ namespace M8 {
                 _userData.SetString("sssm_" + curScene, System.Convert.ToBase64String(ms.GetBuffer()));
             }
             else {
-                _userData.Delete("sssm_" + curScene);
+                _userData.Remove("sssm_" + curScene);
             }
         }
 

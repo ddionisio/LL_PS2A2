@@ -74,7 +74,7 @@ namespace M8 {
                 else if(bind.code != InputAction.keyCodeNone)
                     userData.SetInt(mKeyBinds[index], bind.code);
                 else
-                    userData.Delete(mKeyBinds[index]);
+                    userData.Remove(mKeyBinds[index]);
             }
 
             public void SetAsKey(UserData userData, int index, int code) {
@@ -97,7 +97,7 @@ namespace M8 {
                 for(int i = 0; i < bindIndexCount; i++) {
                     action.ResetBind(i + bindIndexOffset);
 
-                    userData.Delete(mKeyBinds[i]);
+                    userData.Remove(mKeyBinds[i]);
                 }
             }
 
@@ -121,7 +121,7 @@ namespace M8 {
         [SerializeField]
         string _header = "input";
         [SerializeField]
-        ActionData[] _actions;
+        ActionData[] _actions = new ActionData[0];
 
         /// <summary>
         /// Grab action data index based on given name (note: this is the ActionData.name, not InputAction)

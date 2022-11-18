@@ -9,7 +9,8 @@ namespace M8 {
         public const string DataFormat = "{0}:{1}";
 
         public UserData userData;
-        public bool autoSave = true; //save userData when scene changing, application exit
+        public bool autoSaveOnSceneChange = true; //save userData when scene changing
+        public bool autoSaveOnApplicationExit = true; //save when exiting app.
 
         public int localStateCache = 0;
 
@@ -221,7 +222,32 @@ namespace M8 {
             }
 
             /// <summary>
-            /// Reset all data to startData
+            /// Reset given value to startData (or from UserData)
+            /// </summary>
+            public void Reset(string name) {
+                if(!mStates.ContainsKey(name))
+                    return;
+
+                string key = string.Format(DataFormat, mPrefix, name);
+
+                //check from userdata first, if invalid, then use init data
+                StateValue s = new StateValue(mUserData, key);
+                if(s.type != Type.Invalid) {
+                    mStates[name] = s;
+                }
+                else if(mStartData != null) {
+                    for(int i = 0; i < mStartData.Length; i++) {
+                        var initData = mStartData[i];
+                        if(initData.name == name) {
+                            mStates[name] = initData.stateValue;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Reset all values to startData (or from UserData)
             /// </summary>
             public void Reset() {
                 Clear(false);
@@ -284,18 +310,18 @@ namespace M8 {
                 return true;
             }
 
-            public void DeleteValuesByNameContain(string nameContains, bool persistent) {
+            public void RemoveValuesByNameContain(string nameContains, bool persistent) {
                 foreach(string key in new List<string>(mStates.Keys)) {
                     if(key.Contains(nameContains))
-                        DeleteValue(key, persistent);
+                        RemoveValue(key, persistent);
                 }
             }
 
-            public void DeleteValue(string name, bool persistent) {
+            public void RemoveValue(string name, bool persistent) {
                 mStates.Remove(name);
 
                 if(persistent)
-                    mUserData.Delete(string.Format(DataFormat, mPrefix, name));
+                    mUserData.Remove(string.Format(DataFormat, mPrefix, name));
             }
 
             /// <summary>
@@ -314,7 +340,7 @@ namespace M8 {
             /// </summary>
             public void ClearUserData() {
                 foreach(var pair in mStates)
-                    mUserData.Delete(string.Format(DataFormat, mPrefix, pair.Key));
+                    mUserData.Remove(string.Format(DataFormat, mPrefix, pair.Key));
             }
 
             public StateValue GetValueRaw(string name) {
@@ -426,7 +452,7 @@ namespace M8 {
                 }
                 else {
                     string key = string.Format(DataFormat, mPrefix, name);
-                    mUserData.Delete(key);
+                    mUserData.Remove(key);
                 }
             }
 
@@ -447,6 +473,17 @@ namespace M8 {
                     flags |= 1u << bit;
                 else
                     flags &= ~(1u << bit);
+
+                SetValue(name, (int)flags, persistent);
+            }
+
+            public void SetFlagMask(string name, uint mask, bool state, bool persistent) {
+                uint flags = (uint)GetValue(name);
+
+                if(state)
+                    flags |= mask;
+                else
+                    flags &= ~mask;
 
                 SetValue(name, (int)flags, persistent);
             }
@@ -630,12 +667,12 @@ namespace M8 {
         }
 
         void OnApplicationQuit() {
-            if(autoSave && userData)
+            if(autoSaveOnApplicationExit && userData)
                 userData.Save();
         }
 
         void OnSceneChange(string toScene) {
-            if(autoSave && userData)
+            if(autoSaveOnSceneChange && userData)
                 userData.Save();
         }
 

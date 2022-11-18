@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LoLExt;
+
 public class ActController_3_end : GameModeController<ActController_3_end> {
 
     public string musicPath;

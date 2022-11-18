@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LoLExt;
+
 public class EndController : GameModeController<EndController> {
     public string musicPath;
 

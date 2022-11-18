@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using LoLExt;
+
 public class ActController_2_2 : ActCannonController {
     [Header("Cannon")]
     public M8.Animator.Animate cannonEnterAnimator;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LoLExt;
+
 public class RestartConfirm : MonoBehaviour {
     public string modalConfirm = "confirm";
     [M8.Localize]

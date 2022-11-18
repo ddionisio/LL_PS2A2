@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LoLExt;
+
 public class ActController_1_1 : GameModeController<ActController_1_1> {
     [Header("Widgets")]
     [M8.TagSelector]

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using LoLExt;
+
 public class ActController_1_2 : GameModeController<ActController_1_2> {
     [Header("Data")]
     [M8.TagSelector]

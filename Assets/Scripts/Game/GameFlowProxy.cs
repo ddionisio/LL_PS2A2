@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LoLExt;
+
 /// <summary>
 /// Helper Behaviour to hookup calls to GameData's flow
 /// </summary>

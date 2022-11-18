@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LoLExt;
+
 public class IntroController : GameModeController<IntroController> {
     [Header("Intro")]
     public ModalDialogController dialog1;

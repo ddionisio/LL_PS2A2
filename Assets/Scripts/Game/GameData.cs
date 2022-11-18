@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using LoLExt;
+
 /// <summary>
 /// Make sure to create this in Resources with name: gameData
 /// </summary>
