@@ -51,7 +51,7 @@ namespace M8 {
                         loader = new ResourceLoaderLocalBundle(path);
                         break;
                     case LoaderType.OnlineBundle:
-                        loader = new ResourceLoaderOnlineBundle(path);
+                        loader = null;// new ResourceLoaderOnlineBundle(path);
                         break;
                 }
 

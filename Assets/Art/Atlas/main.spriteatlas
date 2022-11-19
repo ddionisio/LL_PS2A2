@@ -40,15 +40,12 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
-    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: fc78ab0cc91b0a94b9e964c95e6a923b, type: 3}
     - {fileID: 102900000, guid: 6fa00dba0ac7ed64e8e9f5020f34e429, type: 3}
     - {fileID: 102900000, guid: d128da31df31d144ba6e3fe9d87fbedf, type: 3}
     bindAsDefault: 1
-    isAtlasV2: 0
-    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 20b84e50a13858b4396b901cb2518757, type: 3}
@@ -318,6 +315,5 @@ SpriteAtlas:
   - knightSuper_6
   - forcePlatform
   - forcePlatformBlank
-  m_RenderDataMap: {}
   m_Tag: main
   m_IsVariant: 0

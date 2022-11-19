@@ -40,18 +40,14 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
-    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: a583626ef69528b48a0cc47e41cf1376, type: 3}
     bindAsDefault: 1
-    isAtlasV2: 0
-    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: cdcd233c39ee5014aacc053f16f8ec67, type: 3}
   m_PackedSpriteNamesToIndex:
   - ringQuarterCrystals
-  m_RenderDataMap: {}
   m_Tag: act_3
   m_IsVariant: 0

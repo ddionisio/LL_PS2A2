@@ -637,13 +637,13 @@ namespace LoLExt {
                 if(isLoop && lastSoundBackgroundIsLoop && lastSoundBackgroundPath == soundPath)
                     return;
 
-                if(M8.MusicPlaylist.isInstantiated) {
+                if(M8.MusicPlaylist.instance) {
                     M8.MusicPlaylist.instance.Stop(true);
                     M8.MusicPlaylist.instance.Play(soundPath, isLoop, true);
                 }
             }
             else {
-                if(M8.SoundPlaylist.isInstantiated)
+                if(M8.SoundPlaylist.instance)
                     M8.SoundPlaylist.instance.Play(soundPath, isLoop);
             }
 
@@ -655,7 +655,7 @@ namespace LoLExt {
 
         public virtual void StopSound(string path) {
             //Only ever used this for music, so ignore sound
-            if(M8.MusicPlaylist.isInstantiated && M8.MusicPlaylist.instance.lastPlayName == path)
+            if(M8.MusicPlaylist.instance && M8.MusicPlaylist.instance.lastPlayName == path)
                 M8.MusicPlaylist.instance.Stop(true);
 
             if(lastSoundBackgroundPath == path) {
@@ -665,7 +665,7 @@ namespace LoLExt {
         }
 
         public virtual void StopCurrentBackgroundSound() {
-            if(M8.MusicPlaylist.isInstantiated)
+            if(M8.MusicPlaylist.instance)
                 M8.MusicPlaylist.instance.Stop(true);
 
             lastSoundBackgroundPath = null;

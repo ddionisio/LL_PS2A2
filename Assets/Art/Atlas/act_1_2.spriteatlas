@@ -40,13 +40,10 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
-    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 1416df031530b314388e8e5d47c230ab, type: 3}
     bindAsDefault: 1
-    isAtlasV2: 0
-    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 1a3c61f07e5ce9b4188eafbe3c6874f9, type: 3}
@@ -64,6 +61,5 @@ SpriteAtlas:
   - scaleBase
   - scaleChains
   - treasureChest_bottom
-  m_RenderDataMap: {}
   m_Tag: act_1_2
   m_IsVariant: 0
