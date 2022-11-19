@@ -122,7 +122,8 @@
     "hintTooltip": "Press this button to show hints. You can press it again later to show more.",
     "timeSliderWheelHint": "Drag the slider to observe the wheel's motion over time.",
     "knightsForcePush": "Knight's Force Push",
-    "wheelsAcceleration": "Wheel's Acceleration"
+    "wheelsAcceleration": "Wheel's Acceleration",
+    "speech": "SPEECH"
   },
   "es": {
     "welcome": "¡Bienvenido!",
@@ -242,6 +243,7 @@
     "hintTooltip": "Pulsa este botón para mostrar sugerencias. Puedes volver a presionarlo más tarde para mostrar más.",
     "timeSliderWheelHint": "Arrastre el control deslizante para observar el movimiento de la rueda a lo largo del tiempo.",
     "knightsForcePush": "Empuje de fuerza del caballero",
-    "wheelsAcceleration": "Aceleración de la rueda"
+    "wheelsAcceleration": "Aceleración de la rueda",
+    "speech": "DISCURSO"
   }
 }
