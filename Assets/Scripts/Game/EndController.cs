@@ -28,5 +28,14 @@ public class EndController : GameModeController<EndController> {
 
         //show complete
         endGO.SetActive(true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        var speakWait = new WaitForFixedUpdate();
+
+        while(LoLManager.instance.isSpeakQueueActive)
+            yield return speakWait;
+
+        LoLManager.instance.Complete();
     }
 }
