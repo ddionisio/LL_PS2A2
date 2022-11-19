@@ -75,7 +75,7 @@ namespace LoLExt {
         protected int mCurProgress;
         protected int mCurScore;
 
-        protected string mLangCode = "en";
+        protected string mLangCode;
 
         private bool mIsFocus;
 
