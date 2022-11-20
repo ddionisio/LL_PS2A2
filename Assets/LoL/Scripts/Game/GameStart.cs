@@ -19,6 +19,8 @@ public class GameStart : GameModeController<GameStart> {
 
     public string musicPath;
 
+    public GameObject continueButtonGO;
+
     protected override void OnInstanceInit() {
         base.OnInstanceInit();
 
@@ -44,6 +46,10 @@ public class GameStart : GameModeController<GameStart> {
 
         if(loadingGO) loadingGO.SetActive(false);
         if(readyGO) readyGO.SetActive(true);
+
+        //enable continue button if progress > 0
+        if(continueButtonGO)
+            continueButtonGO.SetActive(LoLManager.instance.curProgress > 0);
 
         //play music
         if(!string.IsNullOrEmpty(musicPath))

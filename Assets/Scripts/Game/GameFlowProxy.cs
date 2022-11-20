@@ -15,6 +15,13 @@ public class GameFlowProxy : MonoBehaviour {
         GameData.instance.Begin();
     }
 
+    public void BeginNewGame() {
+        if(LoLManager.instance.curProgress > 0 || LoLManager.instance.curScore > 0)
+            LoLManager.instance.ApplyProgress(0, 0);
+
+        GameData.instance.Begin();
+    }
+
     public void Current() {
         GameData.instance.Current();
     }
