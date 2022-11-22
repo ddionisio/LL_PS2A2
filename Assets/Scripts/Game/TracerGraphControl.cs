@@ -4,31 +4,70 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TracerGraphControl : MonoBehaviour {
+    public enum TelemetryType {
+        Position,
+        Velocity,
+        Acceleration
+    }
+
+    public enum AxisType {
+        X,
+        Y
+    }
+
+    [System.Serializable]
+    public struct TelemetryData {
+        [M8.Localize]
+        public string textRef;
+        public string textFormat;
+
+        [Header("UI")]
+        public Text label;
+        public Image highlightImage;
+
+        [Header("Graphs")]
+        public GraphLineWidget xAxisGraph;
+        public GraphLineWidget yAxisGraph;
+
+        public void ApplyAxisText(AxisType axis) {
+            label.text = string.Format(textFormat, M8.Localize.Get(textRef), GetAxisString(axis));
+        }
+
+        public void Hide() {
+            xAxisGraph.gameObject.SetActive(false);
+            yAxisGraph.gameObject.SetActive(false);
+        }
+
+        public void SetAxisActive(AxisType axis) {
+            xAxisGraph.gameObject.SetActive(axis == AxisType.X);
+            yAxisGraph.gameObject.SetActive(axis == AxisType.Y);
+        }
+
+        private string GetAxisString(AxisType axis) {
+            switch(axis) {
+                case AxisType.X:
+                    return "X";
+                case AxisType.Y:
+                    return "Y";
+                default:
+                    return "";
+            } 
+        }
+    }
+
     public TracerRigidbody2D tracer;
 
     public GameObject graphGO;
-    public Slider graphTimeSlider;
-    [M8.Localize]
-    public string graphTimeRangeTextRef;
-    public Text graphTimeRangeLabel;
-    public Text graphTimeMaxLabel;
-    public float graphTimeStep = 0.1f;
 
-    [Header("X-axis")]
-    public GameObject[] graphXGOs;
-    public GraphLineWidget graphXPosition;
-    public GraphLineWidget graphXVelocity;
-    public GraphLineWidget graphXAccel;
+    [Header("Telemetry")]
+    public TelemetryData[] telemetries; //index via TelemetryType
+    public Color telemetryActiveColor;
+    public Color telemetryInactiveColor;
+    public GameObject[] axisGOs;
 
-    [Header("Y-axis")]
-    public GameObject[] graphYGOs;
-    public GraphLineWidget graphYPosition;
-    public GraphLineWidget graphYVelocity;
-    public GraphLineWidget graphYAccel;
+    private TelemetryType mCurTelemetryType = TelemetryType.Position;
+    private AxisType mCurAxis = AxisType.X;
 
-    private int mGraphCurStartIndex;
-    private int mGraphTimeCount;
-            
     public void ShowGraph() {
         graphGO.SetActive(true);
 
@@ -36,140 +75,143 @@ public class TracerGraphControl : MonoBehaviour {
         ShowGraphX();
     }
 
-    public void ShowGraphX() {
-        for(int i = 0; i < graphXGOs.Length; i++) {
-            if(graphXGOs[i])
-                graphXGOs[i].SetActive(true);
-        }
+    public void SetTelemetry(int telemetryTypeIndex) {
+        var telemetryType = (TelemetryType)telemetryTypeIndex;
 
-        for(int i = 0; i < graphYGOs.Length; i++) {
-            if(graphYGOs[i])
-                graphYGOs[i].SetActive(false);
+        if(mCurTelemetryType != telemetryType) {
+            telemetries[(int)mCurTelemetryType].highlightImage.color = telemetryInactiveColor;
+            telemetries[(int)mCurTelemetryType].Hide();
+
+            telemetries[telemetryTypeIndex].highlightImage.color = telemetryActiveColor;
+            telemetries[telemetryTypeIndex].SetAxisActive(mCurAxis);
+
+            mCurTelemetryType = telemetryType;
+        }
+    }
+
+    public void ShowGraphX() {
+        if(mCurAxis != AxisType.X) {
+            for(int i = 0; i < telemetries.Length; i++)
+                telemetries[i].ApplyAxisText(AxisType.X);
+
+            telemetries[(int)mCurTelemetryType].SetAxisActive(AxisType.X);
+
+            mCurAxis = AxisType.X;
+
+            for(int i = 0; i < axisGOs.Length; i++)
+                axisGOs[i].SetActive(i == (int)mCurAxis);
         }
     }
 
     public void ShowGraphY() {
-        for(int i = 0; i < graphYGOs.Length; i++) {
-            if(graphYGOs[i])
-                graphYGOs[i].SetActive(true);
-        }
+        if(mCurAxis != AxisType.Y) {
+            for(int i = 0; i < telemetries.Length; i++)
+                telemetries[i].ApplyAxisText(AxisType.Y);
 
-        for(int i = 0; i < graphXGOs.Length; i++) {
-            if(graphXGOs[i])
-                graphXGOs[i].SetActive(false);
+            telemetries[(int)mCurTelemetryType].SetAxisActive(AxisType.Y);
+
+            mCurAxis = AxisType.Y;
+
+            for(int i = 0; i < axisGOs.Length; i++)
+                axisGOs[i].SetActive(i == (int)mCurAxis);
         }
     }
 
     public void GraphPopulate() {
         if(tracer.points.Count == 0)
             return;
-        
-        mGraphCurStartIndex = 0;
 
         UpdateGraph();
-
-        //setup slider
-        int count = graphXPosition.barHorizontalCount;
-        float timeDuration = tracer.points.Count * graphTimeStep;
-
-        if(tracer.points.Count > count) {
-            graphTimeSlider.interactable = true;
-            graphTimeSlider.minValue = 0f;
-            graphTimeSlider.maxValue = tracer.points.Count - count;
-            graphTimeMaxLabel.text = (graphTimeSlider.maxValue * graphTimeStep).ToString("0.0");
-        }
-        else {
-            graphTimeSlider.interactable = false;
-            graphTimeMaxLabel.text = timeDuration.ToString("0.0");
-        }
-                
-        graphTimeSlider.value = 0f;
     }
 
     void Awake() {
         graphGO.SetActive(false);
 
-        graphTimeSlider.onValueChanged.AddListener(OnGraphTimeSlider);
+        for(int i = 0; i < telemetries.Length; i++) {
+            telemetries[i].ApplyAxisText(mCurAxis);
+
+            if(i == (int)mCurTelemetryType) {
+                telemetries[i].highlightImage.color = telemetryActiveColor;
+                telemetries[i].SetAxisActive(mCurAxis);
+            }
+            else {
+                telemetries[i].highlightImage.color = telemetryInactiveColor;
+                telemetries[i].Hide();
+            }
+        }
+
+        for(int i = 0; i < axisGOs.Length; i++)
+            axisGOs[i].SetActive(i == (int)mCurAxis);
+
+        //graphTimeSlider.onValueChanged.AddListener(OnGraphTimeSlider);
     }
 
     private void UpdateGraph() {
         if(tracer.points.Count == 0)
             return;
 
-        int count = graphXPosition.barHorizontalCount;
-        float timeDuration = count * graphTimeStep;
-        float graphXStep = timeDuration / (count - 1);
+        int count = telemetries[0].xAxisGraph.barHorizontalCount;
 
-        float timeMin = mGraphCurStartIndex * graphTimeStep;
-        float timeMax = timeMin + timeDuration;
+        float timeDuration = tracer.duration;
+        float timeStep = timeDuration / (count - 1);
 
         //populate graphs
-        int pointCount = Mathf.Min(count, tracer.points.Count - mGraphCurStartIndex);
-
         var startPt = tracer.points[0].position;
 
         //graphs
         var minPos = tracer.minPosition - startPt;
         var maxPos = tracer.maxPosition - startPt;
 
-        graphTimeRangeLabel.text = string.Format(M8.Localize.Get(graphTimeRangeTextRef), timeMin, timeMax);
-
         //x-axis setup
         if(minPos.x != maxPos.x)
-            graphXPosition.Setup(timeMin, timeMax, minPos.x, maxPos.x);
+            telemetries[(int)TelemetryType.Position].xAxisGraph.Setup(0f, timeDuration, minPos.x, maxPos.x);
         else
-            graphXPosition.Setup(timeMin, timeMax, minPos.x, minPos.x + 1.0f);
+            telemetries[(int)TelemetryType.Position].xAxisGraph.Setup(0f, timeDuration, minPos.x, minPos.x + 1.0f);
 
         if(tracer.minVelocity.x != tracer.maxVelocity.x)
-            graphXVelocity.Setup(timeMin, timeMax, tracer.minVelocity.x <= 0f ? tracer.minVelocity.x : 0f, tracer.maxVelocity.x);
+            telemetries[(int)TelemetryType.Velocity].xAxisGraph.Setup(0f, timeDuration, tracer.minVelocity.x <= 0f ? tracer.minVelocity.x : 0f, tracer.maxVelocity.x);
         else
-            graphXVelocity.Setup(timeMin, timeMax, tracer.minVelocity.x <= 0f ? tracer.minVelocity.x : 0f, tracer.maxVelocity.x + 1.0f);
+            telemetries[(int)TelemetryType.Velocity].xAxisGraph.Setup(0f, timeDuration, tracer.minVelocity.x <= 0f ? tracer.minVelocity.x : 0f, tracer.maxVelocity.x + 1.0f);
 
         if(tracer.minAccelApprox.x != tracer.maxAccelApprox.x)
-            graphXAccel.Setup(timeMin, timeMax, tracer.minAccelApprox.x <= 0f ? tracer.minAccelApprox.x : 0f, tracer.maxAccelApprox.x);
+            telemetries[(int)TelemetryType.Acceleration].xAxisGraph.Setup(0f, timeDuration, tracer.minAccelApprox.x <= 0f ? tracer.minAccelApprox.x : 0f, tracer.maxAccelApprox.x);
         else
-            graphXAccel.Setup(timeMin, timeMax, tracer.minAccelApprox.x <= 0f ? tracer.minAccelApprox.x : 0f, tracer.maxAccelApprox.x + 1.0f);
+            telemetries[(int)TelemetryType.Acceleration].xAxisGraph.Setup(0f, timeDuration, tracer.minAccelApprox.x <= 0f ? tracer.minAccelApprox.x : 0f, tracer.maxAccelApprox.x + 1.0f);
 
         //y-axis setup
         if(minPos.y != maxPos.y)
-            graphYPosition.Setup(timeMin, timeMax, minPos.y, maxPos.y);
+            telemetries[(int)TelemetryType.Position].yAxisGraph.Setup(0f, timeDuration, minPos.y, maxPos.y);
         else
-            graphYPosition.Setup(timeMin, timeMax, minPos.y, minPos.y + 1.0f);
+            telemetries[(int)TelemetryType.Position].yAxisGraph.Setup(0f, timeDuration, minPos.y, minPos.y + 1.0f);
 
         if(tracer.minVelocity.y != tracer.maxVelocity.y)
-            graphYVelocity.Setup(timeMin, timeMax, tracer.minVelocity.y <= 0f ? tracer.minVelocity.y : 0f, tracer.maxVelocity.y);
+            telemetries[(int)TelemetryType.Velocity].yAxisGraph.Setup(0f, timeDuration, tracer.minVelocity.y <= 0f ? tracer.minVelocity.y : 0f, tracer.maxVelocity.y);
         else
-            graphYVelocity.Setup(timeMin, timeMax, tracer.minVelocity.y <= 0f ? tracer.minVelocity.y : 0f, tracer.maxVelocity.y + 1.0f);
+            telemetries[(int)TelemetryType.Velocity].yAxisGraph.Setup(0f, timeDuration, tracer.minVelocity.y <= 0f ? tracer.minVelocity.y : 0f, tracer.maxVelocity.y + 1.0f);
 
         if(tracer.minAccelApprox.y != tracer.maxAccelApprox.y)
-            graphYAccel.Setup(timeMin, timeMax, tracer.minAccelApprox.y <= 0f ? tracer.minAccelApprox.y : 0f, tracer.maxAccelApprox.y);
+            telemetries[(int)TelemetryType.Acceleration].yAxisGraph.Setup(0f, timeDuration, tracer.minAccelApprox.y <= 0f ? tracer.minAccelApprox.y : 0f, tracer.maxAccelApprox.y);
         else
-            graphYAccel.Setup(timeMin, timeMax, tracer.minAccelApprox.y <= 0f ? tracer.minAccelApprox.y : 0f, tracer.maxAccelApprox.y + 1.0f);
+            telemetries[(int)TelemetryType.Acceleration].yAxisGraph.Setup(0f, timeDuration, tracer.minAccelApprox.y <= 0f ? tracer.minAccelApprox.y : 0f, tracer.maxAccelApprox.y + 1.0f);
 
-        for(int i = 0; i < pointCount; i++) {
-            var pt = tracer.points[mGraphCurStartIndex + i];
+        //plot points
 
-            var pos = pt.position - startPt;
-            var vel = pt.velocity;
-            var accel = pt.accelApprox;
+        for(int i = 0; i < count; i++) {
+            float t = timeStep * i;
 
-            float t = timeMin + graphXStep * i;
+            var ptDat = tracer.GetPointData(t);
 
-            graphXPosition.Plot(t, pos.x);
-            graphXVelocity.Plot(t, vel.x);
-            graphXAccel.Plot(t, accel.x);
+            var pos = ptDat.position - startPt;
+            var vel = ptDat.velocity;
+            var accel = ptDat.accelApprox;
 
-            graphYPosition.Plot(t, pos.y);
-            graphYVelocity.Plot(t, vel.y);
-            graphYAccel.Plot(t, accel.y);
-        }
-    }
+            telemetries[(int)TelemetryType.Position].xAxisGraph.Plot(t, pos.x);
+            telemetries[(int)TelemetryType.Velocity].xAxisGraph.Plot(t, vel.x);
+            telemetries[(int)TelemetryType.Acceleration].xAxisGraph.Plot(t, accel.x);
 
-    void OnGraphTimeSlider(float val) {
-        int ind = Mathf.RoundToInt(val);
-        if(mGraphCurStartIndex != ind) {
-            mGraphCurStartIndex = ind;
-            UpdateGraph();
+            telemetries[(int)TelemetryType.Position].yAxisGraph.Plot(t, pos.y);
+            telemetries[(int)TelemetryType.Velocity].yAxisGraph.Plot(t, vel.y);
+            telemetries[(int)TelemetryType.Acceleration].yAxisGraph.Plot(t, accel.y);
         }
     }
 }

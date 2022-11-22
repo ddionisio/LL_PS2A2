@@ -1574,7 +1574,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121690
+  m_Name: pb_Mesh55146
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2654,7 +2654,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh122050
+  m_Name: pb_Mesh55502
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4076,7 +4076,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121368
+  m_Name: pb_Mesh54828
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4954,7 +4954,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh122280
+  m_Name: pb_Mesh55736
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8211,6 +8211,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224836320058398122, guid: a94660b0c70b69e4483fbb9727914165,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224836320058398122, guid: a94660b0c70b69e4483fbb9727914165,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224919686142212652, guid: a94660b0c70b69e4483fbb9727914165,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 93
+      objectReference: {fileID: 0}
+    - target: {fileID: 224919686142212652, guid: a94660b0c70b69e4483fbb9727914165,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 44
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a94660b0c70b69e4483fbb9727914165, type: 3}
 --- !u!1001 &1072219289
@@ -8369,10 +8389,6 @@ MonoBehaviour:
   wheelTimeDialogGO: {fileID: 1968788147}
   wheelTimeDialogLabel: {fileID: 1243534008}
   wheelTimeDialogs:
-  - textRef: 
-    timeMin: 0
-    timeMax: 0
-    goActive: {fileID: 418726955}
   - textRef: newton_second_law_dlg_6
     timeMin: 0.1
     timeMax: 1.9
@@ -10619,7 +10635,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh122334
+  m_Name: pb_Mesh55790
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10823,7 +10839,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121778
+  m_Name: pb_Mesh55234
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11469,7 +11485,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121598
+  m_Name: pb_Mesh55050
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11724,7 +11740,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121700
+  m_Name: pb_Mesh55156
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

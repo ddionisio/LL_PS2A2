@@ -8,6 +8,15 @@ public class TracerRigidbody2D : MonoBehaviour {
         public float rotate;
         public Vector2 velocity;
         public Vector2 accelApprox;
+
+        public static PointData Lerp(PointData pt1, PointData pt2, float t) {
+            return new PointData {
+                position = Vector2.Lerp(pt1.position, pt2.position, t),
+                velocity = Vector2.Lerp(pt1.velocity, pt2.velocity, t),
+                accelApprox = Vector2.Lerp(pt1.accelApprox, pt2.accelApprox, t),
+                rotate = Mathf.Lerp(pt1.rotate, pt2.rotate, t)
+            };
+        }
     }
 
     public GameObject template;
@@ -38,6 +47,8 @@ public class TracerRigidbody2D : MonoBehaviour {
     public Vector2 minAccelApprox { get { return mMinAccelApprox; } }
     public Vector2 maxAccelApprox { get { return mMaxAccelApprox; } }
 
+    public float duration { get { return timeInterval * points.Count; } }
+
     private Vector2 mMinVelocity = Vector2.zero;
     private Vector2 mMaxVelocity = Vector2.zero;
     private Vector2 mMinPosition = Vector2.zero;
@@ -54,6 +65,27 @@ public class TracerRigidbody2D : MonoBehaviour {
     private Coroutine mRecordRout;
     
     private bool mIsInit;
+
+    public PointData GetPointData(float t) {
+        if(points.Count > 0) {
+            float tDelta = t / timeInterval;
+
+            float tDeltaCeil = Mathf.Ceil(tDelta);
+
+            int eInd = Mathf.Clamp((int)tDeltaCeil, 0, points.Count - 1);
+            int sInd = Mathf.Clamp(Mathf.FloorToInt(tDelta), 0, eInd);
+
+            if(sInd < eInd) {
+                float st = tDeltaCeil - tDelta;
+
+                return PointData.Lerp(points[sInd], points[eInd], st);
+            }
+            else
+                return points[sInd];
+        }
+
+        return new PointData { position = Vector2.zero, velocity = Vector2.zero, accelApprox = Vector2.zero, rotate = 0.0f };
+    }
     
     public void Record() {
         Clear();
