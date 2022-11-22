@@ -150,7 +150,7 @@ public class TracerGraphControl : MonoBehaviour {
         if(tracer.points.Count == 0)
             return;
 
-        int count = telemetries[0].xAxisGraph.barHorizontalCount;
+        int count = Mathf.Min(telemetries[0].xAxisGraph.dotCapacity, tracer.points.Count);
 
         float timeDuration = tracer.duration;
         float timeStep = timeDuration / (count - 1);
@@ -195,23 +195,43 @@ public class TracerGraphControl : MonoBehaviour {
             telemetries[(int)TelemetryType.Acceleration].yAxisGraph.Setup(0f, timeDuration, tracer.minAccelApprox.y <= 0f ? tracer.minAccelApprox.y : 0f, tracer.maxAccelApprox.y + 1.0f);
 
         //plot points
+        if(count == tracer.points.Count) {
+            for(int i = 0; i < count; i++) {
+                float t = timeStep * i;
 
-        for(int i = 0; i < count; i++) {
-            float t = timeStep * i;
+                var ptDat = tracer.points[i];
 
-            var ptDat = tracer.GetPointData(t);
+                var pos = ptDat.position - startPt;
+                var vel = ptDat.velocity;
+                var accel = ptDat.accelApprox;
 
-            var pos = ptDat.position - startPt;
-            var vel = ptDat.velocity;
-            var accel = ptDat.accelApprox;
+                telemetries[(int)TelemetryType.Position].xAxisGraph.Plot(t, pos.x);
+                telemetries[(int)TelemetryType.Velocity].xAxisGraph.Plot(t, vel.x);
+                telemetries[(int)TelemetryType.Acceleration].xAxisGraph.Plot(t, accel.x);
 
-            telemetries[(int)TelemetryType.Position].xAxisGraph.Plot(t, pos.x);
-            telemetries[(int)TelemetryType.Velocity].xAxisGraph.Plot(t, vel.x);
-            telemetries[(int)TelemetryType.Acceleration].xAxisGraph.Plot(t, accel.x);
+                telemetries[(int)TelemetryType.Position].yAxisGraph.Plot(t, pos.y);
+                telemetries[(int)TelemetryType.Velocity].yAxisGraph.Plot(t, vel.y);
+                telemetries[(int)TelemetryType.Acceleration].yAxisGraph.Plot(t, accel.y);
+            }
+        }
+        else {
+            for(int i = 0; i < count; i++) {
+                float t = timeStep * i;
 
-            telemetries[(int)TelemetryType.Position].yAxisGraph.Plot(t, pos.y);
-            telemetries[(int)TelemetryType.Velocity].yAxisGraph.Plot(t, vel.y);
-            telemetries[(int)TelemetryType.Acceleration].yAxisGraph.Plot(t, accel.y);
+                var ptDat = tracer.GetPointData(t);
+
+                var pos = ptDat.position - startPt;
+                var vel = ptDat.velocity;
+                var accel = ptDat.accelApprox;
+
+                telemetries[(int)TelemetryType.Position].xAxisGraph.Plot(t, pos.x);
+                telemetries[(int)TelemetryType.Velocity].xAxisGraph.Plot(t, vel.x);
+                telemetries[(int)TelemetryType.Acceleration].xAxisGraph.Plot(t, accel.x);
+
+                telemetries[(int)TelemetryType.Position].yAxisGraph.Plot(t, pos.y);
+                telemetries[(int)TelemetryType.Velocity].yAxisGraph.Plot(t, vel.y);
+                telemetries[(int)TelemetryType.Acceleration].yAxisGraph.Plot(t, accel.y);
+            }
         }
     }
 }
