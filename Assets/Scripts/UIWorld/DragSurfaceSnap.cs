@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IBeginDragHandler, IDragHandler, IEndDragHandler {
     [Header("Info")]
     public UnitUIDisplayInfo displayInfo;
-    public bool ghostAutoTileFlipY;
+    public DragCursorWorldSurfaceSnap.BeamType beamType;
 
     [Header("Drag Info")]
 
@@ -145,7 +145,7 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
                 dragWorldSurfaceSnap.ApplyIcon(displayInfo.uiWorldIcon);
                 dragWorldSurfaceSnap.deleteEnabled = true;
 
-                dragWorldSurfaceSnap.ghostAutoTileScale.flipY = ghostAutoTileFlipY;
+                dragWorldSurfaceSnap.SetBeamType(beamType);
             }
 
             if(dragActiveGO) dragActiveGO.SetActive(true);

@@ -703,6 +703,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayInfo: {fileID: 114247189951629574}
+  ghostBeamMaterial: {fileID: 2100000, guid: bd130f0c34f1690439108be94ecc2454, type: 2}
+  ghostTipMaterial: {fileID: 2100000, guid: e898552d912010048a8b2dfddf2814ae, type: 2}
   ghostAutoTileFlipY: 0
   _dragEnabled: 1
   dragActiveGO: {fileID: 0}

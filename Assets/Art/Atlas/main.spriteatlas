@@ -91,6 +91,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
   - {fileID: 21300000, guid: 5670e0b407e9a92439a04022c216ceb3, type: 3}
   - {fileID: 21300000, guid: 5ab5f1c4eac6a104ab1e48749ce5bba0, type: 3}
+  - {fileID: 21300000, guid: 8e196fc45ab9c07428e5c556a30cea07, type: 3}
   - {fileID: 21300000, guid: e6ecffc4af88e05439c8bad97068cb1c, type: 3}
   - {fileID: 21300000, guid: d6e058e4634aca64684fc62a5e92d6aa, type: 3}
   - {fileID: 21300000, guid: 6eb8b2f40c96e1b46b33b9ccfa54a09d, type: 3}
@@ -225,6 +226,7 @@ SpriteAtlas:
   - baseGradient
   - goblin_hop2
   - shadeSmall
+  - forceArrow
   - circle32x32_doodad02
   - goblinSpace
   - circle32x32_doodad01

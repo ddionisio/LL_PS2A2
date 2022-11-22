@@ -19,8 +19,9 @@ public class EntitySpawnerWidgetWorldSnap : EntitySpawnerWidget {
         if(cursorWorld is DragCursorWorldSurfaceSnap) {
             var cursorWorldSurfaceSnap = (DragCursorWorldSurfaceSnap)cursorWorld;
 
-            if(mEntityTemplateDragSurfaceSnap)
-                cursorWorldSurfaceSnap.ghostAutoTileScale.flipY = mEntityTemplateDragSurfaceSnap.ghostAutoTileFlipY;
+            if(mEntityTemplateDragSurfaceSnap) {
+                cursorWorldSurfaceSnap.SetBeamType(mEntityTemplateDragSurfaceSnap.beamType);
+            }
         }
     }
 }

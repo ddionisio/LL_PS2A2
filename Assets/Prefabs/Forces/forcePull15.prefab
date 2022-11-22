@@ -89,7 +89,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e898552d912010048a8b2dfddf2814ae, type: 2}
+  - {fileID: 2100000, guid: e2a8c67639471344894af0d5c4cfe71b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -188,7 +188,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd130f0c34f1690439108be94ecc2454, type: 2}
+  - {fileID: 2100000, guid: 40424099c15f9e9449900289ffd2944a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayInfo: {fileID: 114903233900848146}
-  ghostAutoTileFlipY: 1
+  beamType: 1
   _dragEnabled: 1
   dragActiveGO: {fileID: 0}
   dragInactiveGO: {fileID: 1224500401765820}

@@ -7,6 +7,11 @@ using UnityEngine.EventSystems;
 /// Drag snap to a surface
 /// </summary>
 public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2D> {
+    public enum BeamType {
+        Push,
+        Pull
+    }
+
     [Header("Data")]
     public float checkRadius;
     public LayerMask checkLayerMask;
@@ -19,7 +24,9 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
     [Header("Display")]
     public Transform ghostRoot;
     public SpriteRenderer ghostSpriteRenderer;
-    public M8.RendererAutoTileScale ghostAutoTileScale;
+    public GameObject[] beams;
+
+    //public M8.RendererAutoTileScale ghostAutoTileScale;
 
     public Vector2 surfacePoint { get; private set; }
     public Vector2 surfaceNormal { get; private set; }
@@ -35,6 +42,12 @@ public class DragCursorWorldSurfaceSnap : DragCursorWorld, IComparer<RaycastHit2
     private float mIconOfs;
 
     private bool mIsBoxValid;
+
+    public void SetBeamType(BeamType beamType) {
+        for(int i = 0; i < beams.Length; i++) {
+            beams[i].SetActive(i == (int)beamType);
+        }
+    }
 
     public void ApplyGhostSprite(Sprite sprite) {
         if(ghostSpriteRenderer)
