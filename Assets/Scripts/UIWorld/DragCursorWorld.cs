@@ -28,6 +28,7 @@ public class DragCursorWorld : MonoBehaviour {
     bool _deleteEnabled;
     public Transform deleteScreenUICursor; //
     public RectTransform deleteScreenArea;
+    public GameObject deleteScreenActiveGO;
 
     public bool isDropValid { get { return mIsDropValid; } }
 
@@ -153,5 +154,6 @@ public class DragCursorWorld : MonoBehaviour {
     private void ApplyIsDelete() {
         if(rootGO) rootGO.SetActive(!isDelete);
         if(deleteScreenUICursor) deleteScreenUICursor.gameObject.SetActive(isDelete);
+        if(deleteScreenActiveGO) deleteScreenActiveGO.SetActive(isDelete);
     }
 }
