@@ -16,6 +16,10 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
     public GameObject dragActiveGO; //activated during drag
     public GameObject dragInactiveGO; //deactivate during drag
 
+    [Header("Signals")]
+    public SignalDragWidget signalDragBegin;
+    public SignalDragWidget signalDragEnd;
+
     public bool isDragEnabled {
         get { return _dragEnabled; }
         set {
@@ -47,11 +51,11 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
         
     void OnApplicationFocus(bool focus) {
         if(!focus)
-            SetDragging(false);
+            SetDragging(false, null);
     }
 
     void OnDisable() {
-        SetDragging(false);
+        SetDragging(false, null);
     }
 
     void Awake() {
@@ -70,7 +74,7 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
     }
 
     void M8.IPoolDespawn.OnDespawned() {
-        SetDragging(false);
+        SetDragging(false, null);
 
         if(dragWorldSurfaceSnap) {
             dragWorldSurfaceSnap = null;
@@ -78,7 +82,7 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
     }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {
-        SetDragging(true);
+        SetDragging(true, eventData);
 
         dragWorldSurfaceSnap.UpdateState(eventData);
     }
@@ -104,20 +108,26 @@ public class DragSurfaceSnap : MonoBehaviour, M8.IPoolSpawn, M8.IPoolDespawn, IB
 
         isDelete = dragWorldSurfaceSnap.isDelete;
 
-        SetDragging(false);
+        SetDragging(false, eventData);
     }
 
-    private void SetDragging(bool dragging) {
+    private void SetDragging(bool dragging, PointerEventData eventData) {
         if(mIsDragging != dragging) {
             mIsDragging = dragging;
 
             ApplyDragState();
 
             if(mIsDragging) {
+                if(signalDragBegin)
+                    signalDragBegin.Invoke(new DragWidgetSignalInfo { pointerData = eventData });
+
                 if(dragBeginCallback != null)
                     dragBeginCallback();
             }
             else {
+                if(signalDragEnd)
+                    signalDragEnd.Invoke(new DragWidgetSignalInfo { pointerData = eventData });
+
                 if(dragEndCallback != null)
                     dragEndCallback();
             }

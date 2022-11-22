@@ -65,7 +65,7 @@ public class HintControl : MonoBehaviour {
     }
 
     void OnHintClick() {
-        int countAdd = Mathf.FloorToInt(mHintGOs.Length * 0.5f);
+        int countAdd = mHintGOs.Length;// Mathf.FloorToInt(mHintGOs.Length * 0.5f); //just show all of it...
         mCurHintCount += countAdd;
         if(mCurHintCount >= mHintGOs.Length)
             mCurHintCount = mHintGOs.Length;
