@@ -43,6 +43,10 @@ public class ActForceController : GameModeController<ActForceController> {
     public float playGuideGOShowDelay = 3f;
     public GameObject playGuideGO;
 
+    [Header("Begin Dialog")]
+    public AnimatorEnterExit beginDlgIllustration;
+    public ModalDialogController beginDlg;
+
     private GameObject mPlayerGO;
     private Rigidbody2D mPlayerBody;
 
@@ -82,6 +86,8 @@ public class ActForceController : GameModeController<ActForceController> {
         if(dragEntityGuideGO) dragEntityGuideGO.SetActive(false);
         if(playGuideGO) playGuideGO.SetActive(false);
 
+        if(beginDlgIllustration) beginDlgIllustration.gameObject.SetActive(false);
+
         signalGoal.callback += OnSignalGoal;
     }
 
@@ -94,6 +100,24 @@ public class ActForceController : GameModeController<ActForceController> {
         //spawn player
         mPlayerGO.SetActive(true);
         yield return new WaitForSeconds(1.5f);
+        //
+
+        //begin dialog
+        if(beginDlgIllustration) {
+            beginDlgIllustration.gameObject.SetActive(true);
+            yield return beginDlgIllustration.PlayEnterWait();
+        }
+
+        if(beginDlg) {
+            beginDlg.Play();
+            while(beginDlg.isPlaying)
+                yield return null;
+        }
+
+        if(beginDlgIllustration) {
+            yield return beginDlgIllustration.PlayExitWait();
+            beginDlgIllustration.gameObject.SetActive(false);
+        }
         //
 
         //first time detail

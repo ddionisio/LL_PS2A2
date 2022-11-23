@@ -125,7 +125,11 @@
     "wheelsAcceleration": "Wheel's Acceleration",
     "speech": "SPEECH",
     "newGame": "NEW GAME",
-    "continue": "CONTINUE"
+    "continue": "CONTINUE",
+    "act_3_intro_1": "In this act, we will be guiding the golden ball to its holy source.",
+    "act_3_intro_2": "To do that, you must place force fields to influence the golden ball’s movement.",
+    "act_3_intro_3": "Remember that so long as any forces are acting on an object, its acceleration will change. Thus, causing the object’s speed to change over time. ",
+    "act_3_intro_4": "Now go forth, and attach a force field on the wall to get the ball rolling!"
   },
   "es": {
     "welcome": "¡Bienvenido!",
@@ -248,6 +252,10 @@
     "wheelsAcceleration": "Aceleración de la rueda",
     "speech": "DISCURSO",
     "newGame": "NUEVO JUEGO",
-    "continue": "CONTINUAR"
+    "continue": "CONTINUAR",
+    "act_3_intro_1": "",
+    "act_3_intro_2": "",
+    "act_3_intro_3": "",
+    "act_3_intro_4": ""
   }
 }
