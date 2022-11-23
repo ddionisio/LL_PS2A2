@@ -129,7 +129,14 @@
     "act_3_intro_1": "In this act, we will be guiding the golden ball to its holy source.",
     "act_3_intro_2": "To do that, you must place force fields to influence the golden ball’s movement.",
     "act_3_intro_3": "Remember that so long as any forces are acting on an object, its acceleration will change. Thus, causing the object’s speed to change over time. ",
-    "act_3_intro_4": "Now go forth, and attach a force field on the wall to get the ball rolling!"
+    "act_3_intro_4": "Now go forth, and attach a force field on the wall to get the ball rolling!",
+    "act_3_2_intro_1": "This time around, we will be placing two force fields.",
+    "act_3_2_intro_2": "In order to allow the golden ball to take flight, one must counteract the gravitational force with a much greater force.",
+    "act_3_2_intro_3": "Please take note of the force field’s direction when placing them on the wall. Good luck!",
+    "act_3_3_intro_1": "Now that you’ve come this far, it’s all up to you! Remember all that you’ve learned about Newton’s first two laws.",
+    "act_3_3_intro_2": "First: An object at rest will remain at rest, and an object in motion will maintain a constant velocity unless acted upon by a net external force.",
+    "act_3_3_intro_3": "Second: The acceleration of an object is proportional to the net force acting on it, and inversely proportional to its mass.",
+    "act_3_3_intro_4": "Keep these in mind, and you will surely be a force to be reckoned with!"
   },
   "es": {
     "welcome": "¡Bienvenido!",
@@ -256,6 +263,9 @@
     "act_3_intro_1": "",
     "act_3_intro_2": "",
     "act_3_intro_3": "",
-    "act_3_intro_4": ""
+    "act_3_intro_4": "",
+    "act_3_2_intro_1": "",
+    "act_3_2_intro_2": "",
+    "act_3_2_intro_3": ""
   }
 }

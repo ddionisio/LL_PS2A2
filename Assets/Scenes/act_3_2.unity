@@ -6206,7 +6206,10 @@ MonoBehaviour:
   portrait: {fileID: 0}
   applyPortrait: 0
   nameTextRef: 
-  dialogTextRefs: []
+  dialogTextRefs:
+  - act_3_2_intro_1
+  - act_3_2_intro_2
+  - act_3_2_intro_3
 --- !u!4 &1934175664
 Transform:
   m_ObjectHideFlags: 0
