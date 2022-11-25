@@ -12,11 +12,15 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     [M8.TagSelector]
     public string tagDragGuide;
     public DragCursorWorld dragCursor;
+    public GameObject dragActiveGO;
 
     //TODO: figure out randomization of left side object
     public Rigidbody2D itemBody;
     public float[] itemBodyMasses;
     public Transform itemStartPoint;
+    public GameObject itemHintActiveGO;
+    public Text itemHintLabel;
+    public float itemHintShowDelay = 240f;
     
     [Header("Sequence")]
     public string musicPath;
@@ -42,7 +46,11 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
     private DragToGuideWidget mDragGuide;
     private bool mIsDragGuideShown;
 
+    private Coroutine mItemHintRout;
+
     protected override void OnInstanceDeinit() {
+        mItemHintRout = null;
+
         signalTreasureOpened.callback -= OnSignalTreasureOpened;
         signalShowNext.callback -= OnSignalShowNext;
 
@@ -65,6 +73,7 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
             if(dragBodyComp) {
                 dragBodyComp.SetDragCursor(dragCursor);
 
+                dragBodyComp.dragBeginCallback += OnBodyDragBegin;
                 dragBodyComp.dragEndCallback += OnBodyDragEnd;
 
                 dragBodyList.Add(dragBodyComp);
@@ -74,6 +83,7 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         mDragBodies = dragBodyList.ToArray();
 
         dragCursor.gameObject.SetActive(false);
+        dragActiveGO.SetActive(false);
         //
 
         inertiaIllustrationAnim.gameObject.SetActive(false);
@@ -84,6 +94,9 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         itemBody.transform.position = itemStartPoint.position;
         itemBody.mass = itemBodyMasses[Random.Range(0, itemBodyMasses.Length)];
         itemBody.gameObject.SetActive(false);
+
+        itemHintActiveGO.SetActive(false);
+        itemHintLabel.text = Mathf.RoundToInt(itemBody.mass).ToString();
         //
 
         //drag instructs
@@ -155,6 +168,8 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
             mIsDragGuideShown = true;
         }
 
+        mItemHintRout = StartCoroutine(DoShowHint());
+
         //SetInteractiveEnabled(false);
 
         //GameData.instance.Progress();
@@ -166,7 +181,20 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         }
     }
 
+    IEnumerator DoShowHint() {
+        yield return new WaitForSeconds(itemHintShowDelay);
+
+        itemHintActiveGO.SetActive(true);
+
+        mItemHintRout = null;
+    }
+
     void OnSignalTreasureOpened() {
+        if(mItemHintRout != null) {
+            StopCoroutine(mItemHintRout);
+            mItemHintRout = null;
+        }
+
         SetInteractiveEnabled(false);
     }
 
@@ -174,10 +202,16 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         M8.UIModal.Manager.instance.ModalOpen(modalVictory);
     }
 
+    void OnBodyDragBegin() {
+        dragActiveGO.SetActive(true);
+    }
+
     void OnBodyDragEnd() {
         if(mIsDragGuideShown) {
             mDragGuide.Hide();
             mIsDragGuideShown = false;
         }
+
+        dragActiveGO.SetActive(false);
     }
 }

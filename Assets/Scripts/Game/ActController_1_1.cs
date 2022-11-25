@@ -50,6 +50,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public GameObject block1ForceGoblinGO;
     public Transform block1NetForceDirRoot;
     public GameObject block1NetForceNoneGO;
+    public M8.Animator.Animate block1LeftAnim;
+    public M8.Animator.Animate block1RightAnim;
     public float block1VelocityXThreshold = 0.03f;
 
     public Rigidbody2DMoveController block2;
@@ -61,6 +63,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     public GameObject block2ForceUnbalancedGO;
     public Transform block2NetForceDirRoot;
     public GameObject block2NetForceNoneGO;
+    public M8.Animator.Animate block2LeftAnim;
 
     public GameObject victoryGO;
     public float victoryStartDelay = 0.5f;
@@ -188,7 +191,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         block1ForceGravityGO.SetActive(true);
 
-        mBlockForceRout = StartCoroutine(DoForceBalance(block1, block1ForceNetGO, block1ForceBalancedGO, block1ForceUnbalancedGO, block1NetForceDirRoot, block1NetForceNoneGO));
+        mBlockForceRout = StartCoroutine(DoForceBalance(block1, block1ForceNetGO, block1ForceBalancedGO, block1ForceUnbalancedGO, block1NetForceDirRoot, block1NetForceNoneGO, block1LeftAnim, block1RightAnim));
 
         //wait a bit, then pause and describe the gravity
         yield return new WaitForSeconds(gravityDialogWaitDelay);
@@ -327,7 +330,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         block2ForceGravityGO.SetActive(true);
 
-        mBlockForceRout = StartCoroutine(DoForceBalance(block2, block2ForceNetGO, block2ForceBalancedGO, block2ForceUnbalancedGO, block2NetForceDirRoot, block2NetForceNoneGO));
+        mBlockForceRout = StartCoroutine(DoForceBalance(block2, block2ForceNetGO, block2ForceBalancedGO, block2ForceUnbalancedGO, block2NetForceDirRoot, block2NetForceNoneGO, block2LeftAnim, null));
 
         //wait for block 2 to hit ground
         while(!block2.isGrounded)
@@ -465,7 +468,8 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
     IEnumerator DoForceBalance(Rigidbody2DMoveController block, 
         GameObject blockForceNetGO, GameObject blockForceBalancedGO, GameObject blockForceUnbalancedGO, 
-        Transform blockNetForceDirRoot, GameObject blockNetForceNoneGO) {
+        Transform blockNetForceDirRoot, GameObject blockNetForceNoneGO,
+        M8.Animator.Animate leftForceAnim, M8.Animator.Animate rightForceAnim) {
         blockForceNetGO.SetActive(true);
 
         var waitFixed = new WaitForFixedUpdate();
@@ -506,6 +510,15 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
                 blockNetForceDirRoot.up = accel.normalized;
 
                 blockNetForceNoneGO.SetActive(false);
+
+                if(accel.x > 0f) {
+                    if(leftForceAnim) leftForceAnim.Play(0);
+                    if(rightForceAnim) rightForceAnim.Stop();
+                }
+                else {
+                    if(leftForceAnim) leftForceAnim.Stop();
+                    if(rightForceAnim) rightForceAnim.Play(0);
+                }
             }
             else {
                 blockForceBalancedGO.SetActive(true);
@@ -513,8 +526,14 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
                 blockNetForceDirRoot.gameObject.SetActive(false);
                 blockNetForceNoneGO.SetActive(true);
+
+                if(leftForceAnim) leftForceAnim.Stop();
+                if(rightForceAnim) rightForceAnim.Stop();
             }            
         }
+
+        if(leftForceAnim) leftForceAnim.Stop();
+        if(rightForceAnim) rightForceAnim.Stop();
     }
 
     void OnSignalUnitDragEnd(DragWidgetSignalInfo inf) {
