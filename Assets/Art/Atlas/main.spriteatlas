@@ -86,11 +86,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 525ff3d3f42a6d941bddbafaba567ba2, type: 3}
   - {fileID: 21300000, guid: fd3938d3ce8e1b44d8fbe9cfb36718db, type: 3}
   - {fileID: 21300000, guid: f8d800f3a28f3bd409eeb5bf6f187952, type: 3}
-  - {fileID: 21300000, guid: 8a3c2b046cb7b1744a3c827fa7c3dd1a, type: 3}
   - {fileID: 21300000, guid: 5445ee2485073944db31d01fc7d4c44c, type: 3}
   - {fileID: 21300000, guid: 851c9a74ba266f443a37dc020e1e6f86, type: 3}
   - {fileID: 21300000, guid: 5670e0b407e9a92439a04022c216ceb3, type: 3}
   - {fileID: 21300000, guid: 5ab5f1c4eac6a104ab1e48749ce5bba0, type: 3}
+  - {fileID: 21300000, guid: c41b7ac4773379f42bec55818efbfab5, type: 3}
   - {fileID: 21300000, guid: 8e196fc45ab9c07428e5c556a30cea07, type: 3}
   - {fileID: 21300000, guid: e6ecffc4af88e05439c8bad97068cb1c, type: 3}
   - {fileID: 21300000, guid: d6e058e4634aca64684fc62a5e92d6aa, type: 3}
@@ -156,6 +156,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d8c01a8bb74f85f4195fa213e9932844, type: 3}
   - {fileID: 21300000, guid: 2edb88abbbd8a5d42b0eb41b312e0b4d, type: 3}
   - {fileID: 21300000, guid: cb85a22c00cef7e40ba7241caa45bd2f, type: 3}
+  - {fileID: 21300000, guid: 6e46d65c795b56344b389f1886fb3982, type: 3}
   - {fileID: 21300000, guid: c400586c013b1b44ea33c677e8a9de0d, type: 3}
   - {fileID: 21300000, guid: ef715d7cdf80007479d4b3527aae6ce0, type: 3}
   - {fileID: 21300000, guid: 7242659cc528db5438228b4bdd0033ed, type: 3}
@@ -180,6 +181,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: abf8370fc0335b040a60604a961bdda6, type: 3}
   - {fileID: 21300000, guid: d100bf3fba8e48343b4f69fe5447d682, type: 3}
   - {fileID: 21300000, guid: 03e9d29f4e9e993479e7df803ba2c5b0, type: 3}
+  - {fileID: 21300000, guid: 49f63cbf9fa458c4cbc656fbdbb5124a, type: 3}
   - {fileID: 21300000, guid: a6d4e2df876d9cf4a949049b9e01b638, type: 3}
   - {fileID: 21300000, guid: cfeba4efd21f1234081fbc19dd095303, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -221,11 +223,11 @@ SpriteAtlas:
   - puff07
   - wing
   - gear
-  - portraitRobot_2
   - knightSuper_1
   - baseGradient
   - goblin_hop2
   - shadeSmall
+  - devicerBody
   - forceArrow
   - circle32x32_doodad02
   - goblinSpace
@@ -291,6 +293,7 @@ SpriteAtlas:
   - platePanel
   - knight_idle
   - wheel2
+  - devicerMouthClose
   - puff03
   - goal_symbols
   - knight_carry1
@@ -315,6 +318,7 @@ SpriteAtlas:
   - wheel
   - tutorialHandPoint
   - knightSuper_6
+  - devicerMouthOpen
   - forcePlatform
   - forcePlatformBlank
   m_Tag: main

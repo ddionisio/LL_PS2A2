@@ -14,9 +14,11 @@ namespace M8.UI.Graphics {
         public bool autoPlay = true;
         public bool autoSize = true;
         public bool shuffleOnPlay = false;
+        public bool isRealtime = false;
 
         private int mCurFrame;
         private float mFrameCounter;
+        private float mLastActiveTime;
         private bool mStarted;
         private bool mPlaying;
 
@@ -26,6 +28,8 @@ namespace M8.UI.Graphics {
 
                 if(shuffleOnPlay)
                     M8.ArrayUtil.Shuffle(frames);
+
+                mLastActiveTime = isRealtime ? Time.realtimeSinceStartup : Time.time;
             }
         }
 
@@ -72,7 +76,9 @@ namespace M8.UI.Graphics {
         // Update is called once per frame
         void Update() {
             if(mPlaying) {
-                mFrameCounter += Time.deltaTime * framesPerSecond;
+                var curTime = isRealtime ? Time.realtimeSinceStartup : Time.time;
+
+                mFrameCounter += (curTime - mLastActiveTime) * framesPerSecond;
                 int newFrame = Mathf.RoundToInt(mFrameCounter);
                 if(mCurFrame != newFrame) {
                     mCurFrame = newFrame;
@@ -83,6 +89,8 @@ namespace M8.UI.Graphics {
 
                     SetToCurrentFrame();
                 }
+
+                mLastActiveTime = curTime;
             }
         }
 

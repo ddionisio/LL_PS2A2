@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace LoLExt {
-    public class ModalDialog : M8.UIModal.Controller, M8.UIModal.Interface.IPush, M8.UIModal.Interface.IPop {
+    public class ModalDialog : M8.UIModal.Controller, M8.UIModal.Interface.IActive, M8.UIModal.Interface.IPush, M8.UIModal.Interface.IPop {
         public const string modalNameGeneric = "dialog";
 
         public const string parmPortraitSprite = "p";
@@ -12,11 +12,21 @@ namespace LoLExt {
         public const string parmDialogTextRef = "t";
         public const string parmNextCallback = "c";
 
+        [Header("Display")]
         public Image portraitImage;
-        public Text nameLabel;
-        public Text textLabel;
+        public bool portraitResize;
 
-        public bool isPortraitResize;
+        public Text nameLabel;
+
+        public Text textLabel;
+        public float textCharPerSecond = 0.04f;
+
+        public GameObject textProcessActiveGO;
+        public GameObject textProcessFinishGO;
+
+        [Header("Data")]
+        public float nextDelay = 0.5f; //when we are allowed to process next since active
+        public bool isRealtime;
         public bool isCloseOnNext;
         public bool isTextSpeechAuto = true;
 
@@ -27,6 +37,16 @@ namespace LoLExt {
 
         private string mDialogTextRef;
         private System.Action mNextCallback;
+
+        private Coroutine mTextProcessRout;
+
+        private System.Text.StringBuilder mTextProcessSB = new System.Text.StringBuilder();
+        private string mTextDialog;
+
+        private bool mIsActive;
+        private float mLastActiveTime;
+
+        private bool mIsNextProcessed;
 
         /// <summary>
         /// Open generic dialog: modalNameGeneric
@@ -46,8 +66,7 @@ namespace LoLExt {
 
                 dlg.SetupTextContent(nameTextRef, dialogTextRef);
 
-                if(dlg.isTextSpeechAuto)
-                    dlg.PlayDialogSpeech();
+                dlg.ApplyActive();
             }
             else {
                 mParms[parmNameTextRef] = nameTextRef;
@@ -79,8 +98,7 @@ namespace LoLExt {
 
                 dlg.SetupPortraitTextContent(portrait, nameTextRef, dialogTextRef);
 
-                if(dlg.isTextSpeechAuto)
-                    dlg.PlayDialogSpeech();
+                dlg.ApplyActive();
             }
             else {
                 mParms[parmPortraitSprite] = portrait;
@@ -92,7 +110,45 @@ namespace LoLExt {
             }
         }
 
+        /// <summary>
+        /// Close generic modal dialog
+        /// </summary>
+        public static void CloseGeneric() {
+            var uiMgr = M8.UIModal.Manager.instance;
+
+            if(uiMgr.ModalIsInStack(modalNameGeneric)) {
+                uiMgr.ModalCloseUpTo(modalNameGeneric, true);
+            }
+        }
+
+        public void SkipTextProcess() {
+            if(mTextProcessRout != null) { //finish up text process, need to click next one more time
+                var curTime = isRealtime ? Time.realtimeSinceStartup - mLastActiveTime : Time.time - mLastActiveTime;
+                if(curTime < nextDelay)
+                    return;
+
+                StopTextProcess();
+                textLabel.text = mTextDialog;
+
+                if(textProcessActiveGO) textProcessActiveGO.SetActive(false);
+                if(textProcessFinishGO) textProcessFinishGO.SetActive(true);
+            }
+        }
+
         public void Next() {
+            if(mIsNextProcessed)
+                return;
+
+            if(!mIsActive)
+                return;
+
+            if(mTextProcessRout != null) { //finish up text process, need to click next one more time
+                SkipTextProcess();
+                return;
+            }
+
+            mIsNextProcessed = true;
+
             var nextCB = mNextCallback;
             mNextCallback = null;
 
@@ -111,15 +167,34 @@ namespace LoLExt {
                 LoLManager.instance.SpeakText(mDialogTextRef);
         }
 
-        public override void SetActive(bool aActive) {
-            base.SetActive(aActive);
+        void M8.UIModal.Interface.IActive.SetActive(bool aActive) {
+            mIsActive = aActive;
 
-            //play text speech if auto
-            if(aActive && isTextSpeechAuto)
-                PlayDialogSpeech();
+            ApplyActive();
+        }
+
+        private void ApplyActive() {
+            if(mIsActive) {
+                mIsNextProcessed = false;
+
+                mLastActiveTime = isRealtime ? Time.realtimeSinceStartup : Time.time;
+
+                //play text speech if auto
+                if(isTextSpeechAuto)
+                    PlayDialogSpeech();
+
+                PlayTextProcess();
+            }
         }
 
         void M8.UIModal.Interface.IPop.Pop() {
+            mIsActive = false;
+
+            StopTextProcess();
+
+            if(textProcessActiveGO) textProcessActiveGO.SetActive(false);
+            if(textProcessFinishGO) textProcessFinishGO.SetActive(false);
+
             mNextCallback = null;
         }
 
@@ -132,6 +207,11 @@ namespace LoLExt {
 
                 mNextCallback = parms.GetValue<System.Action>(parmNextCallback);
             }
+
+            if(textProcessActiveGO) textProcessActiveGO.SetActive(false);
+            if(textProcessFinishGO) textProcessFinishGO.SetActive(false);
+
+            mIsNextProcessed = false;
         }
 
         private void SetupPortraitTextContent(Sprite portrait, string nameTextRef, string dialogTextRef) {
@@ -140,7 +220,7 @@ namespace LoLExt {
                     portraitImage.gameObject.SetActive(true);
 
                     portraitImage.sprite = portrait;
-                    if(isPortraitResize)
+                    if(portraitResize)
                         portraitImage.SetNativeSize();
                 }
                 else
@@ -151,6 +231,10 @@ namespace LoLExt {
         }
 
         private void SetupTextContent(string nameTextRef, string dialogTextRef) {
+            StopTextProcess();
+
+            if(textProcessFinishGO) textProcessFinishGO.SetActive(false);
+
             //setup other stuff?
 
             mDialogTextRef = dialogTextRef;
@@ -159,9 +243,76 @@ namespace LoLExt {
                 nameLabel.text = !string.IsNullOrEmpty(nameTextRef) ? M8.Localize.Get(nameTextRef) : "";
             }
 
-            if(textLabel) {
-                textLabel.text = !string.IsNullOrEmpty(dialogTextRef) ? M8.Localize.Get(dialogTextRef) : "";
+            textLabel.text = "";
+
+            mTextDialog = !string.IsNullOrEmpty(dialogTextRef) ? M8.Localize.Get(dialogTextRef) : "";
+        }
+
+        private void PlayTextProcess() {
+            StopTextProcess();
+            mTextProcessRout = StartCoroutine(DoTextProcess());
+        }
+
+        private void StopTextProcess() {
+            if(mTextProcessRout != null) {
+                StopCoroutine(mTextProcessRout);
+                mTextProcessRout = null;
             }
+        }
+
+        IEnumerator DoTextProcess() {
+            if(textProcessActiveGO) textProcessActiveGO.SetActive(true);
+            if(textProcessFinishGO) textProcessFinishGO.SetActive(false);
+
+            WaitForSeconds wait = null;
+            WaitForSecondsRealtime waitRT = null;
+
+            if(isRealtime)
+                waitRT = new WaitForSecondsRealtime(textCharPerSecond);
+            else
+                wait = new WaitForSeconds(textCharPerSecond);
+
+            textLabel.text = "";
+
+            mTextProcessSB.Clear();
+
+            int count = mTextDialog.Length;
+            for(int i = 0; i < count; i++) {
+                if(isRealtime)
+                    yield return waitRT;
+                else
+                    yield return wait;
+
+                if(mTextDialog[i] == '<') {
+                    int endInd = -1;
+                    bool foundEnd = false;
+                    for(int j = i + 1; j < mTextDialog.Length; j++) {
+                        if(mTextDialog[j] == '>') {
+                            endInd = j;
+                            if(foundEnd)
+                                break;
+                        }
+                        else if(mTextDialog[j] == '/')
+                            foundEnd = true;
+                    }
+
+                    if(endInd != -1 && foundEnd) {
+                        mTextProcessSB.Append(mTextDialog, i, (endInd - i) + 1);
+                        i = endInd;
+                    }
+                    else
+                        mTextProcessSB.Append(mTextDialog[i]);
+                }
+                else
+                    mTextProcessSB.Append(mTextDialog[i]);
+
+                textLabel.text = mTextProcessSB.ToString();
+            }
+
+            mTextProcessRout = null;
+
+            if(textProcessActiveGO) textProcessActiveGO.SetActive(false);
+            if(textProcessFinishGO) textProcessFinishGO.SetActive(true);
         }
     }
 }
