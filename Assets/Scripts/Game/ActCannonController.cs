@@ -14,6 +14,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     [Header("Force")]
     public Slider forceSlider;
+    public Text forceSliderLabel;
+    public string forceSliderLabelFormat = "{0:N0}N";
     public float forceStart = 16f;
     public float forceMin = 10f;
     public float forceMax = 50f;
@@ -31,7 +33,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
     
     [Header("Data")]
     public int cannonballCount = 10;
-    public ProjectileEntitySpawner cannonballSpawner;
+    public ProjectileEntitySpawner[] cannonballSpawnerSequence;
+    public bool cannonballSpawnerSequenceIsCycle;
 
     [Header("Targets")]
     [M8.TagSelector]
@@ -51,6 +54,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
     public int cannonballLaunced { get { return mCannonballLaunched; } }
 
+    public ProjectileEntitySpawner cannonballSpawnerCurrent { get { return cannonballSpawnerSequence[mCannonballSpawnerCurrentInd]; } }
+
     public event System.Action cannonballLaunchedCallback;
         
     protected bool mIsCannonballFree = false; //set to true to not decrement cannonball count on launch
@@ -58,12 +63,24 @@ public class ActCannonController : GameModeController<ActCannonController> {
     protected bool mIsLaunchWait = false;
 
     private int mCannonballLaunched = 0;
+    private int mCannonballSpawnerCurrentInd = 0;
 
     private M8.CacheList<UnitEntity> mActiveTargets;
     private int mTargetCount;
 
     private int mGraphCurStartIndex;
     private int mGraphTimeCount;
+
+    public M8.EntityBase SpawnCannonball() {
+        var ent = cannonballSpawnerSequence[mCannonballSpawnerCurrentInd].Spawn();
+
+        if(mCannonballSpawnerCurrentInd < cannonballSpawnerSequence.Length - 1)
+            mCannonballSpawnerCurrentInd++;
+        else if(cannonballSpawnerSequenceIsCycle)
+            mCannonballSpawnerCurrentInd = 0;
+
+        return ent;
+    }
 
     public void ShowTargets() {
         StartCoroutine(DoTargetsShow());
@@ -73,13 +90,14 @@ public class ActCannonController : GameModeController<ActCannonController> {
         base.OnInstanceInit();
 
         if(forceSlider) {
-            forceSlider.minValue = forceMin;
-            forceSlider.maxValue = forceMax;
-            forceSlider.value = forceStart;
-            forceSlider.onValueChanged.Invoke(forceStart);
-
-            forceSlider.onValueChanged.AddListener(OnForceValueChanged);
+            forceSlider.normalizedValue = 0f;
+            forceSlider.onValueChanged.AddListener(OnForceSliderChange);
         }
+
+        if(forceSliderLabel)
+            forceSliderLabel.text = string.Format(forceSliderLabelFormat, forceMin);
+
+        ApplyCurrentCannonballSpawnerForce();
 
         if(angleSlider) {
             angleSlider.minValue = angleMin;
@@ -170,6 +188,8 @@ public class ActCannonController : GameModeController<ActCannonController> {
     }
 
     protected virtual void OnLaunched() {
+        ApplyCurrentCannonballSpawnerForce();
+
         graphButton.interactable = false;
 
         mIsLaunchWait = false;
@@ -218,6 +238,15 @@ public class ActCannonController : GameModeController<ActCannonController> {
         if(cannonLaunch) cannonLaunch.interactable = interact;
     }
 
+    void OnForceSliderChange(float val) {
+        var forceVal = Mathf.Lerp(forceMin, forceMax, forceSlider.normalizedValue);
+
+        if(forceSliderLabel)
+            forceSliderLabel.text = string.Format(forceSliderLabelFormat, forceVal);
+
+        OnForceValueChanged(forceVal);
+    }
+
     void OnTargetChangeState(M8.EntityBase ent) {
         //targetStateDespawn
         if(ent.state == targetStateDespawn) {
@@ -239,6 +268,12 @@ public class ActCannonController : GameModeController<ActCannonController> {
             ent.setStateCallback -= OnTargetChangeState;
             ent.releaseCallback -= OnTargetReleased;
         }
+    }
+
+    private void ApplyCurrentCannonballSpawnerForce() {
+        var cannonballSpawner = cannonballSpawnerSequence[mCannonballSpawnerCurrentInd];
+
+        cannonballSpawner.SetForce(Mathf.Lerp(forceMin, forceMax, forceSlider.normalizedValue));
     }
 
     IEnumerator DoTargetsShow() {

@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 58419544740289906}
   - component: {fileID: 114274849813202046}
   m_Layer: 8
-  m_Name: canonball
+  m_Name: wheelLight
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

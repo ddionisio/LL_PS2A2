@@ -124,7 +124,7 @@ public class ActController_2_2 : ActCannonController {
         if(!string.IsNullOrEmpty(cannonLaunchSfxPath))
             LoLManager.instance.PlaySound(cannonLaunchSfxPath, false, false);
 
-        var ent = cannonballSpawner.Spawn();
+        var ent = SpawnCannonball();
         StartCoroutine(DoLaunch(ent));
     }
 

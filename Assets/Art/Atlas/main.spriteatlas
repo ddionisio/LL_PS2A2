@@ -178,6 +178,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4c0e2b2d7484ceb44a7b2159d910cc51, type: 3}
   - {fileID: 21300000, guid: 22645e3dbec995a4eb0b9dc37e7dd917, type: 3}
   - {fileID: 21300000, guid: c7f0327d502f1f04da82bff7f1111cf6, type: 3}
+  - {fileID: 21300000, guid: e7fe51dd14e418e4a9ed23705726b6d8, type: 3}
   - {fileID: 21300000, guid: 602f28dd20f929548b2afcda5f937709, type: 3}
   - {fileID: 21300000, guid: 97c0f9ddcbc4a514db6a5bbc0abf7a95, type: 3}
   - {fileID: 21300000, guid: f339911e3bab88047920213e56866d24, type: 3}
@@ -326,6 +327,7 @@ SpriteAtlas:
   - buttonCircleBase
   - buttonIconPlay
   - forcePlatformGlow
+  - wheelSpike
   - princess_help1
   - goal_triangle
   - puff05

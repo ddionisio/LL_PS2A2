@@ -451,7 +451,6 @@ GameObject:
   - component: {fileID: 224180275012746604}
   - component: {fileID: 222949760495770096}
   - component: {fileID: 114669321399193614}
-  - component: {fileID: 114449054979237394}
   m_Layer: 5
   m_Name: forceValueLabel
   m_TagString: Untagged
@@ -519,20 +518,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 50N
---- !u!114 &114449054979237394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204700620600204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c0824b481acbf429df9f8e1e7ca06d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textLabel: {fileID: 114669321399193614}
-  stringFormat: '{0:N0}N'
 --- !u!1 &1218840553760808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,35 +2013,13 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 224145804464721926}
   m_Direction: 0
-  m_MinValue: 20
-  m_MaxValue: 60
+  m_MinValue: 0
+  m_MaxValue: 10
   m_WholeNumbers: 1
-  m_Value: 20
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114449054979237394}
-        m_MethodName: SetText
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: SetForce
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &114453454898530716
 MonoBehaviour:
   m_ObjectHideFlags: 0

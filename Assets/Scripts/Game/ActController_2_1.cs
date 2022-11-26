@@ -18,8 +18,16 @@ public class ActController_2_1 : ActCannonController {
     public string cannonTakeEnter;
 
     public Transform knightRoot;
+    
     public SpriteRenderer knightSpriteRender;
+    public Color knightSpriteColorOverlay = Color.white;
+    public string knightSpriteColorOverlayVar = "_ColorOverlay";
+    public float knightSpriteColorOverlayPulse = 0.5f;
+    public float knightSpriteColorOverlayAlphaMax = 0.5f;
+
     public SpriteRenderer knightWheelSpriteRender;
+    public ParticleSystem knightFX;
+    public int knightFXMaxParticle = 32;
     public Text knightWheelMassText;
     public M8.Animator.Animate knightAnimator;
     public float knightAnimatePushScaleMin = 0.5f;
@@ -30,7 +38,6 @@ public class ActController_2_1 : ActCannonController {
     public string knightTakeMove;
     public float knightReturnDelay;
     public Transform knightReturnPoint;
-    public WheelInfo[] wheelInfos;
 
     [Header("Sequence")]
     public AnimatorEnterExit seqIllustrateFormula;
@@ -77,15 +84,19 @@ public class ActController_2_1 : ActCannonController {
     private bool mIsKnightLocked;
     private bool mIsGraphWait;
 
-    private int mCurWheelInfoIndex = 0;
-
     private int mCurWheelTracerInd = 0;
     private int mCurWheelTracerMaxInd;
     private int mCurWheelDialogInd;
     private bool mIsWheelTimeWaitNext;
 
+    private Material mKnightSpriteMat;
+    private int mKnightSpriteColorOverlayID;
+    private float mKnightSpriteColorOverlayCurAlphaMax = 0f;
+
     protected override void OnInstanceDeinit() {
         //
+        if(mKnightSpriteMat)
+            DestroyImmediate(mKnightSpriteMat);
 
         base.OnInstanceDeinit();
     }
@@ -111,6 +122,12 @@ public class ActController_2_1 : ActCannonController {
             if(wheelTimeDialogs[i].goActive)
                 wheelTimeDialogs[i].goActive.SetActive(false);
         }
+
+        if(knightFX)
+            knightFX.gameObject.SetActive(false);
+
+        mKnightSpriteMat = knightSpriteRender.material;
+        mKnightSpriteColorOverlayID = Shader.PropertyToID(knightSpriteColorOverlayVar);
     }
 
     protected override IEnumerator Start() {
@@ -241,6 +258,8 @@ public class ActController_2_1 : ActCannonController {
 
         seqForceSlider.gameObject.SetActive(true);
         seqForceSlider.PlayEnter();
+
+        StartCoroutine(DoKnightGlow());
     }
 
     protected override void OnNext() {
@@ -269,39 +288,48 @@ public class ActController_2_1 : ActCannonController {
 
         cannonLaunch.interactable = false;
 
-        var ent = cannonballSpawner.Spawn();
+        var ent = SpawnCannonball();
         StartCoroutine(DoKnightPush(ent));
     }
 
     protected override void OnForceValueChanged(float val) {
         if(seqForceSlider.gameObject.activeSelf && !seqForceSlider.animator.isPlaying)
             StartCoroutine(DoExitSeqAnimator(seqForceSlider));
+
+        var sliderVal = forceSlider.normalizedValue;
+
+        //update knight glow
+
+        //update FX
+        if(knightFX) {
+            if(sliderVal > 0f) {
+                knightFX.gameObject.SetActive(true);
+
+                var fxDat = knightFX.main;
+                fxDat.maxParticles = Mathf.RoundToInt(sliderVal * knightFXMaxParticle);
+            }
+            else
+                knightFX.gameObject.SetActive(false);
+        }
+
+        mKnightSpriteColorOverlayCurAlphaMax = sliderVal * knightSpriteColorOverlayAlphaMax;
     }
 
     private void ApplyCurrentWheelInfoDisplay() {
-        var inf = wheelInfos[mCurWheelInfoIndex];
+        var cannonballSpawner = cannonballSpawnerCurrent;
+
+        var cannonballSpriteRender = cannonballSpawner.template.GetComponentInChildren<SpriteRenderer>();
 
         //apply sprite
-        if(inf.sprite)
-            knightWheelSpriteRender.sprite = inf.sprite;
+        if(cannonballSpriteRender)
+            knightWheelSpriteRender.sprite = cannonballSpriteRender.sprite;
+
+        var unitBody = cannonballSpawner.template.GetComponent<Rigidbody2D>();
 
         //apply mass info
-        knightWheelMassText.text = string.Format("{0:G0}kg", inf.mass);
+        knightWheelMassText.text = string.Format("{0:G0}kg", unitBody.mass);
 
         knightWheelSpriteRender.gameObject.SetActive(true);
-    }
-
-    private void ApplyCurrentWheelInfoToUnit(UnitEntity unit) {
-        var inf = wheelInfos[mCurWheelInfoIndex];
-
-        unit.body.mass = inf.mass;
-
-        if(inf.sprite) {
-            var spriteRender = unit.GetComponentInChildren<SpriteRenderer>(true);
-            if(spriteRender) {
-                spriteRender.sprite = inf.sprite;
-            }
-        }
     }
 
     IEnumerator DoKnightPush(M8.EntityBase cannonEnt) {
@@ -309,8 +337,6 @@ public class ActController_2_1 : ActCannonController {
 
         //wait for push
         var unitForceApply = cannonEnt.GetComponent<UnitStateForceApply>();
-
-        ApplyCurrentWheelInfoToUnit(unitForceApply.unit);
 
         while(!unitForceApply.unit.physicsEnabled)
             yield return null;
@@ -366,12 +392,6 @@ public class ActController_2_1 : ActCannonController {
 
         GraphPopulate(!mIsKnightLocked);
 
-        //next wheel type
-        if(mCurWheelInfoIndex < wheelInfos.Length - 1)
-            mCurWheelInfoIndex++;
-        else
-            mCurWheelInfoIndex = 0;
-
         if(!mIsKnightLocked) {
             ApplyCurrentWheelInfoDisplay();
             cannonAnimator.Play(cannonTakeEnter);
@@ -386,6 +406,39 @@ public class ActController_2_1 : ActCannonController {
         seq.PlayExit();
         yield return seq.PlayExitWait();
         seq.gameObject.SetActive(false);
+    }
+
+    IEnumerator DoKnightGlow() {
+        bool isActive = mKnightSpriteColorOverlayCurAlphaMax > 0f;
+        float curPulseTime = 0f;
+        float lastTime = Time.time;
+
+        while(true) {
+            if(isActive) {
+                float time = Time.time;
+                float delta = time - lastTime;
+                lastTime = time;
+
+                curPulseTime += delta;
+
+                float t = Mathf.Sin(Mathf.PI * curPulseTime * knightSpriteColorOverlayPulse);
+                t *= t;
+
+                var clr = knightSpriteColorOverlay;
+                clr.a = Mathf.Lerp(0f, mKnightSpriteColorOverlayCurAlphaMax, t);
+                mKnightSpriteMat.SetColor(mKnightSpriteColorOverlayID, clr);
+
+                if(mKnightSpriteColorOverlayCurAlphaMax <= 0f)
+                    isActive = false;
+            }
+            else if(mKnightSpriteColorOverlayCurAlphaMax > 0f) {
+                curPulseTime = 0f;
+                lastTime = Time.time;
+                isActive = true;
+            }
+
+            yield return null;
+        }
     }
 
     void OnWheelTimeSliderChanged(float val) {
