@@ -39,8 +39,14 @@ MonoBehaviour:
     voiceDuration: 4
   - key: newton_second_law_title
     voiceDuration: 2
+  - key: pressLaunch
+    voiceDuration: 3
   - key: targetsEliminated
     voiceDuration: 3
+  - key: dragAngleHelp
+    voiceDuration: 4
+  - key: act_2_2_force_hint
+    voiceDuration: 4
   - key: dragForceAdjustHelp
     voiceDuration: 3
   - key: playButtonHelp

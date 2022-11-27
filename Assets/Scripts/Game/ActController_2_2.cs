@@ -18,6 +18,9 @@ public class ActController_2_2 : ActCannonController {
     public string cannonLaunchSfxPath;
 
     public GameObject cannonAngleDragHelpGO;
+    public GameObject cannonForceHelpGO;
+    public GameObject cannonLaunchHelpGO;
+
     public GameObject graphReminderGO;
 
     public CameraShakeControl cameraShaker;
@@ -26,8 +29,14 @@ public class ActController_2_2 : ActCannonController {
     public ModalDialogController seqDlgIntro;
     public ModalDialogController seqDlgPlay;
 
-    private bool mIsAngleChanged;
+    private bool mIsHintFinish;
     private bool mIsShowGraphReminder;
+
+    private float mCurAngle = 0f;
+    private float mCurForce = 0f;
+
+    private const float angleHint = 70f;
+    private const float forceHint = 310f;
 
     protected override void OnInstanceDeinit() {
         //
@@ -44,6 +53,9 @@ public class ActController_2_2 : ActCannonController {
         cannonEnterAnimator.ResetTake(cannonEnterTake);
 
         cannonAngleDragHelpGO.SetActive(false);
+        cannonForceHelpGO.SetActive(false);
+        cannonLaunchHelpGO.SetActive(false);
+
         graphReminderGO.SetActive(false);
     }
 
@@ -75,43 +87,63 @@ public class ActController_2_2 : ActCannonController {
         //everything ready
         cannonInterfaceGO.SetActive(true);
 
-        //enable force/angle input
-        angleSlider.interactable = true;
-        forceSlider.interactable = true;
-
         //enable cannon launch
         launchReadyGO.SetActive(true);
-        cannonLaunch.interactable = true;
 
         if(trajectoryDisplayControl)
             trajectoryDisplayControl.show = true;
         //
 
-        //first time shows
-        mIsAngleChanged = false;
-        cannonAngleDragHelpGO.SetActive(true);
+        //forceSlider.interactable = true;
+        //cannonLaunch.interactable = true;
 
+        //first time shows
+        mIsHintFinish = false;
+
+        //wait for correct angle
+        cannonAngleDragHelpGO.SetActive(true);
+        angleSlider.interactable = true;
+
+        while(mCurAngle != angleHint)
+            yield return null;
+
+        //wait for correct force
+        cannonForceHelpGO.SetActive(true);
+        forceSlider.interactable = true;
+
+        while(mCurForce != forceHint)
+            yield return null;
+
+        //ready to launch
+        cannonLaunchHelpGO.SetActive(true);
+        //cannonLaunch.interactable = true;
+
+        //remind about the graph
         mIsShowGraphReminder = true;
-        //
 
         //wait for launch
         mIsLaunchWait = true;
-        while(mIsLaunchWait)
+        while(mIsLaunchWait) {
+            cannonLaunch.interactable = mCurAngle == angleHint && mCurForce == forceHint;
             yield return null;
+        }
 
         //wait for cannon launch ready
         while(!cannonLaunch.interactable)
             yield return null;
-
-        //remind about the graph
     }
 
     protected override void OnLaunched() {
         base.OnLaunched();
 
-        if(!mIsAngleChanged) {
+        if(mIsLaunchWait)
+            mIsLaunchWait = false;
+
+        if(!mIsHintFinish) {
             cannonAngleDragHelpGO.SetActive(false);
-            mIsAngleChanged = true;
+            cannonForceHelpGO.SetActive(false);
+            cannonLaunchHelpGO.SetActive(false);
+            mIsHintFinish = true;
         }
 
         graphReminderGO.SetActive(false);
@@ -129,12 +161,25 @@ public class ActController_2_2 : ActCannonController {
     }
 
     protected override void OnAngleChanged(float val) {
+        if(!mIsHintFinish && val > angleHint) {
+            angleSlider.value = angleHint;
+            return;
+        }
+
         base.OnAngleChanged(val);
 
-        if(!mIsAngleChanged) {            
-            cannonAngleDragHelpGO.SetActive(false);
-            mIsAngleChanged = true;
+        mCurAngle = val;
+    }
+
+    protected override void OnForceValueChanged(float val) {
+        if(!mIsHintFinish && val > forceHint) {
+            forceSlider.normalizedValue = (forceHint - forceMin) / (forceMax - forceMin);
+            return;
         }
+
+        base.OnForceValueChanged(val);
+
+        mCurForce = val;
     }
 
     protected override void OnShowGraph() {
