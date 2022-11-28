@@ -17,6 +17,11 @@ public class ExplodeOnContact : MonoBehaviour {
     public float explodeUpwardsModifier;
     public bool explodeApplyWearOff;
 
+    [Header("Animation")]
+    public M8.Animator.Animate animator;
+    [M8.Animator.TakeSelector(animatorField = "animator")]
+    public string explodeTake;
+
     private const int collCapacity = 8;
     private Collider2D[] mColls = new Collider2D[collCapacity];
 
@@ -42,6 +47,9 @@ public class ExplodeOnContact : MonoBehaviour {
                 continue;
 
             OnExplode(body);
+
+            if(animator && !animator.isPlaying && !string.IsNullOrEmpty(explodeTake))
+                animator.Play(explodeTake);
 
             if(explodeUpwardsModifier != 0f)
                 body.AddExplosionForce(explodeForce, pos, explodeRadius, explodeUpwardsModifier, explodeApplyWearOff, explodeForceMode);

@@ -146,12 +146,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 299e74495bdddae45bbb6cb564f9ff32, type: 3}
   - {fileID: 21300000, guid: 028d44595400dc144bd416af4913fc63, type: 3}
   - {fileID: 21300000, guid: eac1c26982317d54caaaf78261efa60e, type: 3}
+  - {fileID: 21300000, guid: e876f7797cb91b647ad85a004bd91a50, type: 3}
   - {fileID: 21300000, guid: bb8a087995e8ab149b0f5c36c07f3d96, type: 3}
   - {fileID: 21300000, guid: 4337d879bef542541814bb56f0348057, type: 3}
   - {fileID: 21300000, guid: 404333b9491132847ae8ba1b43efee84, type: 3}
   - {fileID: 21300000, guid: c8aff8b9b79a78745bcc2592e56ba612, type: 3}
   - {fileID: 21300000, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
   - {fileID: 21300002, guid: 1936bac986127cb4bad904bfad92c266, type: 3}
+  - {fileID: 21300000, guid: ca741ee9748b1444ab4d8c37ebc388a5, type: 3}
   - {fileID: 21300000, guid: 0dcbf83a91940364e9fed8b2e53fa6bb, type: 3}
   - {fileID: 21300000, guid: af8f0c4a656af344ca2514bc089c829a, type: 3}
   - {fileID: 21300000, guid: 7168da6aea1c4154bbc52d54856e6639, type: 3}
@@ -295,12 +297,14 @@ SpriteAtlas:
   - princess_victory2
   - knightSuper_2
   - puff01
+  - cannonBallBounce
   - optionButton
   - knight_move1
   - blastWave
   - frameTop
   - shade
   - shade_bottom
+  - cannonBallSeek
   - separator
   - goblin_move2
   - gradient8x8

@@ -7,22 +7,25 @@ public class EntityStateOnContact : MonoBehaviour {
     [M8.TagSelector]
     public string tagFilter;
     public M8.EntityState state;
-    public bool onlyOnce;
+    public int counter = 0; //number of times before state is activated, set to <= 0 for indefinite state change
 
-    private bool mIsContacted;
+    private int mCurCounter;
 
     void OnCollisionEnter2D(Collision2D collision) {
-        if(onlyOnce && mIsContacted)
+        if(mCurCounter > 0 && mCurCounter >= counter)
             return;
 
         if(!string.IsNullOrEmpty(tagFilter) && !collision.collider.CompareTag(tagFilter))
             return;
 
-        entity.state = state;
+        mCurCounter++;
+
+        if(mCurCounter >= counter)
+            entity.state = state;
     }
 
-    void OnDisable() {
-        mIsContacted = false;
+    void OnEnable() {
+        mCurCounter = 0;
     }
 
     void Awake() {

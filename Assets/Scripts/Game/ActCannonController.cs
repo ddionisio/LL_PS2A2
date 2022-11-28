@@ -72,12 +72,18 @@ public class ActCannonController : GameModeController<ActCannonController> {
     private int mGraphTimeCount;
 
     public M8.EntityBase SpawnCannonball() {
-        var ent = cannonballSpawnerSequence[mCannonballSpawnerCurrentInd].Spawn();
+        var curSpawner = cannonballSpawnerSequence[mCannonballSpawnerCurrentInd];
+        var ent = curSpawner.Spawn();
 
         if(mCannonballSpawnerCurrentInd < cannonballSpawnerSequence.Length - 1)
             mCannonballSpawnerCurrentInd++;
         else if(cannonballSpawnerSequenceIsCycle)
             mCannonballSpawnerCurrentInd = 0;
+
+        var newSpawner = cannonballSpawnerSequence[mCannonballSpawnerCurrentInd];
+
+        if(curSpawner != newSpawner)
+            ProjectileSpawnerRefresh();
 
         return ent;
     }
@@ -97,8 +103,6 @@ public class ActCannonController : GameModeController<ActCannonController> {
         if(forceSliderLabel)
             forceSliderLabel.text = string.Format(forceSliderLabelFormat, forceMin);
 
-        ApplyCurrentCannonballSpawnerForce();
-
         if(angleSlider) {
             angleSlider.minValue = angleMin;
             angleSlider.maxValue = angleMax;
@@ -109,6 +113,10 @@ public class ActCannonController : GameModeController<ActCannonController> {
 
             angleSlider.onValueChanged.AddListener(OnAngleChanged);
         }
+
+        ApplyCurrentCannonballSpawnerTelemetry();
+
+        ProjectileSpawnerRefresh();
 
         var targetGOs = GameObject.FindGameObjectsWithTag(targetTag);
 
@@ -171,6 +179,10 @@ public class ActCannonController : GameModeController<ActCannonController> {
         yield return base.Start();
     }
 
+    protected virtual void ProjectileSpawnerRefresh() {
+
+    }
+
     protected virtual void OnFinish() {
         nextGO.SetActive(true);
     }
@@ -188,7 +200,7 @@ public class ActCannonController : GameModeController<ActCannonController> {
     }
 
     protected virtual void OnLaunched() {
-        ApplyCurrentCannonballSpawnerForce();
+        ApplyCurrentCannonballSpawnerTelemetry();
 
         graphButton.interactable = false;
 
@@ -270,10 +282,14 @@ public class ActCannonController : GameModeController<ActCannonController> {
         }
     }
 
-    private void ApplyCurrentCannonballSpawnerForce() {
+    private void ApplyCurrentCannonballSpawnerTelemetry() {
         var cannonballSpawner = cannonballSpawnerSequence[mCannonballSpawnerCurrentInd];
 
-        cannonballSpawner.SetForce(Mathf.Lerp(forceMin, forceMax, forceSlider.normalizedValue));
+        if(forceSlider)
+            cannonballSpawner.SetForce(Mathf.Lerp(forceMin, forceMax, forceSlider.normalizedValue));
+
+        if(angleSlider)
+            cannonballSpawner.SetDirAngle(angleSlider.value);
     }
 
     IEnumerator DoTargetsShow() {

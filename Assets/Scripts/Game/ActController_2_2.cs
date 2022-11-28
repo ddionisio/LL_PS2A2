@@ -25,6 +25,11 @@ public class ActController_2_2 : ActCannonController {
 
     public CameraShakeControl cameraShaker;
 
+    [Header("Info Display")]
+    public Image infoIcon;
+    public Text infoLabel;
+    public string infoLabelFormat = "{0:N2}kg";
+
     [Header("Sequence")]
     public ModalDialogController seqDlgIntro;
     public ModalDialogController seqDlgPlay;
@@ -133,6 +138,24 @@ public class ActController_2_2 : ActCannonController {
             yield return null;
     }
 
+    protected override void ProjectileSpawnerRefresh() {
+        base.ProjectileSpawnerRefresh();
+
+        var curProjSpawner = cannonballSpawnerCurrent;
+
+        if(infoIcon) {
+            var sprRender = curProjSpawner.template.GetComponentInChildren<SpriteRenderer>(); //assume this render is the base sprite display
+            if(sprRender)
+                infoIcon.sprite = sprRender.sprite;
+        }
+
+        if(infoLabel) {
+            var body = curProjSpawner.template.GetComponent<Rigidbody2D>();
+            if(body)
+                infoLabel.text = string.Format(infoLabelFormat, body.mass);
+        }
+    }
+
     protected override void OnLaunched() {
         base.OnLaunched();
 
@@ -140,6 +163,8 @@ public class ActController_2_2 : ActCannonController {
             mIsLaunchWait = false;
 
         if(!mIsHintFinish) {
+            LoLManager.instance.StopSpeakQueue();
+
             cannonAngleDragHelpGO.SetActive(false);
             cannonForceHelpGO.SetActive(false);
             cannonLaunchHelpGO.SetActive(false);
