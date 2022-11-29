@@ -21,6 +21,7 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     [Header("Display")]
     public Transform handle;
+    public bool handleOrientToCenter; //orient up vector of handle towards center
     public M8.SpriteColorGroup spriteColorGroup; //for displays in world
     public M8.UI.Graphics.ColorGroup uiColorGroup; //for displays in UI
     public Color disableColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
@@ -190,6 +191,10 @@ public class SliderRadial : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         if(handle) {
             var pos = transform.TransformPoint(mCurDir * radius);
             handle.position = pos;
+
+            if(handleOrientToCenter) {
+                handle.up = -mCurDir;
+            }
         }
     }
 
