@@ -120,6 +120,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 32abf786a18a998468f1757207e6b585, type: 3}
   - {fileID: 21300000, guid: c003ca86d84f581448549280afdefe7c, type: 3}
   - {fileID: 21300000, guid: 8168db962f507fe41b0b1c640813d1d7, type: 3}
+  - {fileID: 21300000, guid: 5e6731c6461579c49a5d05570922f5ae, type: 3}
   - {fileID: 21300000, guid: adf250f61b9bc3e47a6f7af20acf085d, type: 3}
   - {fileID: 21300000, guid: 833257f6cb1a9d241b3fc454fef9d45a, type: 3}
   - {fileID: 21300000, guid: c8f197278a3b7044894ec9419bd8e670, type: 3}
@@ -178,7 +179,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b757e5fc0eb3f2c4a8a76853e861080e, type: 3}
   - {fileID: 21300000, guid: 4c0e2b2d7484ceb44a7b2159d910cc51, type: 3}
   - {fileID: 21300000, guid: 22645e3dbec995a4eb0b9dc37e7dd917, type: 3}
+  - {fileID: 21300000, guid: 75e3bc4de89f96b4d932435f6a3e7c02, type: 3}
   - {fileID: 21300000, guid: c7f0327d502f1f04da82bff7f1111cf6, type: 3}
+  - {fileID: 21300000, guid: 6d6d8f7d771b4474d8fddc2ba5c97664, type: 3}
   - {fileID: 21300000, guid: e7fe51dd14e418e4a9ed23705726b6d8, type: 3}
   - {fileID: 21300000, guid: 602f28dd20f929548b2afcda5f937709, type: 3}
   - {fileID: 21300000, guid: 97c0f9ddcbc4a514db6a5bbc0abf7a95, type: 3}
@@ -270,6 +273,7 @@ SpriteAtlas:
   - coin_3
   - iconUnlock
   - goldenballFaces_eyesClosed
+  - forceSliderKnob
   - king_2_sm
   - circle16x16
   - tutorialArrow2_invert
@@ -328,7 +332,9 @@ SpriteAtlas:
   - frame3
   - buttonCircleBase
   - buttonIconPlay
+  - forceSliderFill
   - forcePlatformGlow
+  - forceSliderBase
   - wheelSpike
   - princess_help1
   - goal_triangle

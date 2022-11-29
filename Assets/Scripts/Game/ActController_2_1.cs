@@ -305,8 +305,8 @@ public class ActController_2_1 : ActCannonController {
             if(sliderVal > 0f) {
                 knightFX.gameObject.SetActive(true);
 
-                var fxDat = knightFX.main;
-                fxDat.maxParticles = Mathf.RoundToInt(sliderVal * knightFXMaxParticle);
+                var emissionDat = knightFX.emission;
+                emissionDat.rateOverTime = Mathf.RoundToInt(sliderVal * knightFXMaxParticle);
             }
             else
                 knightFX.gameObject.SetActive(false);

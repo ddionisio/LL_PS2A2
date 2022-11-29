@@ -21,6 +21,9 @@ public class ActController_2_2 : ActCannonController {
     public GameObject cannonForceHelpGO;
     public GameObject cannonLaunchHelpGO;
 
+    public ParticleSystem cannonFX;
+    public int cannonFXMaxParticle = 16;
+
     public GameObject graphReminderGO;
 
     public CameraShakeControl cameraShaker;
@@ -60,6 +63,9 @@ public class ActController_2_2 : ActCannonController {
         cannonAngleDragHelpGO.SetActive(false);
         cannonForceHelpGO.SetActive(false);
         cannonLaunchHelpGO.SetActive(false);
+
+        if(cannonFX)
+            cannonFX.gameObject.SetActive(false);
 
         graphReminderGO.SetActive(false);
     }
@@ -205,6 +211,20 @@ public class ActController_2_2 : ActCannonController {
         base.OnForceValueChanged(val);
 
         mCurForce = val;
+
+        //update FX
+        if(cannonFX) {
+            var sliderVal = forceSlider.normalizedValue;
+
+            if(sliderVal > 0f) {
+                cannonFX.gameObject.SetActive(true);
+
+                var emissionDat = cannonFX.emission;
+                emissionDat.rateOverTime = Mathf.RoundToInt(sliderVal * cannonFXMaxParticle);
+            }
+            else
+                cannonFX.gameObject.SetActive(false);
+        }
     }
 
     protected override void OnShowGraph() {
