@@ -10598,7 +10598,7 @@ MonoBehaviour:
   itemStartPoint: {fileID: 1868190471}
   itemHintActiveGO: {fileID: 99105089}
   itemHintLabel: {fileID: 729655525}
-  itemHintShowDelay: 180
+  itemHintShowDelay: 150
   musicPath: Audio/VillageConsort.mp3
   introDialog: {fileID: 1335952329}
   inertiaIllustrationAnim: {fileID: 1718601383}
