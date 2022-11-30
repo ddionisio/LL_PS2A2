@@ -57,3 +57,9 @@ MonoBehaviour:
     voiceDuration: 2
   - key: end_desc
     voiceDuration: 3
+  - key: end_law_1
+    voiceDuration: 5
+  - key: end_law_2
+    voiceDuration: 8
+  - key: end_law_3
+    voiceDuration: 8

@@ -138,7 +138,10 @@
     "act_3_3_intro_1": "Now that you’ve come this far, it’s all up to you! Remember all that you’ve learned about Newton’s first two laws.",
     "act_3_3_intro_2": "First: An object at rest will remain at rest, and an object in motion will maintain a constant velocity unless acted upon by a net external force.",
     "act_3_3_intro_3": "Second: The acceleration of an object is proportional to the net force acting on it, and inversely proportional to its mass.",
-    "act_3_3_intro_4": "Keep these in mind, and you will surely be a force to be reckoned with!"
+    "act_3_3_intro_4": "Keep these in mind, and you will surely be a force to be reckoned with!",
+    "end_law_1": "…and remember Newton's first and second laws:",
+    "end_law_2": "An object at rest will remain at rest, and an object in motion will maintain a constant velocity unless acted upon by a net external force.",
+    "end_law_3": "The acceleration of an object is proportional to the net force acting on it, and inversely proportional to its mass."
   },
   "es": {
     "welcome": "¡Bienvenido!",
@@ -270,6 +273,9 @@
     "act_3_intro_4": "",
     "act_3_2_intro_1": "",
     "act_3_2_intro_2": "",
-    "act_3_2_intro_3": ""
+    "act_3_2_intro_3": "",
+    "end_law_1": "",
+    "end_law_2": "",
+    "end_law_3": ""
   }
 }
