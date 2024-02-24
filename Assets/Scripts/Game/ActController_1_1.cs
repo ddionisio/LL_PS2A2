@@ -259,7 +259,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         StartCoroutine(DoGoblins());
 
         //wait for block contact
-        while((block1.collisionFlags & CollisionFlags.CollidedSides) == CollisionFlags.None)
+        while((block1.collisionFlags & Rigidbody2DMoveController.CollisionFlags.Sides) == Rigidbody2DMoveController.CollisionFlags.None)
             yield return null;
 
         //show knight force
@@ -356,7 +356,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
         mIsDragGuideShown = true;
 
         //wait for knight contact, then show forces
-        while((block2.collisionFlags & CollisionFlags.CollidedSides) == CollisionFlags.None)
+        while((block2.collisionFlags & Rigidbody2DMoveController.CollisionFlags.Sides) == Rigidbody2DMoveController.CollisionFlags.None)
             yield return null;
 
         block2ForcesGO.SetActive(true);
@@ -458,7 +458,7 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
             //activate goblin force display once it touches
             if(!block1ForceGoblinGO.activeSelf) {
-                while((goblin.bodyMoveCtrl.collisionFlags & CollisionFlags.CollidedSides) == CollisionFlags.None)
+                while((goblin.bodyMoveCtrl.collisionFlags & Rigidbody2DMoveController.CollisionFlags.Sides) == Rigidbody2DMoveController.CollisionFlags.None)
                     yield return null;
 
                 block1ForceGoblinGO.SetActive(true);

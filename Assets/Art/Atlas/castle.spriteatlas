@@ -31,6 +31,7 @@ SpriteAtlas:
       m_CrunchedCompression: 1
       m_AllowsAlphaSplitting: 0
       m_Overridden: 0
+      m_IgnorePlatformSupport: 0
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 1
     packingSettings:
@@ -40,10 +41,23 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: a5e091dfbc3266c418a66b4a775470e8, type: 3}
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 40072b42ceedabe4888083ea9d7d96cf: 21300000
+    - c9d98684e7138384c80083a4189aa14c: 21300000
+    - a12d8c25702a9b14aa8501314cec70dd: 21300000
+    - 3dab659681bc42a458cd6bfc82ec8d3c: 21300000
+    - 5105bb770848c50479222aa7e3cf3151: 21300000
+    - ca4f0e5aec0701a49a2b026f25c8b01c: 21300000
+    - 9f087b2d0c858b143b7247540c4ef65c: 21300000
+    - 914d95cfe766de64ab80764e4462f480: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 40072b42ceedabe4888083ea9d7d96cf, type: 3}
@@ -63,5 +77,6 @@ SpriteAtlas:
   - bricks3r
   - bricks2r
   - bricks1r
+  m_RenderDataMap: {}
   m_Tag: castle
   m_IsVariant: 0

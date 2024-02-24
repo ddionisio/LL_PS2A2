@@ -103,9 +103,6 @@ namespace M8 {
         private WaitForSeconds mWaitStartDelay;
         private WaitForSeconds mWaitDelay;
 
-        private Rigidbody mTargetBody;
-        private Collider mTargetColl;
-
         private bool mRestore = false;
 
         public bool pause {
@@ -183,9 +180,6 @@ namespace M8 {
         void Awake() {
             if(target == null)
                 target = transform;
-
-            mTargetBody = target.GetComponent<Rigidbody>();
-            mTargetColl = target.GetComponent<Collider>();
 
             mWaitUpdate = new WaitForFixedUpdate();
             mWaitStartDelay = new WaitForSeconds(startWait);
@@ -361,13 +355,7 @@ namespace M8 {
                 mCurVel = dpos / Time.fixedDeltaTime;
             }
 
-            if(mTargetColl != null)
-                pos -= target.worldToLocalMatrix.MultiplyPoint(mTargetColl.bounds.center);
-
-            if(mTargetBody != null)
-                mTargetBody.MovePosition(pos);
-            else
-                target.position = pos;
-        }
+			target.position = pos;
+		}
     }
 }

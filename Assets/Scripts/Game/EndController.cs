@@ -21,6 +21,8 @@ public class EndController : GameModeController<EndController> {
         if(!string.IsNullOrEmpty(musicPath))
             LoLManager.instance.PlaySound(musicPath, true, true);
 
+        //var t = Time.time;
+
         yield return base.Start();
 
         //wait a bit
@@ -37,5 +39,7 @@ public class EndController : GameModeController<EndController> {
             yield return speakWait;
 
         LoLManager.instance.Complete();
+
+        //Debug.Log("time: " + (Time.time - t));
     }
 }

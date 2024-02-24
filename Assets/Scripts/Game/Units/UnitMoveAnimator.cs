@@ -89,7 +89,7 @@ public class UnitMoveAnimator : MonoBehaviour {
                     if(mTakeGroundPushInd != -1) {
                         var collDat = bodyMoveCtrl.collisionData;
                         for(int i = 0; i < collDat.Count; i++) {
-                            if((collDat[i].flag & CollisionFlags.Sides) != CollisionFlags.None) {
+                            if((collDat[i].flag & Rigidbody2DMoveController.CollisionFlags.Sides) != Rigidbody2DMoveController.CollisionFlags.None) {
                                 if(Mathf.Sign(collDat[i].normal.x) == moveX)
                                     continue;
 
