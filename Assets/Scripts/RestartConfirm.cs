@@ -29,8 +29,9 @@ public class RestartConfirm : MonoBehaviour {
 
     void OnConfirm(bool confirm) {
         if(confirm) {
-            M8.UIModal.Manager.instance.ModalCloseAll();
-            M8.SceneManager.instance.Reload();
+            //M8.UIModal.Manager.instance.ModalCloseAll();
+            //M8.SceneManager.instance.Reload();
+            RestartController.instance.Restart();
         }
     }
 

@@ -111,8 +111,9 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
 
         var dragGuideGO = GameObject.FindGameObjectWithTag(tagDragGuide);
         mDragGuide = dragGuideGO.GetComponent<DragToGuideWidget>();
+        mDragGuide.Hide();
 
-        titleAnim.gameObject.SetActive(false);
+		titleAnim.gameObject.SetActive(false);
         motionIllustrationAnim.gameObject.SetActive(false);
 
         block1ForceNetGO.SetActive(false);
@@ -154,12 +155,12 @@ public class ActController_1_1 : GameModeController<ActController_1_1> {
     }
 
     protected override IEnumerator Start() {
-        if(!string.IsNullOrEmpty(musicPath))
+		if(!string.IsNullOrEmpty(musicPath))
             LoLManager.instance.PlaySound(musicPath, true, true);
 
         yield return base.Start();
 
-        titleAnim.gameObject.SetActive(true);
+		titleAnim.gameObject.SetActive(true);
         yield return titleAnim.PlayEnterWait();
 
         yield return new WaitForSeconds(startDelay);

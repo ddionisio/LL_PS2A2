@@ -102,8 +102,9 @@ public class ActController_1_2 : GameModeController<ActController_1_2> {
         //drag instructs
         var dragGuideGO = GameObject.FindGameObjectWithTag(tagDragGuide);
         mDragGuide = dragGuideGO.GetComponent<DragToGuideWidget>();
+		mDragGuide.Hide();
 
-        dragWeightHelpGO.SetActive(false);
+		dragWeightHelpGO.SetActive(false);
 
         signalTreasureOpened.callback += OnSignalTreasureOpened;
         signalShowNext.callback += OnSignalShowNext;

@@ -307,7 +307,8 @@ namespace M8 {
         public void Resume() {
             bool wasPaused = isPaused;
 
-            mPauseCounter--;
+            if(mPauseCounter > 0)
+                mPauseCounter--;
 
             if(wasPaused && mPauseCounter <= 0) {
                 Time.timeScale = mTimeScale;
@@ -316,7 +317,16 @@ namespace M8 {
             }
         }
 
-        private void GenerateHolder() {
+		public void ResumeForced() {
+            if(mPauseCounter > 0) {
+                mPauseCounter = 0;
+                Time.timeScale = mTimeScale;
+
+                if(pauseCallback != null) pauseCallback(false);
+            }
+		}
+
+		private void GenerateHolder() {
             if(mHolder == null) {
                 const string holderName = "M8.SceneHolder";
                 GameObject newGO = GameObject.Find(holderName);

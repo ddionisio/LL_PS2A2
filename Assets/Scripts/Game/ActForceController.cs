@@ -80,7 +80,8 @@ public class ActForceController : GameModeController<ActForceController> {
         if(!string.IsNullOrEmpty(tagDragGuide)) {
             var go = GameObject.FindGameObjectWithTag(tagDragGuide);
             mDragGuide = go.GetComponent<DragToGuideWidget>();
-        }
+            mDragGuide.Hide();
+		}
 
         if(dragGuideGO) dragGuideGO.SetActive(false);
         if(dragEntityGuideGO) dragEntityGuideGO.SetActive(false);
